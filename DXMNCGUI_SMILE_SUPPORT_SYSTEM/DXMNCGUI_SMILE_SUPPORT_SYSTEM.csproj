@@ -1,0 +1,1075 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F423856D-659E-4218-85B6-B78C48B285D3}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DXMNCGUI_SMILE_SUPPORT_SYSTEM</RootNamespace>
+    <AssemblyName>DXMNCGUI_SMILE_SUPPORT_SYSTEM</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <UpgradeBackupLocation />
+    <Use64BitIISExpress />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="netstandard">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Docs.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.Docs.v17.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.Office.v17.2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v17.2.Drawing, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.Pdf.v17.2.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v17.2.Export, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.Web.ASPxHtmlEditor.v17.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxPivotGrid.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Web.ASPxRichEdit.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.Web.ASPxRichEdit.v17.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxTreeList.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.Web.ASPxTreeList.v17.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.Resources.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraCharts.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.Extensions, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.UI, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.Web, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.Wizard, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.XtraReports.v17.2.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.2.Web, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 17.2\Components\Bin\Framework\DevExpress.XtraReports.v17.2.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.21\lib\net452\MySql.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Reschedule">
+      <HintPath>Reschedule\Reschedule.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="DevExpress.Data.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.ASPxThemes.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Web.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.21\lib\net452\Ubiety.Dns.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.21\lib\net452\Zstandard.Net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\AddPhoneNumber.aspx" />
+    <Content Include="Account\ChangePassword.aspx" />
+    <Content Include="Account\ChangePasswordSuccess.aspx" />
+    <Content Include="Account\Confirm.aspx" />
+    <Content Include="Account\ForgotPassword.aspx" />
+    <Content Include="Account\Lockout.aspx" />
+    <Content Include="Account\Login.aspx" />
+    <Content Include="Account\Manage.aspx" />
+    <Content Include="Account\ManageLogins.aspx" />
+    <Content Include="Account\OpenAuthProviders.ascx" />
+    <Content Include="App_Data\Audio\SoundOfAduy.mp3" />
+    <Content Include="App_Data\Audio\SoundOfAduy.wav" />
+    <Content Include="Content\Gif\Covid-19-Masks-working.gif" />
+    <Content Include="Content\Gif\covid19.gif" />
+    <Content Include="Content\Images\download.png" />
+    <Content Include="Content\Images\FolderIcon-16x16.png" />
+    <Content Include="Content\Images\iDoc1.png" />
+    <Content Include="Content\Images\newbannersss.png" />
+    <Content Include="Content\Images\PrintIcon-16x16.png" />
+    <Content Include="Account\Register.aspx" />
+    <Content Include="Account\RegisterExternalLogin.aspx" />
+    <Content Include="Account\RegisterSuccess.aspx" />
+    <Content Include="Account\ResetPassword.aspx" />
+    <Content Include="Account\ResetPasswordConfirmation.aspx" />
+    <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
+    <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="App_Data\ErrorLog.txt" />
+    <Content Include="Content\Gif\love-sign-diamond.gif" />
+    <Content Include="Content\Gif\ramadankareem.gif" />
+    <Content Include="Content\Images\ClearIcon.png" />
+    <Content Include="Content\Images\DocUploadImage.png" />
+    <Content Include="Content\Images\HeaderBanner.gif" />
+    <Content Include="Content\Images\HeaderBannerSSS.gif" />
+    <Content Include="Content\Images\HeaderLogo.png" />
+    <Content Include="Content\Images\AquaHeader.jpg" />
+    <Content Include="Content\Images\BlackGlassHeader.jpg" />
+    <Content Include="Content\Images\GlassHeader.jpg" />
+    <Content Include="Content\Images\HomeIcon-16x16.png" />
+    <Content Include="Content\Images\homescreenSSS.jpg" />
+    <Content Include="Content\Images\IDIcon-32x32.png" />
+    <Content Include="Content\Images\loginscreenSSS.jpg" />
+    <Content Include="Content\Images\MinIcon-16x16.png" />
+    <Content Include="Content\Images\MinIcon-32x32.png" />
+    <Content Include="Content\Images\MNC-Logo.png" />
+    <Content Include="Content\Images\NumberingMenuIco-16x16.png" />
+    <Content Include="Content\Images\PassIcon-32x32.png" />
+    <Content Include="Content\Images\PlasticBlueHeader.jpg" />
+    <Content Include="Content\Images\PlusIcon-16x16.png" />
+    <Content Include="Content\Images\PlusIcon-32x32.png" />
+    <Content Include="Content\Images\RedWineHeader.jpg" />
+    <Content Include="Content\Images\RefreshIcon-16x16.png" />
+    <Content Include="Content\Images\RefreshIcon-32x32.png" />
+    <Content Include="Content\Images\ReportingIcon-16x16.png" />
+    <Content Include="Content\Images\UserMtcIcon-16x16.png" />
+    <Content Include="Content\Images\ViewIcon-16x16.png" />
+    <Content Include="Content\Login.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Images\UserMtcIcon-128x128.png" />
+    <Content Include="Content\Images\WorkListIcon-16x16.png" />
+    <Content Include="Content\Gif\valday.gif" />
+    <Content Include="Content\Sound\SoundOfAduy.wav" />
+    <Content Include="Default.aspx" />
+    <Content Include="GeneralMaintenance\AccessRight\AccessRightMaintenance.aspx" />
+    <Content Include="GeneralMaintenance\SchemaApplicationWorkflow\SchemaApplicationWorkflowMaint.aspx" />
+    <Content Include="GeneralMaintenance\UsersMonitoring\UsersMonitoringList.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="ErrorPage.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Light.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Main.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reporting\CreditProcessSyariah\ApplicationSyariahSummary.aspx" />
+    <Content Include="Reporting\CreditProcess\CreditProcessSummary.aspx" />
+    <Content Include="Reporting\CreditProcess\PrintSheetControl\PrintSheetControl.aspx" />
+    <Content Include="Reporting\CreditProcess\SLAPerformance.aspx" />
+    <Content Include="Reporting\CreditProcess\SLAPerformancePerAction.aspx" />
+    <Content Include="Reporting\CreditProcess\UploadDocument\MultipleUploadDocument.aspx" />
+    <Content Include="Reporting\CreditProcess\UploadDocument\UploadDocument.aspx" />
+    <Content Include="Reporting\MyActivity\MyActivityListing.aspx" />
+    <Content Include="Root.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Account\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\Application.js" />
+    <Content Include="Scripts\soundmanager2.js" />
+    <Content Include="Shared\DocViewer.aspx" />
+    <Content Include="Transactions\Application\EditCrossCollateral.aspx" />
+    <Content Include="Transactions\Application\InputCrossColateral.aspx" />
+    <Content Include="Transactions\Application\ProfitCalculator\ProfitCalculator.aspx" />
+    <Content Include="Transactions\Application\UpdateApplicationClient\UpdateApplicClient.aspx" />
+    <Content Include="Transactions\AssetCollateral\AssetCollateralEntry.aspx" />
+    <Content Include="Transactions\AssetCollateral\AssetCollateralList.aspx" />
+    <Content Include="Transactions\Collections\CollectionLetter\CollectionLetterEntry.aspx" />
+    <Content Include="Transactions\Collections\FormCollectionRemarkEntry.aspx" />
+    <Content Include="Transactions\Collections\WaiveLateCharges\FormWaiveLateChargesMaint.aspx" />
+    <Content Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesEntry.aspx" />
+    <Content Include="Transactions\CreditAnalyst\FormAccountInquiry.aspx" />
+    <Content Include="Transactions\CreditAnalyst\FormDataTerdugaTeroris.aspx" />
+    <Content Include="Transactions\CreditProcess\ApplicationEntry.aspx" />
+    <Content Include="Transactions\CreditProcess\ApplicationList.aspx" />
+    <Content Include="Transactions\CreditProcess\SimulationRescheduling\SimulationReschedulingEntry.aspx" />
+    <Content Include="Transactions\CreditProcess\Syariah\SyariahCreditProcessList.aspx" />
+    <Content Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKEntry.aspx" />
+    <Content Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKMaint.aspx" />
+    <Content Include="Transactions\Finance\CalculateProduct.aspx" />
+    <Content Include="Transactions\Finance\GenerateVA_cimb.aspx" />
+    <Content Include="Transactions\Finance\VA_Info.aspx" />
+    <Content Include="Transactions\Insurance\PolisAsuransiFAEntry.aspx" />
+    <Content Include="Transactions\Insurance\PolisAsuransiFAMaint.aspx" />
+    <Content Include="Transactions\InternalMemo\InternalMemoEntry.aspx" />
+    <Content Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanEntry.aspx" />
+    <Content Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanMaint.aspx" />
+    <Content Include="Transactions\SurveyTask\ListSurvey.aspx" />
+    <Content Include="Transactions\SurveyTask\SurveyTask.aspx" />
+    <Content Include="Transactions\Syariah\AddManualDeviation\AddManualDeviation.aspx" />
+    <Content Include="Transactions\Syariah\FPPVerification\FPPVerificationEntry.aspx" />
+    <Content Include="Transactions\Syariah\FPPVerification\FPPVerificationList.aspx" />
+    <Content Include="Transactions\Syariah\Mitra\MitraEntry.aspx" />
+    <Content Include="Transactions\Syariah\Mitra\MitraMaint.aspx" />
+    <Content Include="Transactions\Syariah\PdsbAPI\PdsbAPI_All.aspx" />
+    <Content Include="Transactions\Syariah\UpdateDataKemenag\UpdateDataKemenagEntry.aspx" />
+    <Content Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHEntry.aspx" />
+    <Content Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHList.aspx" />
+    <Content Include="Transactions\Syariah\UpdateRekeningClient\UpdateRekeningClientEntry.aspx" />
+    <Content Include="Transactions\VirtualAccount\PostingVAPaymentMaint.aspx" />
+    <Content Include="Transactions\WorkingList\MyWorkingListMaint.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="packages.config" />
+    <Content Include="Content\Docs\HAL-HAL YANG DIATUR DALAM PERISTIWA CIDERA JANJIWANPRESTASI.pdf" />
+    <None Include="Properties\PublishProfiles\SmileSupport_UAT.pubxml" />
+    <None Include="Properties\PublishProfiles\SSSApp.pubxml" />
+    <Content Include="Transactions\Finance\DownloadFile.ashx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account\AddPhoneNumber.aspx.cs">
+      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\AddPhoneNumber.aspx.designer.cs">
+      <DependentUpon>AddPhoneNumber.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ChangePasswordSuccess.aspx.cs">
+      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ChangePasswordSuccess.aspx.designer.cs">
+      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Confirm.aspx.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Confirm.aspx.designer.cs">
+      <DependentUpon>Confirm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Lockout.aspx.cs">
+      <DependentUpon>Lockout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Lockout.aspx.designer.cs">
+      <DependentUpon>Lockout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Manage.aspx.designer.cs">
+      <DependentUpon>Manage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ManageLogins.aspx.cs">
+      <DependentUpon>ManageLogins.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ManageLogins.aspx.designer.cs">
+      <DependentUpon>ManageLogins.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\OpenAuthProviders.ascx.designer.cs">
+      <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterExternalLogin.aspx.designer.cs">
+      <DependentUpon>RegisterExternalLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\RegisterSuccess.aspx.cs">
+      <DependentUpon>RegisterSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\RegisterSuccess.aspx.designer.cs">
+      <DependentUpon>RegisterSuccess.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ResetPassword.aspx.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ResetPassword.aspx.designer.cs">
+      <DependentUpon>ResetPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\ResetPasswordConfirmation.aspx.cs">
+      <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\ResetPasswordConfirmation.aspx.designer.cs">
+      <DependentUpon>ResetPasswordConfirmation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.cs">
+      <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\TwoFactorAuthenticationSignIn.aspx.designer.cs">
+      <DependentUpon>TwoFactorAuthenticationSignIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Account\VerifyPhoneNumber.aspx.cs">
+      <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
+      <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="API\PDSB\API_PDSB.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="API\PDSB\Models\ModelAccount.cs" />
+    <Compile Include="API\PDSB\Models\ModelCIF.cs" />
+    <Compile Include="API\PDSB\Models\ResultAccount.cs" />
+    <Compile Include="API\PDSB\Models\ResultArray.cs" />
+    <Compile Include="API\PDSB\Models\ResultCIF.cs" />
+    <Compile Include="API\PDSB\Models\ResultLogin.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\Application\AccessRight.cs" />
+    <Compile Include="Controllers\Applicationlib.cs" />
+    <Compile Include="Controllers\Application\AppException.cs" />
+    <Compile Include="Controllers\Application\Application.cs" />
+    <Compile Include="Controllers\Application\OEM.cs" />
+    <Compile Include="Controllers\BasePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controllers\Data\CriticalSqlException.cs" />
+    <Compile Include="Controllers\Data\DataAccessException.cs" />
+    <Compile Include="Controllers\Data\DataError.cs" />
+    <Compile Include="Controllers\Data\DBServerType.cs" />
+    <Compile Include="Controllers\Data\ExceptionHandlerDelegate.cs" />
+    <Compile Include="Controllers\Data\ExceptionHandlerEventArgs.cs" />
+    <Compile Include="Controllers\Data\ForeignKeyException.cs" />
+    <Compile Include="Controllers\Data\MySqlDBSetting.cs" />
+    <Compile Include="Controllers\Data\PrimaryKeyException.cs" />
+    <Compile Include="Controllers\Data\SeqUtils.cs" />
+    <Compile Include="Controllers\Document.cs" />
+    <Compile Include="Controllers\Localization\DefaultStringAttribute.cs" />
+    <Compile Include="Controllers\Localization\DXStringId.cs" />
+    <Compile Include="Controllers\Localization\LocalizableStringAttribute.cs" />
+    <Compile Include="Controllers\Localization\Localizer.cs" />
+    <Compile Include="Controllers\Localization\StringIdAttribute.cs" />
+    <Compile Include="Controllers\Registry\ApplicationDetailLinesDtlKey.cs" />
+    <Compile Include="Controllers\Registry\ApplicationHeaderDocKey.cs" />
+    <Compile Include="Controllers\Registry\BaseRegistryID.cs" />
+    <Compile Include="Controllers\Registry\DBRegistry.cs" />
+    <Compile Include="Controllers\Registry\DBRegistrySQL.cs" />
+    <Compile Include="Controllers\Registry\IRegistryID.cs" />
+    <Compile Include="Controllers\Registry\ListJaminanDetailDtlKey.cs" />
+    <Compile Include="Controllers\Registry\ListJaminanDocKey.cs" />
+    <Compile Include="Controllers\Registry\MitraBankKey.cs" />
+    <Compile Include="Controllers\Registry\MitraDockey.cs" />
+    <Compile Include="Controllers\Registry\PolisAsuransiFADocKey.cs" />
+    <Compile Include="Controllers\Registry\PolisAsuransiFADtlKey.cs" />
+    <Compile Include="Controllers\Registry\UpdateSLIKDocKey.cs" />
+    <Compile Include="Controllers\Registry\UpdateSLIKDtlKey.cs" />
+    <Compile Include="Controllers\Registry\UpdateSPPHNoDocKey.cs" />
+    <Compile Include="Controllers\Registry\WaiveLateChargesHeaderDocKey.cs" />
+    <Compile Include="Controllers\SqlDBSession.cs" />
+    <Compile Include="Controllers\SqlDBSessionSQL.cs" />
+    <Compile Include="Controllers\Data\SqlDBSetting.cs" />
+    <Compile Include="Controllers\Data\SqlLocalDBSetting.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Documents\docPrintSheetControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Documents\docPrintSheetControl.Designer.cs">
+      <DependentUpon>docPrintSheetControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Documents\docPrintSheetControl_B.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Documents\docReschdulingSimulation.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GeneralMaintenance\AccessRight\AccessRightMaintenance.aspx.cs">
+      <DependentUpon>AccessRightMaintenance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GeneralMaintenance\AccessRight\AccessRightMaintenance.aspx.designer.cs">
+      <DependentUpon>AccessRightMaintenance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralMaintenance\SchemaApplicationWorkflow\SchemaApplicationWorkflowMaint.aspx.cs">
+      <DependentUpon>SchemaApplicationWorkflowMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GeneralMaintenance\SchemaApplicationWorkflow\SchemaApplicationWorkflowMaint.aspx.designer.cs">
+      <DependentUpon>SchemaApplicationWorkflowMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralMaintenance\UsersMonitoring\UsersMonitoringList.aspx.cs">
+      <DependentUpon>UsersMonitoringList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GeneralMaintenance\UsersMonitoring\UsersMonitoringList.aspx.designer.cs">
+      <DependentUpon>UsersMonitoringList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Light.master.cs">
+      <DependentUpon>Light.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Light.master.designer.cs">
+      <DependentUpon>Light.master</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\ExceptionUtility.cs" />
+    <Compile Include="Main.master.cs">
+      <DependentUpon>Main.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main.master.designer.cs">
+      <DependentUpon>Main.master</DependentUpon>
+    </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\CreditProcessSyariah\ApplicationSyariahSummary.aspx.cs">
+      <DependentUpon>ApplicationSyariahSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcessSyariah\ApplicationSyariahSummary.aspx.designer.cs">
+      <DependentUpon>ApplicationSyariahSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\CreditProcessSummary.aspx.cs">
+      <DependentUpon>CreditProcessSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\CreditProcessSummary.aspx.designer.cs">
+      <DependentUpon>CreditProcessSummary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\PrintSheetControl\PrintSheetControl.aspx.cs">
+      <DependentUpon>PrintSheetControl.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\PrintSheetControl\PrintSheetControl.aspx.designer.cs">
+      <DependentUpon>PrintSheetControl.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\PrintSheetControl\PrintSheetControlDB.cs" />
+    <Compile Include="Reporting\CreditProcess\PrintSheetControl\PrintSheetControlSQL.cs" />
+    <Compile Include="Reporting\CreditProcess\SLAPerformance.aspx.cs">
+      <DependentUpon>SLAPerformance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\SLAPerformance.aspx.designer.cs">
+      <DependentUpon>SLAPerformance.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\SLAPerformancePerAction.aspx.cs">
+      <DependentUpon>SLAPerformancePerAction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\SLAPerformancePerAction.aspx.designer.cs">
+      <DependentUpon>SLAPerformancePerAction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\UploadDocument\MultipleUploadDocument.aspx.cs">
+      <DependentUpon>MultipleUploadDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\UploadDocument\MultipleUploadDocument.aspx.designer.cs">
+      <DependentUpon>MultipleUploadDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\UploadDocument\UploadDocument.aspx.cs">
+      <DependentUpon>UploadDocument.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\CreditProcess\UploadDocument\UploadDocument.aspx.designer.cs">
+      <DependentUpon>UploadDocument.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reporting\MyActivity\MyActivityListing.aspx.cs">
+      <DependentUpon>MyActivityListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reporting\MyActivity\MyActivityListing.aspx.designer.cs">
+      <DependentUpon>MyActivityListing.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Root.master.cs">
+      <DependentUpon>Root.master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Root.master.designer.cs">
+      <DependentUpon>Root.master</DependentUpon>
+    </Compile>
+    <Compile Include="Shared\DocViewer.aspx.cs">
+      <DependentUpon>DocViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Shared\DocViewer.aspx.designer.cs">
+      <DependentUpon>DocViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Tools\DefaultStringAttribute.cs" />
+    <Compile Include="Tools\StringIdAttribute.cs" />
+    <Compile Include="Transactions\Application\EditCrossCollateral.aspx.cs">
+      <DependentUpon>EditCrossCollateral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\EditCrossCollateral.aspx.designer.cs">
+      <DependentUpon>EditCrossCollateral.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Application\InputCrossColateral.aspx.cs">
+      <DependentUpon>InputCrossColateral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\InputCrossColateral.aspx.designer.cs">
+      <DependentUpon>InputCrossColateral.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Application\ProfitCalculator\Models\CalculateParam.cs" />
+    <Compile Include="Transactions\Application\ProfitCalculator\Models\CalculateResult.cs" />
+    <Compile Include="Transactions\Application\ProfitCalculator\Models\Constanta.cs" />
+    <Compile Include="Transactions\Application\ProfitCalculator\ProfitCalculator.aspx.cs">
+      <DependentUpon>ProfitCalculator.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\ProfitCalculator\ProfitCalculator.aspx.designer.cs">
+      <DependentUpon>ProfitCalculator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Application\UpdateApplicationClient\UpdateApplicClient.aspx.cs">
+      <DependentUpon>UpdateApplicClient.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\UpdateApplicationClient\UpdateApplicClient.aspx.designer.cs">
+      <DependentUpon>UpdateApplicClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralDB.cs" />
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralEntity.cs" />
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralEntry.aspx.cs">
+      <DependentUpon>AssetCollateralEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralEntry.aspx.designer.cs">
+      <DependentUpon>AssetCollateralEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralList.aspx.cs">
+      <DependentUpon>AssetCollateralList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralList.aspx.designer.cs">
+      <DependentUpon>AssetCollateralList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\AssetCollateral\AssetCollateralSQL.cs" />
+    <Compile Include="Transactions\Collections\CollectionLetter\CollectionLetterDB.cs" />
+    <Compile Include="Transactions\Collections\CollectionLetter\CollectionLetterEntity.cs" />
+    <Compile Include="Transactions\Collections\CollectionLetter\CollectionLetterEntry.aspx.cs">
+      <DependentUpon>CollectionLetterEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Collections\CollectionLetter\CollectionLetterEntry.aspx.designer.cs">
+      <DependentUpon>CollectionLetterEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Collections\CollectionLetter\CollectionLetterSQL.cs" />
+    <Compile Include="Transactions\Collections\CollectionRemarkDB.cs" />
+    <Compile Include="Transactions\Collections\CollectionRemarkEntity.cs" />
+    <Compile Include="Transactions\Collections\CollectionRemarkSQL.cs" />
+    <Compile Include="Transactions\Collections\FormCollectionRemarkEntry.aspx.cs">
+      <DependentUpon>FormCollectionRemarkEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Collections\FormCollectionRemarkEntry.aspx.designer.cs">
+      <DependentUpon>FormCollectionRemarkEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Collections\WaiveLateCharges\FormWaiveLateChargesMaint.aspx.cs">
+      <DependentUpon>FormWaiveLateChargesMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Collections\WaiveLateCharges\FormWaiveLateChargesMaint.aspx.designer.cs">
+      <DependentUpon>FormWaiveLateChargesMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesAction.cs" />
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesCodeException.cs" />
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesDB.cs" />
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesEntity.cs" />
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesEntry.aspx.cs">
+      <DependentUpon>WaiveLateChargesEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesEntry.aspx.designer.cs">
+      <DependentUpon>WaiveLateChargesEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesSql.cs" />
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesStatus.cs" />
+    <Compile Include="Transactions\Collections\WaiveLateCharges\WaiveLateChargesType.cs" />
+    <Compile Include="Transactions\CreditAnalyst\AccountInquiryDB.cs" />
+    <Compile Include="Transactions\CreditAnalyst\AccountInquirySQL.cs" />
+    <Compile Include="Transactions\CreditAnalyst\FormAccountInquiry.aspx.cs">
+      <DependentUpon>FormAccountInquiry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditAnalyst\FormAccountInquiry.aspx.designer.cs">
+      <DependentUpon>FormAccountInquiry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditAnalyst\FormDataTerdugaTeroris.aspx.cs">
+      <DependentUpon>FormDataTerdugaTeroris.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditAnalyst\FormDataTerdugaTeroris.aspx.designer.cs">
+      <DependentUpon>FormDataTerdugaTeroris.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\ApplicationDB.cs" />
+    <Compile Include="Transactions\CreditProcess\ApplicationEntity.cs" />
+    <Compile Include="Transactions\CreditProcess\ApplicationEntry.aspx.cs">
+      <DependentUpon>ApplicationEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\ApplicationEntry.aspx.designer.cs">
+      <DependentUpon>ApplicationEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\ApplicationLinesRecord.cs" />
+    <Compile Include="Transactions\CreditProcess\ApplicationList.aspx.cs">
+      <DependentUpon>ApplicationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\ApplicationList.aspx.designer.cs">
+      <DependentUpon>ApplicationList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\ApplicationSql.cs" />
+    <Compile Include="Transactions\CreditProcess\SimulationRescheduling\SimulationReschedulingDB.cs" />
+    <Compile Include="Transactions\CreditProcess\SimulationRescheduling\SimulationReschedulingEntry.aspx.cs">
+      <DependentUpon>SimulationReschedulingEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\SimulationRescheduling\SimulationReschedulingEntry.aspx.designer.cs">
+      <DependentUpon>SimulationReschedulingEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\SimulationRescheduling\SimulationReschedulingSQL.cs" />
+    <Compile Include="Transactions\CreditProcess\Syariah\SyariahCreditProcessDB.cs" />
+    <Compile Include="Transactions\CreditProcess\Syariah\SyariahCreditProcessList.aspx.cs">
+      <DependentUpon>SyariahCreditProcessList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\Syariah\SyariahCreditProcessList.aspx.designer.cs">
+      <DependentUpon>SyariahCreditProcessList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\Syariah\SyariahCreditProcessSql.cs" />
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKDB.cs" />
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKDetailRecord.cs" />
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKEntity.cs" />
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKEntry.aspx.cs">
+      <DependentUpon>UpdateSLIKEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKEntry.aspx.designer.cs">
+      <DependentUpon>UpdateSLIKEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKMaint.aspx.cs">
+      <DependentUpon>UpdateSLIKMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKMaint.aspx.designer.cs">
+      <DependentUpon>UpdateSLIKMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKSql.cs" />
+    <Compile Include="Transactions\DXSSAction.cs" />
+    <Compile Include="Transactions\DXSSType.cs" />
+    <Compile Include="Transactions\EmptyCodeException.cs" />
+    <Compile Include="Transactions\EmptyDocNoException.cs" />
+    <Compile Include="Transactions\Finance\CalculateProduct.aspx.cs">
+      <DependentUpon>CalculateProduct.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Finance\CalculateProduct.aspx.designer.cs">
+      <DependentUpon>CalculateProduct.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Finance\DownloadFile.ashx.cs">
+      <DependentUpon>DownloadFile.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Finance\GenerateVA_cimb.aspx.cs">
+      <DependentUpon>GenerateVA_cimb.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Finance\GenerateVA_cimb.aspx.designer.cs">
+      <DependentUpon>GenerateVA_cimb.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Finance\VA_Info.aspx.cs">
+      <DependentUpon>VA_Info.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Finance\VA_Info.aspx.designer.cs">
+      <DependentUpon>VA_Info.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Insurance\PolisAsuransiFADB.cs" />
+    <Compile Include="Transactions\Insurance\PolisAsuransiFADetailRecord.cs" />
+    <Compile Include="Transactions\Insurance\PolisAsuransiFAEntity.cs" />
+    <Compile Include="Transactions\Insurance\PolisAsuransiFAEntry.aspx.cs">
+      <DependentUpon>PolisAsuransiFAEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Insurance\PolisAsuransiFAEntry.aspx.designer.cs">
+      <DependentUpon>PolisAsuransiFAEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Insurance\PolisAsuransiFAMaint.aspx.cs">
+      <DependentUpon>PolisAsuransiFAMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Insurance\PolisAsuransiFAMaint.aspx.designer.cs">
+      <DependentUpon>PolisAsuransiFAMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Insurance\PolisAsuransiFASql.cs" />
+    <Compile Include="Transactions\InternalMemo\InternalMemoEntry.aspx.cs">
+      <DependentUpon>InternalMemoEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\InternalMemo\InternalMemoEntry.aspx.designer.cs">
+      <DependentUpon>InternalMemoEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\SaveAction.cs" />
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanDB.cs" />
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanDetailRecord.cs" />
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanEntity.cs" />
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanEntry.aspx.cs">
+      <DependentUpon>ListJaminanEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanEntry.aspx.designer.cs">
+      <DependentUpon>ListJaminanEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanMaint.aspx.cs">
+      <DependentUpon>ListJaminanMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanMaint.aspx.designer.cs">
+      <DependentUpon>ListJaminanMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\SupplyChainFinancing\ListJaminan\ListJaminanSql.cs" />
+    <Compile Include="Transactions\SurveyTask\ListSurvey.aspx.cs">
+      <DependentUpon>ListSurvey.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\SurveyTask\ListSurvey.aspx.designer.cs">
+      <DependentUpon>ListSurvey.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\SurveyTask\SurveyTask.aspx.cs">
+      <DependentUpon>SurveyTask.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\SurveyTask\SurveyTask.aspx.designer.cs">
+      <DependentUpon>SurveyTask.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\AddManualDeviation\AddManualDeviation.aspx.cs">
+      <DependentUpon>AddManualDeviation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\AddManualDeviation\AddManualDeviation.aspx.designer.cs">
+      <DependentUpon>AddManualDeviation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationDB.cs" />
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationEntity.cs" />
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationEntry.aspx.cs">
+      <DependentUpon>FPPVerificationEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationEntry.aspx.designer.cs">
+      <DependentUpon>FPPVerificationEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationList.aspx.cs">
+      <DependentUpon>FPPVerificationList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationList.aspx.designer.cs">
+      <DependentUpon>FPPVerificationList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\FPPVerification\FPPVerificationSql.cs" />
+    <Compile Include="Transactions\Syariah\Mitra\MitraBankRecord.cs" />
+    <Compile Include="Transactions\Syariah\Mitra\MitraDB.cs" />
+    <Compile Include="Transactions\Syariah\Mitra\MitraEntity.cs" />
+    <Compile Include="Transactions\Syariah\Mitra\MitraEntry.aspx.cs">
+      <DependentUpon>MitraEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\Mitra\MitraEntry.aspx.designer.cs">
+      <DependentUpon>MitraEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\Mitra\MitraMaint.aspx.cs">
+      <DependentUpon>MitraMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\Mitra\MitraMaint.aspx.designer.cs">
+      <DependentUpon>MitraMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\Mitra\MitraSql.cs" />
+    <Compile Include="Transactions\Syariah\PdsbAPI\PdsbAPI_All.aspx.cs">
+      <DependentUpon>PdsbAPI_All.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\PdsbAPI\PdsbAPI_All.aspx.designer.cs">
+      <DependentUpon>PdsbAPI_All.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateDataKemenag\UpdateDataKemenagEntry.aspx.cs">
+      <DependentUpon>UpdateDataKemenagEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateDataKemenag\UpdateDataKemenagEntry.aspx.designer.cs">
+      <DependentUpon>UpdateDataKemenagEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHDB.cs" />
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHEntity.cs" />
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHEntry.aspx.cs">
+      <DependentUpon>UpdateNoSPPHEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHEntry.aspx.designer.cs">
+      <DependentUpon>UpdateNoSPPHEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHList.aspx.cs">
+      <DependentUpon>UpdateNoSPPHList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHList.aspx.designer.cs">
+      <DependentUpon>UpdateNoSPPHList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateNoSPPH\UpdateNoSPPHSql.cs" />
+    <Compile Include="Transactions\Syariah\UpdateRekeningClient\UpdateRekeningClientEntry.aspx.cs">
+      <DependentUpon>UpdateRekeningClientEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Syariah\UpdateRekeningClient\UpdateRekeningClientEntry.aspx.designer.cs">
+      <DependentUpon>UpdateRekeningClientEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\VirtualAccount\PostingVAPaymentMaint.aspx.cs">
+      <DependentUpon>PostingVAPaymentMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\VirtualAccount\PostingVAPaymentMaint.aspx.designer.cs">
+      <DependentUpon>PostingVAPaymentMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\WorkingList\MyWorkingListMaint.aspx.cs">
+      <DependentUpon>MyWorkingListMaint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\WorkingList\MyWorkingListMaint.aspx.designer.cs">
+      <DependentUpon>MyWorkingListMaint.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Documents\docPrintSheetControl.resx">
+      <DependentUpon>docPrintSheetControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documents\docPrintSheetControl_B.resx">
+      <DependentUpon>docPrintSheetControl_B.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Documents\docReschdulingSimulation.resx">
+      <DependentUpon>docReschdulingSimulation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\Internal Memo 2020\Default Template\" />
+    <Folder Include="App_Data\Internal Memo 2020\Folder 1\" />
+    <Folder Include="App_Data\Internal Memo 2020\Folder 2\" />
+    <Folder Include="App_Data\Internal Memo 2020\Folder 3\" />
+    <Folder Include="App_Data\Internal Memo 2020\Folder 4\" />
+    <Folder Include="App_Data\Internal Memo 2020\Folder 5\" />
+    <Folder Include="Content\UploadControl\" />
+    <Folder Include="Transactions\Syariah\MitraUploadDoc\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Import Project="..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0\build\NETStandard.Library.targets')" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>58888</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:58888/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

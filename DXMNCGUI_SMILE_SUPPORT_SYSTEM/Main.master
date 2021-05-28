@@ -1,0 +1,128 @@
+<%@ Master Language="C#" MasterPageFile="~/Root.master" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="DXMNCGUI_SMILE_SUPPORT_SYSTEM.MainMaster" %>
+
+<%-- DXCOMMENT: Page Main.master is a master page that contains central area layout --%>
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="server">
+    <dx:ASPxSplitter ID="ContentSplitter" runat="server" Width="100%" Height="100%" FullscreenMode="true" Orientation="Horizontal">
+        <ClientSideEvents PaneResized="function(s, e) { 
+            if(window.ASPxGridView1 && e.pane.name == 'ContentCenter')
+                ASPxGridView1.SetHeight(e.pane.GetClientHeight());
+            }" />
+        <Styles>
+            <Pane>
+                <Paddings Padding="0px" />
+                <border borderwidth="0px" />
+            </Pane>
+        </Styles>
+        <Panes>
+            <dx:SplitterPane Name="ContentLeft" ShowCollapseBackwardButton="True" Size="200px" MinSize="150px">
+                <PaneStyle CssClass="leftPane"></PaneStyle>
+                <PaneStyle>
+                    <Paddings Padding="1px" />
+                </PaneStyle>
+                <ContentCollection>
+                    <dx:SplitterContentControl>
+                        <div class="leftPanel">
+                            <%-- DXCOMMENT: Configure the left panel's ASPxNavBar --%>
+                            <dx:ASPxNavBar ID="ASPxNavBar1" runat="server" AutoCollapse="True" EnableAnimation="True" Width="100%" Theme="Office2010Black">
+                                <Border BorderWidth="0px" />
+                                <Paddings Padding="0px" />
+                                <Groups>
+                                    <dx:NavBarGroup Text="Application">
+                                        <Items>
+                                            <dx:NavBarItem Name="Application1" Text="Credit Process" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/ApplicationList.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application2" Text="Credit Process Syariah" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/Syariah/SyariahCreditProcessList.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application3" Text="List Jaminan (Produk SCF)" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/SupplyChainFinancing/ListJaminan/ListJaminanMaint.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application4" Text="Document Management" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Reporting/CreditProcess/UploadDocument/UploadDocument.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application5" Text="Print Control Sheet" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Reporting/CreditProcess/PrintSheetControl/PrintSheetControl.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application6" Text="Update Data Client" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/UpdateApplicationClient/UpdateApplicClient.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application7" Text="Add Manual Deviation" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/AddManualDeviation/AddManualDeviation.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application8" Text="Verification Task" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/SurveyTask/ListSurvey.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application9" Text="Perhitungan Pendapatan Awal" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/CalculateProduct.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application9" Text="Profit Calculator" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/ProfitCalculator/ProfitCalculator.aspx"></dx:NavBarItem>
+                                            
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbg2" Text="Lease/Loan Operations">
+                                        <Items>
+                                            <dx:NavBarItem Text="Account Inquiry" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditAnalyst/FormAccountInquiry.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Rescheduling Simulation" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/SimulationRescheduling/SimulationReschedulingEntry.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Daftar Terduga Teroris Inquiry" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditAnalyst/FormDataTerdugaTeroris.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Virtual Account(VA) Inquiry" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/VirtualAccount/PostingVAPaymentMaint.aspx"></dx:NavBarItem>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbg1" Text="Collection">
+                                        <Items>
+                                            <dx:NavBarItem Text="Collection Remark Entry" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Collections/FormCollectionRemarkEntry.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Collection Letter Entry" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Collections/CollectionLetter/CollectionLetterEntry.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="nb1" Text="Waive Late Charges" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Collections/WaiveLateCharges/FormWaiveLateChargesMaint.aspx"></dx:NavBarItem>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbgAssetCollateral" Text="Asset Collateral">
+                                        <Items>
+                                            <dx:NavBarItem Text="Transaction Entry" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/AssetCollateral/AssetCollateralEntry.aspx"></dx:NavBarItem>
+                                            <%--<dx:NavBarItem Text="History" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/AssetCollateral/AssetCollateralList.aspx"></dx:NavBarItem>--%>
+                                            
+                                            <dx:NavBarItem Text="Create New Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/InputCrossColateral.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Edit Existing Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/EditCrossCollateral.aspx"></dx:NavBarItem>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbgInsurance" Text="Insurance">
+                                        <Items>
+                                            <dx:NavBarItem Text="Polis Asuransi Fixed Asset" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Insurance/PolisAsuransiFAMaint.aspx"></dx:NavBarItem>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbgSyariah" Text="Syariah">
+                                        <Items>
+                                            <dx:NavBarItem Name="nbiSLIKMntc" Text="SLIK Checking" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/UpdateSLIK/UpdateSLIKMaint.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Mitra Management" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/Mitra/MitraMaint.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="FPP Verification" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/FPPVerification/FPPVerificationList.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Update Rekening Client" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/UpdateRekeningClient/UpdateRekeningClientEntry.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Update SPPH & Incentive" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/UpdateNoSPPH/UpdateNoSPPHList.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Update Data Kemenag" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/UpdateDataKemenag/UpdateDataKemenagEntry.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="API PDSB" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/PdsbAPI/PdsbAPI_All.aspx"></dx:NavBarItem>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbgGeneralMaintenance" Text="General Maintenance">
+                                        <Items>
+                                            <%--<dx:NavBarItem Text="Access Right Maintenance" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="GeneralMaintenance/AccessRight/AccessRightMaintenance.aspx"></dx:NavBarItem>--%>
+                                            <dx:NavBarItem Text="Schema Application Workflow" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="GeneralMaintenance/SchemaApplicationWorkflow/SchemaApplicationWorkflowMaint.aspx"></dx:NavBarItem>
+                                            <%--<dx:NavBarItem Text="Users Monitoring" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="~/GeneralMaintenance/UsersMonitoring/UsersMonitoringList.aspx"></dx:NavBarItem>--%>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbgFinance" Text="Finance">
+                                        <Items>
+                                            <%--<dx:NavBarItem Text="Access Right Maintenance" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="GeneralMaintenance/AccessRight/AccessRightMaintenance.aspx"></dx:NavBarItem>--%>
+                                            <dx:NavBarItem Text="Virtual Account Info" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/VA_Info.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Generate Virtual Account CIMB" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/GenerateVA_cimb.aspx"></dx:NavBarItem>
+                                            <%--<dx:NavBarItem Text="Users Monitoring" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="~/GeneralMaintenance/UsersMonitoring/UsersMonitoringList.aspx"></dx:NavBarItem>--%>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                    <dx:NavBarGroup Name="nbgAssetColl" Text="Asset Collateral">
+                                        <Items>
+                                            <dx:NavBarItem Text="Create New Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/InputCrossColateral.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Edit Existing Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/EditCrossCollateral.aspx"></dx:NavBarItem>
+                                        </Items>
+                                    </dx:NavBarGroup>
+                                </Groups>
+                            </dx:ASPxNavBar>
+                        </div>
+                    </dx:SplitterContentControl>
+                </ContentCollection>
+            </dx:SplitterPane>
+            <dx:SplitterPane Name="ContentCenter" ScrollBars="Auto">
+                <PaneStyle CssClass="contentPane"></PaneStyle>
+                <Separator Visible="True">
+                    <SeparatorStyle>
+                        <border borderwidth="1px" />
+                        <BorderTop BorderWidth="0px" />
+                    </SeparatorStyle>
+                </Separator>
+                <ContentCollection>
+                    <dx:SplitterContentControl>
+                        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+                    </dx:SplitterContentControl>
+                </ContentCollection>
+            </dx:SplitterPane>
+        </Panes>
+    </dx:ASPxSplitter>
+</asp:Content>

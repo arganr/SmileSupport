@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="DXMNCGUI_SMILE_SUPPORT_SYSTEM.Global_asax" Language="C#" %>

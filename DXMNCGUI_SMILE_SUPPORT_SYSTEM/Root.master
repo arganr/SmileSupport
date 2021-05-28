@@ -1,0 +1,127 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Root.master.cs" Inherits="DXMNCGUI_SMILE_SUPPORT_SYSTEM.RootMaster" %>
+
+<%-- DXCOMMENT: Page Root.master is a master page that contains the root layout (it includes Header, Cental Area, and Footer) --%>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <title>SMILE SUPPORT SYSTEM</title>
+    <link rel="icon" type="image/png" href="Content/Images/NumberingMenuIco-16x16.png" />
+    <link rel="stylesheet" type="text/css" href="Content/Site.css" />
+</head>
+<body runat="server" id="Body">
+    <form id="form1" runat="server">
+    <dx:ASPxSplitter ID="ASPxSplitter1" runat="server" AllowResize="False" Orientation="Vertical"
+        FullscreenMode="True" SeparatorVisible="False" Height="100%" Width="100%" EnableHierarchyRecreation="false">
+        <Styles>
+            <Pane>
+                <Paddings Padding="0px" />
+                <Border BorderWidth="0px" />
+            </Pane>
+        </Styles>
+        <Panes>
+            <dx:SplitterPane Name="Header" AutoHeight="true">
+                <PaneStyle CssClass="headerPane">
+                    <BorderBottom BorderWidth="1px" />
+                </PaneStyle>
+                <ContentCollection>
+                    <dx:SplitterContentControl ID="SplitterContentControl1" runat="server" BackColor="#235658" BorderStyle="Inset" BorderWidth="2" BorderColor="#95a5a6">
+                        <div class="headerTop">
+                            <div class="templateTitle">
+                                <%--<a id="TitleLink" href="~/" runat="server">SMILE SUPPORT SYSTEM</a>--%>
+                                <%--<dx:ASPxLabel runat="server" Text=" - &nbsp;&nbsp; S M I L E &nbsp;&nbsp; S U P P O R T &nbsp;&nbsp;  S Y S T E M &nbsp;&nbsp; - " Font-Size="X-Large" Font-Names="Calibri" ForeColor="WhiteSmoke"></dx:ASPxLabel>--%>
+                                <dx:ASPxImage runat="server" Height="35px" ImageUrl="~/Content/Images/HeaderBannerSSS.gif"></dx:ASPxImage>
+                            </div>
+                            <div class="loginControl"> 
+                                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                                    <AnonymousTemplate>                                       
+                                        <dx:ASPxLabel ID="lblUserName" runat="server"  Font-Bold="false" Font-Names="Calibri" Font-Size="Small" ForeColor="WhiteSmoke">                                             
+                                        </dx:ASPxLabel>
+                                        |
+                                        <dx:ASPxHyperLink runat="server" ClientInstanceName="inkLogOut" Text="Log Out" Font-Names="Calibri" ForeColor="WhiteSmoke" Cursor="pointer">
+                                            <ClientSideEvents Click="function(s, e) {clb.PerformCallback('LogOut');}"/>
+                                        </dx:ASPxHyperLink>
+                                        <dx:ASPxCallback ID="ASPxCallback" runat="server" ClientInstanceName="clb" oncallback="ASPxCallback_Callback">
+                                        </dx:ASPxCallback>
+                                    </AnonymousTemplate>
+                                    <LoggedInTemplate>
+                                        Welcome <span class="bold">
+                                            <a runat="server" href="~/Account/Manage.aspx" title="Manage your account">
+                                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                                            </a>                                        </span>! [
+                                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
+                                            LogoutPageUrl="~/" OnLoggingOut="HeadLoginStatus_LoggingOut"/>
+                                        ]
+                                    </LoggedInTemplate>
+                                </asp:LoginView>
+                            </div>
+                        </div>
+                        <div class="headerMenu">
+                            <%-- DXCOMMENT: Configure the header menu --%>
+                            <dx:ASPxMenu ID="ASPxMenu1" runat="server" ItemAutoWidth="False" Width="100%">
+                                <Items>
+                                    <dx:MenuItem Text="Home" Image-Url="Content/Images/HomeIcon-16x16.png" NavigateUrl="Default.aspx"></dx:MenuItem>
+                                    <dx:MenuItem Name="HeadActivity" Text="My Activity" Image-Url="Content/Images/WorkListIcon-16x16.png" NavigateUrl="Reporting/MyActivity/MyActivityListing.aspx"></dx:MenuItem>
+                                    <dx:MenuItem Name="HeadWorkingList" Text="My Working List" Image-Url="Content/Images/WorkListIcon-16x16.png" NavigateUrl="Transactions/WorkingList/MyWorkingListMaint.aspx"></dx:MenuItem>
+                                    <dx:MenuItem Name="HeadReporting" Text="Reporting" Image-Url="Content/Images/ReportingIcon-16x16.png">  
+                                        <Items>
+                                            <dx:MenuItem Name="HeadAssetCollateralReport" Text="Asset Collateral">
+                                                <Items>
+                                                    <dx:MenuItem Name="ReportAssetCollateralHistory" Text="Asset Collateral - History" NavigateUrl="Transactions/AssetCollateral/AssetCollateralList.aspx"></dx:MenuItem>
+                                                </Items>
+                                            </dx:MenuItem>
+                                            <dx:MenuItem Name="HeadCreditProcessReport" Text="Credit Process">  
+                                                <Items>
+                                                    <dx:MenuItem Text="Credit Process - Detail Listing"></dx:MenuItem>
+                                                    <dx:MenuItem Text="Credit Process - Summary" NavigateUrl="Reporting/CreditProcess/CreditProcessSummary.aspx"></dx:MenuItem>
+                                                    <dx:MenuItem Name="ReportServiceLevelAgreementPerformance" Text="Credit Process - Service Level Agreement Performance" NavigateUrl="Reporting/CreditProcess/SLAPerformance.aspx"></dx:MenuItem>
+                                                    <dx:MenuItem Name="ReportServiceLevelAgreementPerformancePerAction" Text="Credit Process - Service Level Agreement Performance Per Action" NavigateUrl="Reporting/CreditProcess/SLAPerformancePerAction.aspx"></dx:MenuItem>
+                                                    <%--<dx:MenuItem Text="Credit Process - Print Sheet Control" NavigateUrl="Reporting/CreditProcess/PrintSheetControl/PrintSheetControl.aspx"></dx:MenuItem>--%>
+                                                    <%--<dx:MenuItem Text="Credit Process - Upload Document" NavigateUrl="Reporting/CreditProcess/UploadDocument/UploadDocument.aspx"></dx:MenuItem>--%>
+                                                </Items>  
+                                            </dx:MenuItem>
+                                            <dx:MenuItem Name="HeadCreditProcessSyariahReport" Text="Credit Process Syariah">  
+                                                <Items>
+                                                    <dx:MenuItem Text="Credit Process Syariah - Application Summary" NavigateUrl="Reporting/CreditProcessSyariah/ApplicationSyariahSummary.aspx"></dx:MenuItem>
+                                                </Items>  
+                                            </dx:MenuItem>
+                                        </Items>
+                                    </dx:MenuItem>
+                                    <%--<dx:MenuItem Text="Internal Memo" Image-Url="Content/Images/WorkListIcon-16x16.png" NavigateUrl="Transactions/InternalMemo/InternalMemoEntry.aspx"></dx:MenuItem>--%>
+                                </Items>
+                                <Border BorderWidth="0px" />
+                                <Paddings Padding="0px" />
+                            </dx:ASPxMenu>
+                        </div>
+                    </dx:SplitterContentControl>
+                </ContentCollection>
+            </dx:SplitterPane>
+            <dx:SplitterPane Name="Content" MinSize="375px">
+                <PaneStyle CssClass="mainContentPane"></PaneStyle>
+                <ContentCollection>
+                    <dx:SplitterContentControl ID="SplitterContentControl3" runat="server">
+                        <asp:ContentPlaceHolder ID="Content" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </dx:SplitterContentControl>
+                </ContentCollection>
+                <PaneStyle BackColor="white">
+                    <BorderBottom BorderWidth="1px" />
+                </PaneStyle>
+            </dx:SplitterPane>
+            <dx:SplitterPane Name="Footer" Size="50px" PaneStyle-CssClass="footerPane" AutoHeight="false">
+                <ContentCollection>
+                    <dx:SplitterContentControl ID="SplitterContentControl2" runat="server" BackColor="#235658" BorderStyle="Outset" BorderWidth="2" BorderColor="#95a5a6">
+                        <div class="footerMenu">                            
+                        </div>
+                        <div class="copyright">
+                            <dx:ASPxLabel ID="ASPxLabel2" runat="server" ForeColor="WhiteSmoke">
+                            </dx:ASPxLabel>
+                        </div>
+                    </dx:SplitterContentControl>
+                </ContentCollection>
+            </dx:SplitterPane>
+        </Panes>
+    </dx:ASPxSplitter>
+    </form>
+</body>
+</html>

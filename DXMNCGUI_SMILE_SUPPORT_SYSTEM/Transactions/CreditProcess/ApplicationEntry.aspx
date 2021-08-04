@@ -259,7 +259,14 @@
         <ContentCollection>
             <dx:PopupControlContentControl ID="PopupControlContentControl2" runat="server">
                 <dx:ASPxFormLayout ID="ASPxFormLayout" runat="server" ColCount="2" Width="100%">
-                    <Items>                       
+                    <Items>      
+                        <dx:LayoutItem ShowCaption="True" Caption="Dist Date" Width="100%" ColSpan="2">
+                            <LayoutItemNestedControlCollection>
+                                <dx:LayoutItemNestedControlContainer>
+                                    <dx:ASPxDateEdit runat="server" ID="deDistDate" ClientInstanceName="deDistDate" Width="100%" Enabled="false"></dx:ASPxDateEdit>
+                                </dx:LayoutItemNestedControlContainer>
+                            </LayoutItemNestedControlCollection>
+                        </dx:LayoutItem>                 
                         <dx:LayoutItem ShowCaption="True" Caption="Comment" Width="100%" ColSpan="2">
                             <LayoutItemNestedControlCollection>
                                 <dx:LayoutItemNestedControlContainer>

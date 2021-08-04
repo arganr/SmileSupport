@@ -373,6 +373,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                     foreach (DataRow dr in myApproveAccesstable.Rows)
                     {
                         DataRow result = localdbsetting.GetFirstDataRow("SELECT * FROM [dbo].[ApplicationWorkflowAccess] WHERE GroupAccessCode=? AND StateDescription=?", dr["GROUP_CODE"].ToString(), myApplicationEntity.Status);
+                        DataRow resultFinance = localdbsetting.GetFirstDataRow("SELECT * FROM [dbo].[ApplicationWorkflowAccess] WHERE GroupAccessCode=? AND StateDescription=?", dr["GROUP_CODE"].ToString(), "FINANCE");
+
+                        if(resultFinance != null)
+                        {
+                            deDistDate.ClientEnabled = true;
+                        }
+
                         if (result != null)
                         {
                             if (Convert.ToString(myApplicationEntity.OnHold) == "F")
@@ -706,7 +713,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
         private bool SaveComment(SaveAction saveAction)
         {
             bool bSave = true;
-            myApplicationEntity.SaveComment(UserName, mmComment.Value.ToString(), saveAction);
+            myApplicationEntity.SaveComment(UserName, mmComment.Value.ToString(), saveAction, deDistDate.Date);
             return bSave;
         }
         protected void cplMain_Callback(object source, CallbackEventArgs e)

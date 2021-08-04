@@ -254,11 +254,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
             }
             catch { }
         }
-        public void SaveCommentEntity(ApplicationEntity entity, SaveAction saveaction, string strID, string strComment)
+        public void SaveCommentEntity(ApplicationEntity entity, SaveAction saveaction, string strID, string strComment, DateTime distDate)
         {
             if (entity.DocNo.ToString().Length == 0)
                 throw new EmptyDocNoException();
-            SaveComment(entity, saveaction, strID, strComment);
+            SaveComment(entity, saveaction, strID, strComment, distDate);
         }
         public void SaveAssignEntity(ApplicationEntity entity, SaveAction saveaction, string strID, string strAssignTo)
         {
@@ -281,7 +281,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
         protected virtual void SaveApplicationHistory(ApplicationEntity Application, DataSet ds, SaveAction saveaction, string userID, string userName, DateTime myLastApprove, string myLastState)
         {
         }
-        protected virtual void SaveComment(ApplicationEntity Application, SaveAction saveaction, string myUserName, string myComment)
+        protected virtual void SaveComment(ApplicationEntity Application, SaveAction saveaction, string myUserName, string myComment, DateTime distDate)
         { }
         protected virtual void SaveAssign(ApplicationEntity Application, SaveAction saveaction, string userFullName, string userAssign)
         { }

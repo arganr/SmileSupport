@@ -441,11 +441,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                 myconn.Dispose();
             }
         }
-        protected override void SaveComment(ApplicationEntity Application, SaveAction saveaction, string userFullName, string userComment)
+        protected override void SaveComment(ApplicationEntity Application, SaveAction saveaction, string userFullName, string userComment, DateTime distDate)
         {
             DateTime Mydate = myLocalDBSetting.GetServerTime();
             SqlConnection myconn = new SqlConnection(myLocalDBSetting.ConnectionString);
-            SqlCommand sqlCommand = new SqlCommand("INSERT INTO [dbo].[ApplicationCommentHistory] (SourceDocKey, DocNo, CommentBy, CommentNote, CommentDate) VALUES (@SourceDocKey, @DocNo, @CommentBy, @CommentNote, @CommentDate)");
+            SqlCommand sqlCommand = new SqlCommand("INSERT INTO [dbo].[ApplicationCommentHistory] (SourceDocKey, DocNo, CommentBy, CommentNote, CommentDate, DistDate) VALUES (@SourceDocKey, @DocNo, @CommentBy, @CommentNote, @CommentDate, @distDate)");
             sqlCommand.Connection = myconn;
             try
             {
@@ -465,6 +465,16 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                 SqlParameter sqlParameter5 = sqlCommand.Parameters.Add("@CommentDate", SqlDbType.DateTime);
                 sqlParameter5.Value = Mydate;
                 sqlParameter5.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter6 = sqlCommand.Parameters.Add("@distDate", SqlDbType.DateTime);
+                
+                if(distDate.Date != null)
+                {
+                    sqlParameter6.Value = distDate;
+                }
+                else{
+                    sqlParameter6.Value = DBNull.Value;
+                }
+                sqlParameter6.Direction = ParameterDirection.Input;
                 sqlCommand.ExecuteNonQuery();
             }
             catch (SqlException ex)

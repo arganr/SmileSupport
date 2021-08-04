@@ -204,9 +204,9 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                 this.myAction = DXSSAction.View;
             }
         }
-        public void SaveComment(string userName, string sComment, SaveAction saveaction)
+        public void SaveComment(string userName, string sComment, SaveAction saveaction, DateTime distDate)
         {
-            myApplicationcommand.SaveCommentEntity(this, saveaction, userName, sComment);
+            myApplicationcommand.SaveCommentEntity(this, saveaction, userName, sComment, distDate);
             this.myAction = DXSSAction.View;
         }
         public void SaveAssign(string userName, string sAssignTo, SaveAction saveaction)

@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
+namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.MasterClientEKYC {
     
     
-    public partial class EditCrossCollateral {
+    public partial class MasterClient_eKYC {
         
         /// <summary>
         /// HiddenField control.
@@ -40,22 +40,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout;
         
         /// <summary>
-        /// gvCrossColl control.
+        /// gvClient control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxGridLookup gvCrossColl;
-        
-        /// <summary>
-        /// gvNewItem control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridLookup gvNewItem;
+        protected global::DevExpress.Web.ASPxGridLookup gvClient;
         
         /// <summary>
         /// gvTempData control.
@@ -67,31 +58,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
         protected global::DevExpress.Web.ASPxGridView gvTempData;
         
         /// <summary>
-        /// btnCancel control.
+        /// GridbtnDownload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.GridViewCommandColumnCustomButton btnCancel;
-        
-        /// <summary>
-        /// mmRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxMemo mmRemarks;
-        
-        /// <summary>
-        /// btnReset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnReset;
+        protected global::DevExpress.Web.GridViewCommandColumnCustomButton GridbtnDownload;
         
         /// <summary>
         /// btnSave control.
@@ -119,5 +92,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxCallback cplMain;
+        
+        /// <summary>
+        /// lp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLoadingPanel lp;
     }
 }

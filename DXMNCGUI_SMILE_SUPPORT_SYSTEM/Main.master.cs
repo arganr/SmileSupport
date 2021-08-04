@@ -95,6 +95,36 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM
                     ASPxNavBar1.Groups.FindByName("nbgInsurance").Visible = false;
                     ASPxNavBar1.Groups.FindByName("nbgSyariah").Visible = false;
                     ASPxNavBar1.Groups.FindByName("nbgFinance").Visible = false;
+
+                    if (UserID == "OS011" || UserID == "OS015" || UserID == "OS014")
+                    {
+                        ASPxNavBar1.Groups.FindByName("nbgSyariah").Visible = true;
+                        ASPxNavBar1.Items.FindByName("nbiUpdateSPPH").Visible = true;
+
+                        ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
+                        ASPxNavBar1.Items.FindByName("nbiMitraManage").Visible = false;
+                        ASPxNavBar1.Items.FindByName("nbiFPPVerify").Visible = false;
+                        ASPxNavBar1.Items.FindByName("nbiUpdateRekClient").Visible = false;
+                        ASPxNavBar1.Items.FindByName("nbiUpdateDataKemenag").Visible = false;
+                        ASPxNavBar1.Items.FindByName("nbiAPIPDSB").Visible = false;
+                    }
+
+                }
+                if (!accessright.IsAccessibleByUserID(UserID, "AST_TRX_SHOW"))
+                {
+                    ASPxNavBar1.Items.FindByName("nbiAssetTrxEntry").Visible = false;
+                }
+                if (!accessright.IsAccessibleByUserID(UserID, "CROSSCOL_CAN_CREATE"))
+                {
+                    ASPxNavBar1.Items.FindByName("nbiCreateCrossCol").Visible = false;
+                }
+                if (!accessright.IsAccessibleByUserID(UserID, "CROSSCOL_CAN_EDIT"))
+                {
+                    ASPxNavBar1.Items.FindByName("nbiEditCrossCol").Visible = false;
+                }
+                if (!accessright.IsAccessibleByUserID(UserID, "CROSSCOL_CAN_APPROVE"))
+                {
+                    ASPxNavBar1.Items.FindByName("nbiListAppCrossCol").Visible = false;
                 }
             }
         }

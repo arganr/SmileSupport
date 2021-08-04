@@ -43,6 +43,22 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
             get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["tmpDtTable" + this.ViewState["_PageID"]]; }
             set { HttpContext.Current.Session["tmpDtTable" + this.ViewState["_PageID"]] = value; }
         }
+        protected DataTable oldDtTable
+        {
+            get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["oldDtTable" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["oldDtTable" + this.ViewState["_PageID"]] = value; }
+        }
+        protected DataTable logDtTable
+        {
+            get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["logDtTable" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["logDtTable" + this.ViewState["_PageID"]] = value; }
+        }
+        protected string roleCrossColUser
+        {
+            get { isValidLogin(false); return (string)HttpContext.Current.Session["roleCrossColUser" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["roleCrossColUser" + this.ViewState["_PageID"]] = value; }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             isValidLogin(false);
@@ -55,6 +71,9 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
                 ccDtTable = new DataTable();
                 newDtTable = new DataTable();
                 tmpDtTable = new DataTable();
+                oldDtTable = new DataTable();
+                logDtTable = new DataTable();
+                roleCrossColUser = GetUserRole();
 
                 ccDtTable = GetListCC();
                 gvCrossColl.DataSource = ccDtTable;
@@ -63,6 +82,10 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
                 newDtTable = GetListNoApp("");
                 gvNewItem.DataSource = newDtTable;
                 gvNewItem.DataBind();
+
+                logDtTable = GetLogData("");
+                gvLogData.DataSource = logDtTable;
+                gvLogData.DataBind();
 
                 //loadDataExist("");
             }
@@ -116,8 +139,10 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
                     break;
                 case "LOAD":
                     var ccode = callbackParam[1].ToString();
+                    oldDtTable = GetDataExist(ccode);
                     tmpDtTable = GetDataExist(ccode);
                     newDtTable = GetListNoApp(ccode);
+                    logDtTable = GetLogData(ccode);
 
                     break;
                 case "DELETE":
@@ -129,20 +154,28 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
                     break;
                 case "SAVE":
                     cplMain.JSProperties["cplblmessageError"] = "";
-                    if (tmpDtTable.Rows.Count > 1)
-                    {
-                        string joinval = joinNoAgreement();
-                        string crosscode = gvCrossColl.Text;
-                        updateCrossColl(joinval, crosscode);
-                        cplMain.JSProperties["cpAlertMessage"] = "Update Crosscoll Success...";
-                        cplMain.JSProperties["cplblActionButton"] = "OK";
-                        DevExpress.Web.ASPxWebControl.RedirectOnCallback("EditCrossCollateral.aspx");
-                    }
-                    else
-                    {
-                        cplMain.JSProperties["cpAlertMessage"] = "Error: Total crosscol must be at least 2...";
-                        cplMain.JSProperties["cplblActionButton"] = "OK";
-                    }
+
+                    //if (tmpDtTable.Rows.Count > 0)
+                    //{
+                    //    string joinval = joinNoAgreement();
+                    //    string crosscode = gvCrossColl.Text;
+                    //    updateCrossColl(joinval, crosscode);
+                    //    cplMain.JSProperties["cpAlertMessage"] = "Update Crosscoll Success...";
+                    //    cplMain.JSProperties["cplblActionButton"] = "OK";
+                    //    DevExpress.Web.ASPxWebControl.RedirectOnCallback("EditCrossCollateral.aspx");
+                    //}
+                    //else
+                    //{
+                    //    cplMain.JSProperties["cpAlertMessage"] = "Error: Total crosscol must be at least 1...";
+                    //    cplMain.JSProperties["cplblActionButton"] = "OK";
+                    //}
+
+                    string joinval = joinNoAgreement();
+                    string crosscode = gvCrossColl.Text;
+                    updateCrossColl(joinval, crosscode);
+                    cplMain.JSProperties["cpAlertMessage"] = "Update Crosscoll Success...";
+                    cplMain.JSProperties["cplblActionButton"] = "OK";
+                    DevExpress.Web.ASPxWebControl.RedirectOnCallback("EditCrossCollateral.aspx");
                     break;
             }
         }
@@ -160,6 +193,32 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
         protected void gvTempData_DataBinding(object sender, EventArgs e)
         {
             (sender as ASPxGridView).DataSource = tmpDtTable;
+        }
+
+        protected void gvLogData_DataBinding(object sender, EventArgs e)
+        {
+            (sender as ASPxGridView).DataSource = logDtTable;
+        }
+
+        protected void gvTempData_CustomButtonInitialize(object sender, DevExpress.Web.ASPxGridViewCustomButtonEventArgs e)
+        {
+            ASPxGridView grid = (ASPxGridView)sender;
+            var dtLsagree = (string)grid.GetRowValues(e.VisibleIndex, "LSAGREE");
+            if (e.ButtonID == "btnCancel")
+            {
+                var dtExist = oldDtTable.AsEnumerable().SingleOrDefault(r => r.Field<string>("LSAGREE") == dtLsagree);
+                if(dtExist != null)
+                {
+                    if (roleCrossColUser == "")
+                    {
+                        e.Visible = DevExpress.Utils.DefaultBoolean.False;
+                    }
+                    else
+                    {
+                        e.Visible = DevExpress.Utils.DefaultBoolean.True;
+                    }
+                }
+            }
         }
 
         DataTable GetListCC()
@@ -195,9 +254,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
 
         DataTable GetListNoApp(string ccode)
         {
+            //string ssql = "select LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE, DESCS " +
+            //                "from LS_AGREEMENT a with(NOLOCK) inner join SYS_COMPANY b with(NOLOCK) on a.C_CODE = b.C_CODE " +
+            //                "where CONTRACT_STATUS = 'GOLIVE' and MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
+
             string ssql = "select LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE, DESCS " +
                             "from LS_AGREEMENT a with(NOLOCK) inner join SYS_COMPANY b with(NOLOCK) on a.C_CODE = b.C_CODE " +
-                            "where CONTRACT_STATUS = 'GOLIVE' and MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
+                            "where MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
 
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
@@ -221,6 +284,73 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
             }
 
             return resDT;
+        }
+
+        DataTable GetLogData(string value)
+        {
+            //string ssql = "select CODE, DESCRIPTION from LS_CROSS_COLLATERAL_H";
+            string ssql = "select a.no_agreement, b.NAME, a.remarks, a.status_approval, a.update_type, d.USER_NAME, FORMAT (a.CRE_DATE, 'dd/MM/yyyy, hh:mm:ss ') as [Date] from [LS_CROSS_COLLATERAL_APPROVAL_LOG] a " +
+                            "LEFT JOIN LS_AGREEMENT b on a.no_agreement = b.LSAGREE LEFT JOIn MASTER_USER d on a.cre_by = d.USER_ID " +
+                            "where a.id_crosscol = '" + value + "' ORDER BY a.id desc";
+
+            DataTable resDT = new DataTable();
+            SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
+            myconn.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(ssql);
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = myconn;
+
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                resDT.Load(reader);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            finally
+            {
+                myconn.Close();
+            }
+
+            return resDT;
+        }
+
+        String GetUserRole()
+        {
+            string resRole = "";
+            string ssql = "select CMDid from AccessRight where CMDid = 'CROSSCOL_CAN_REMOVE' AND NIK = '" + UserID + "'";
+            DataTable resDT = new DataTable();
+            SqlConnection myconn = new SqlConnection(myLocalDBSetting.ConnectionString);
+            myconn.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(ssql);
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = myconn;
+
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                resDT.Load(reader);
+                if(resDT.Rows.Count > 0)
+                {
+                    foreach (DataRow row in resDT.Rows)
+                    {
+                        resRole = row["CMDid"].ToString();
+                    }
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            finally
+            {
+                myconn.Close();
+            }
+
+            return resRole;
         }
 
         DataTable GetDataExist(string value)
@@ -299,7 +429,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
 
         void updateCrossColl(string lsagree, string ccode)
         {
-            string ssql = "EXEC SP_MNCL_UPDATE_CROSS_MASTER '" + lsagree + "', '" + UserID + "', '" + ccode + "'";
+            //string ssql = "EXEC SP_MNCL_UPDATE_CROSS_MASTER '" + lsagree + "', '" + UserID + "', '" + ccode + "'";
+            string ssql = "EXEC [SP_MNCL_UPDATE_CROSS_MASTER] '" + lsagree + "', '" + UserID + "', '" + ccode + "', '" + mmRemarks.Text + "'";
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
             myconn.Open();
             try
@@ -318,5 +449,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
                 myconn.Close();
             }
         }
+        protected void btnReset_onClick(Object sender, EventArgs e)
+        {
+            Response.Redirect("~/Transactions/Application/EditCrossCollateral.aspx");
+        }
+
+        
     }
 }

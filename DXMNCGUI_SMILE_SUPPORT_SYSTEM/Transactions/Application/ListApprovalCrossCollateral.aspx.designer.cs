@@ -10,7 +10,7 @@
 namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
     
     
-    public partial class EditCrossCollateral {
+    public partial class ListApprovalCrossCollateral {
         
         /// <summary>
         /// HiddenField control.
@@ -31,85 +31,67 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
         protected global::DevExpress.Web.ASPxPopupControl apcalert;
         
         /// <summary>
-        /// ASPxFormLayout control.
+        /// FormLayout1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout;
+        protected global::DevExpress.Web.ASPxFormLayout FormLayout1;
         
         /// <summary>
-        /// gvCrossColl control.
+        /// LayoutItemNestedControlContainer3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxGridLookup gvCrossColl;
+        protected global::DevExpress.Web.LayoutItemNestedControlContainer LayoutItemNestedControlContainer3;
         
         /// <summary>
-        /// gvNewItem control.
+        /// btnEdit control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxGridLookup gvNewItem;
+        protected global::DevExpress.Web.ASPxButton btnEdit;
         
         /// <summary>
-        /// gvTempData control.
+        /// LayoutItemNestedControlContainer4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView gvTempData;
+        protected global::DevExpress.Web.LayoutItemNestedControlContainer LayoutItemNestedControlContainer4;
         
         /// <summary>
-        /// btnCancel control.
+        /// btnRefresh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.GridViewCommandColumnCustomButton btnCancel;
+        protected global::DevExpress.Web.ASPxButton btnRefresh;
         
         /// <summary>
-        /// mmRemarks control.
+        /// gvMain control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxMemo mmRemarks;
+        protected global::DevExpress.Web.ASPxGridView gvMain;
         
         /// <summary>
-        /// btnReset control.
+        /// sdsApproval control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnReset;
-        
-        /// <summary>
-        /// btnSave control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnSave;
-        
-        /// <summary>
-        /// gvLogData control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView gvLogData;
+        protected global::System.Web.UI.WebControls.SqlDataSource sdsApproval;
         
         /// <summary>
         /// cplMain control.

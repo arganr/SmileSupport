@@ -303,8 +303,10 @@
     <Content Include="Shared\DocViewer.aspx" />
     <Content Include="Transactions\Application\EditCrossCollateral.aspx" />
     <Content Include="Transactions\Application\InputCrossColateral.aspx" />
+    <Content Include="Transactions\Application\ListApprovalCrossCollateral.aspx" />
     <Content Include="Transactions\Application\ProfitCalculator\ProfitCalculator.aspx" />
     <Content Include="Transactions\Application\UpdateApplicationClient\UpdateApplicClient.aspx" />
+    <Content Include="Transactions\Application\UpdateApprovalCrossCollateral.aspx" />
     <Content Include="Transactions\AssetCollateral\AssetCollateralEntry.aspx" />
     <Content Include="Transactions\AssetCollateral\AssetCollateralList.aspx" />
     <Content Include="Transactions\Collections\CollectionLetter\CollectionLetterEntry.aspx" />
@@ -319,8 +321,11 @@
     <Content Include="Transactions\CreditProcess\Syariah\SyariahCreditProcessList.aspx" />
     <Content Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKEntry.aspx" />
     <Content Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKMaint.aspx" />
+    <Content Include="Transactions\eKYC\MasterClientEKYC\MasterClient_eKYC.aspx" />
+    <Content Include="Transactions\eKYC\SLIKChecking\MasterClientSLIKCheck.aspx" />
     <Content Include="Transactions\Finance\CalculateProduct.aspx" />
     <Content Include="Transactions\Finance\GenerateVA_cimb.aspx" />
+    <Content Include="Transactions\Finance\UploadPaymentTextFile.aspx" />
     <Content Include="Transactions\Finance\VA_Info.aspx" />
     <Content Include="Transactions\Insurance\PolisAsuransiFAEntry.aspx" />
     <Content Include="Transactions\Insurance\PolisAsuransiFAMaint.aspx" />
@@ -476,6 +481,11 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="API\EKYC\API_EKYC.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="API\EKYC\Models\ModelEKYC.cs" />
+    <Compile Include="API\EKYC\Models\ResultEKYC.cs" />
     <Compile Include="API\PDSB\API_PDSB.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -485,6 +495,15 @@
     <Compile Include="API\PDSB\Models\ResultArray.cs" />
     <Compile Include="API\PDSB\Models\ResultCIF.cs" />
     <Compile Include="API\PDSB\Models\ResultLogin.cs" />
+    <Compile Include="API\SLIK\API_SLIK.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="API\SLIK\Models\ModelCreditFinancing.cs" />
+    <Compile Include="API\SLIK\Models\ModelReference.cs" />
+    <Compile Include="API\SLIK\Models\ModelReqSLIK.cs" />
+    <Compile Include="API\SLIK\Models\ResultCompanySLIK.cs" />
+    <Compile Include="API\SLIK\Models\ResultReqSLIK.cs" />
+    <Compile Include="API\SLIK\Models\ResultSLIK.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\Application\AccessRight.cs" />
@@ -680,6 +699,13 @@
     <Compile Include="Transactions\Application\InputCrossColateral.aspx.designer.cs">
       <DependentUpon>InputCrossColateral.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Transactions\Application\ListApprovalCrossCollateral.aspx.cs">
+      <DependentUpon>ListApprovalCrossCollateral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\ListApprovalCrossCollateral.aspx.designer.cs">
+      <DependentUpon>ListApprovalCrossCollateral.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Transactions\Application\ProfitCalculator\Models\CalculateParam.cs" />
     <Compile Include="Transactions\Application\ProfitCalculator\Models\CalculateResult.cs" />
     <Compile Include="Transactions\Application\ProfitCalculator\Models\Constanta.cs" />
@@ -696,6 +722,13 @@
     </Compile>
     <Compile Include="Transactions\Application\UpdateApplicationClient\UpdateApplicClient.aspx.designer.cs">
       <DependentUpon>UpdateApplicClient.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Application\UpdateApprovalCrossCollateral.aspx.cs">
+      <DependentUpon>UpdateApprovalCrossCollateral.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\UpdateApprovalCrossCollateral.aspx.designer.cs">
+      <DependentUpon>UpdateApprovalCrossCollateral.aspx</DependentUpon>
     </Compile>
     <Compile Include="Transactions\AssetCollateral\AssetCollateralDB.cs" />
     <Compile Include="Transactions\AssetCollateral\AssetCollateralEntity.cs" />
@@ -827,6 +860,20 @@
     <Compile Include="Transactions\CreditProcess\UpdateSLIK\UpdateSLIKSql.cs" />
     <Compile Include="Transactions\DXSSAction.cs" />
     <Compile Include="Transactions\DXSSType.cs" />
+    <Compile Include="Transactions\eKYC\MasterClientEKYC\MasterClient_eKYC.aspx.cs">
+      <DependentUpon>MasterClient_eKYC.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\eKYC\MasterClientEKYC\MasterClient_eKYC.aspx.designer.cs">
+      <DependentUpon>MasterClient_eKYC.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\eKYC\SLIKChecking\MasterClientSLIKCheck.aspx.cs">
+      <DependentUpon>MasterClientSLIKCheck.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\eKYC\SLIKChecking\MasterClientSLIKCheck.aspx.designer.cs">
+      <DependentUpon>MasterClientSLIKCheck.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Transactions\EmptyCodeException.cs" />
     <Compile Include="Transactions\EmptyDocNoException.cs" />
     <Compile Include="Transactions\Finance\CalculateProduct.aspx.cs">
@@ -845,6 +892,13 @@
     </Compile>
     <Compile Include="Transactions\Finance\GenerateVA_cimb.aspx.designer.cs">
       <DependentUpon>GenerateVA_cimb.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Finance\UploadPaymentTextFile.aspx.cs">
+      <DependentUpon>UploadPaymentTextFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Finance\UploadPaymentTextFile.aspx.designer.cs">
+      <DependentUpon>UploadPaymentTextFile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Transactions\Finance\VA_Info.aspx.cs">
       <DependentUpon>VA_Info.aspx</DependentUpon>
@@ -1037,6 +1091,8 @@
     <Folder Include="App_Data\Internal Memo 2020\Folder 4\" />
     <Folder Include="App_Data\Internal Memo 2020\Folder 5\" />
     <Folder Include="Content\UploadControl\" />
+    <Folder Include="Transactions\eKYC\UploadEKYC\" />
+    <Folder Include="Transactions\Finance\TempFile\" />
     <Folder Include="Transactions\Syariah\MitraUploadDoc\" />
   </ItemGroup>
   <PropertyGroup>

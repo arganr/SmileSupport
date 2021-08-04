@@ -139,6 +139,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess {
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout;
         
         /// <summary>
+        /// deDistDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxDateEdit deDistDate;
+        
+        /// <summary>
         /// mmComment control.
         /// </summary>
         /// <remarks>

@@ -22,6 +22,69 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah {
         protected global::DevExpress.Web.ASPxHiddenField HiddenField;
         
         /// <summary>
+        /// apcFormComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl apcFormComment;
+        
+        /// <summary>
+        /// PopupControlContentControl3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.PopupControlContentControl PopupControlContentControl3;
+        
+        /// <summary>
+        /// ASPxFormLayout1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout1;
+        
+        /// <summary>
+        /// mmComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo mmComment;
+        
+        /// <summary>
+        /// LayoutItemNestedControlContainer3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.LayoutItemNestedControlContainer LayoutItemNestedControlContainer3;
+        
+        /// <summary>
+        /// btnSaveComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnSaveComment;
+        
+        /// <summary>
+        /// btnCancelComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnCancelComment;
+        
+        /// <summary>
         /// apcconfirm control.
         /// </summary>
         /// <remarks>
@@ -229,6 +292,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah {
         protected global::DevExpress.Web.GridViewCommandColumnCustomButton GridbtnProceed;
         
         /// <summary>
+        /// GridbtnComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.GridViewCommandColumnCustomButton GridbtnComment;
+        
+        /// <summary>
         /// lblHistory control.
         /// </summary>
         /// <remarks>
@@ -245,6 +317,24 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvHistory;
+        
+        /// <summary>
+        /// lblComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblComment;
+        
+        /// <summary>
+        /// gvComment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView gvComment;
         
         /// <summary>
         /// cplMain control.

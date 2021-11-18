@@ -55,16 +55,16 @@
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
                     <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
-                    <%--<dx:LayoutItem ShowCaption="True" Caption="Remarks" ColSpan="2">
+                    <dx:LayoutItem ShowCaption="True" Caption="Remarks" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxMemo runat="server" ID="mmRemarks" ClientInstanceName="mmRemarks" Width="30%" ReadOnly="true">
+                                <dx:ASPxMemo runat="server" ID="mmRemarks" ClientInstanceName="mmRemarks" Width="30%">
 
                                 </dx:ASPxMemo>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>--%>
+                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
 
                     <dx:LayoutItem ShowCaption="false"  Caption=" " ColSpan="2">
                         <LayoutItemNestedControlCollection>

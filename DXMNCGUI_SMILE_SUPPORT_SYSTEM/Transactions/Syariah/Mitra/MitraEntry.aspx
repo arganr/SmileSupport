@@ -46,6 +46,12 @@
                     break;
                 case "DOWNLOAD":
                     break;
+                case "PIC":
+                    if (cplMain.cplblBranch.length > 0)
+                    {
+                        txtMitraCode.SetValue(cplMain.cplblBranch);
+                    }
+                    break;
             }
             cplMain.cpCallbackParam = null;
         }
@@ -103,6 +109,9 @@
                 cbKotaKabupaten.PerformCallback(lastProvinsi);
                 lastProvinsi = null;
             }
+        }
+        function OnSourceChanged() {
+            cplMain.PerformCallback("PIC;");
         }
     </script>
     <dx:ASPxHiddenField runat="server" ID="HiddenField" ClientInstanceName="HiddenField"/>
@@ -165,6 +174,7 @@
                                             <dx:ListBoxColumn Caption="NIK" FieldName="NIK" Name="colNIK" Width="100px" />
                                             <dx:ListBoxColumn Caption="Nama" FieldName="NAME" Name="colNAME" Width="100px" />
                                         </Columns>
+                                        <ClientSideEvents SelectedIndexChanged="OnSourceChanged"/>
                                     </dx:ASPxComboBox>
                                 </dx:LayoutItemNestedControlContainer>
                             </LayoutItemNestedControlCollection>

@@ -36,10 +36,12 @@
                                             <dx:NavBarItem Name="Application5" Text="Print Control Sheet" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Reporting/CreditProcess/PrintSheetControl/PrintSheetControl.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application6" Text="Update Data Client" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/UpdateApplicationClient/UpdateApplicClient.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application7" Text="Add Manual Deviation" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Syariah/AddManualDeviation/AddManualDeviation.aspx"></dx:NavBarItem>
-                                            <dx:NavBarItem Name="Application8" Text="Verification Task" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/SurveyTask/ListSurvey.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="nbiVerifiTask" Text="Verification Task" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/SurveyTask/ListSurvey.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application9" Text="Kalkulator Pendapatan" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/CalculateProduct.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application10" Text="e-KYC" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/eKYC/MasterClientEKYC/MasterClient_eKYC.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application11" Text="SLIK Checking" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/eKYC/SLIKChecking/MasterClientSLIKCheck.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application12" Text="Peminjaman Document" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/PeminjamanDocument/PeminjamanDocList.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application13" Text="Release Document" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/ReleaseDocument/ReleaseDocList.aspx"></dx:NavBarItem>
                                         </Items>
                                     </dx:NavBarGroup>
                                     <dx:NavBarGroup Name="nbg2" Text="Lease/Loan Operations">
@@ -64,6 +66,7 @@
                                             <dx:NavBarItem Name="nbiCreateCrossCol" Text="Create New Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/InputCrossColateral.aspx"></dx:NavBarItem>
 					                        <dx:NavBarItem Name="nbiEditCrossCol" Text="Edit Existing Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/EditCrossCollateral.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="nbiListAppCrossCol" Text="List Approval Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/ListApprovalCrossCollateral.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="nbiListAllCrossCol" Text="List All Cross Collateral" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/ListCrossCollateral.aspx"></dx:NavBarItem>
 				                        </Items>
                                     </dx:NavBarGroup>
                                     <dx:NavBarGroup Name="nbgInsurance" Text="Insurance">
@@ -98,7 +101,6 @@
                                             <dx:NavBarItem Text="Upload Payment Text File" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/UploadPaymentTextFile.aspx"></dx:NavBarItem>
                                         </Items>
                                     </dx:NavBarGroup>
-                                    
                                 </Groups>
                             </dx:ASPxNavBar>
                         </div>

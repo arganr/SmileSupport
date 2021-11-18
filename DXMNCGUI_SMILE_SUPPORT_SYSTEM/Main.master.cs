@@ -74,15 +74,19 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM
                 {
                     ASPxNavBar1.Groups.FindByName("nbgAssetCollateral").Visible = false;
                 }
-                if (!accessright.IsAccessibleByUserID(UserID, "SLIK_MNTC_SHOW"))
+                //if (!accessright.IsAccessibleByUserID(UserID, "SLIK_MNTC_SHOW"))
+                //{
+                //    ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
+                //}
+                if (!accessright.IsAccessibleByUserID(UserID, "VERIFICATION_TASK"))
                 {
-                    ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
+                    ASPxNavBar1.Items.FindByName("nbiVerifiTask").Visible = false;
                 }
                 if (UserID.Contains("OS"))
                 {
-                    ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
+                    //ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
                     ASPxNavBar1.Items.FindByName("Application1").Visible = false;
-                    ASPxNavBar1.Items.FindByName("Application2").Visible = false;
+                    ASPxNavBar1.Items.FindByName("Application2").Visible = true;
                     ASPxNavBar1.Items.FindByName("Application3").Visible = false;
                     ASPxNavBar1.Items.FindByName("Application4").Visible = true;
                     ASPxNavBar1.Items.FindByName("Application5").Visible = false;
@@ -101,12 +105,17 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM
                         ASPxNavBar1.Groups.FindByName("nbgSyariah").Visible = true;
                         ASPxNavBar1.Items.FindByName("nbiUpdateSPPH").Visible = true;
 
-                        ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
+                        //ASPxNavBar1.Items.FindByName("nbiSLIKMntc").Visible = false;
                         ASPxNavBar1.Items.FindByName("nbiMitraManage").Visible = false;
                         ASPxNavBar1.Items.FindByName("nbiFPPVerify").Visible = false;
                         ASPxNavBar1.Items.FindByName("nbiUpdateRekClient").Visible = false;
                         ASPxNavBar1.Items.FindByName("nbiUpdateDataKemenag").Visible = false;
                         ASPxNavBar1.Items.FindByName("nbiAPIPDSB").Visible = false;
+                    }
+
+                    if (UserID == "OS066")
+                    {
+                        ASPxNavBar1.Groups.FindByName("nbgSyariah").Visible = true;
                     }
 
                 }
@@ -126,6 +135,21 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM
                 {
                     ASPxNavBar1.Items.FindByName("nbiListAppCrossCol").Visible = false;
                 }
+
+                object obj = myDBSetting.ExecuteScalar("select USER_ID from dbo.MASTER_USER_COMPANY_GROUP where GROUP_CODE like '%HO-BS%' AND USER_ID = ?", UserID);
+                if (obj != null && obj != DBNull.Value)
+                { ASPxNavBar1.Items.FindByName("Application6").Visible = true; }
+                else
+                {
+                    ASPxNavBar1.Items.FindByName("Application6").Visible = false;
+                }
+
+                //SUPER ADMIN
+                //if (accessright.IsAccessibleByUserID(UserID, "IS_SUPER_ADMIN"))
+                //{
+                //    ASPxNavBar1.Groups.FindByName("Application6").Visible = true;
+                //}
+
             }
         }
     }

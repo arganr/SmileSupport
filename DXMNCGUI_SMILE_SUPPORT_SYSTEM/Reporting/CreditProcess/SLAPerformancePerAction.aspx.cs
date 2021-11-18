@@ -51,7 +51,10 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Reporting.CreditProcess
             string sQuery = "";
             DataTable myTable = new DataTable();
             #region Query      
-            sQuery = @"select A.*, B.DocNo, B.ClientName  from [dbo].[ApplicationHistory] A
+            sQuery = @"select A.*, B.DocNo, B.ClientName, LTRIM(LTRIM(A.Status)) as StatusTo, LTRIM(LTRIM(A.FromStatus)) as StatusFrom,
+                        case when left( b.CIF,1) = 'C' then 'Perusahaan' else 'Perorangan' end as TipeDebitur,
+                        Branch, ObjectPembiayaan, JenisPengikatan, SupplierName, NTF
+                        from [dbo].[ApplicationHistory] A
                         inner join [dbo].[Application] B on A.DocKey = B.DocKey";
             #endregion
             sQuery = (myWhereString.Length > 0 ? sQuery + myWhereString : sQuery);

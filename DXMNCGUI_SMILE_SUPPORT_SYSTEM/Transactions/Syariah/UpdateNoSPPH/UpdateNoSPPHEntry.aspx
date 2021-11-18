@@ -24,6 +24,12 @@
                 case "IDPENGURUS_ONCHANGE":
                     OnluIDPengurusChanged();
                     break;
+                case "SALESADMIN_ONCHANGE":
+                    OnluIDPengurus2Changed();
+                    break;
+                case "MARKETINGHEAD_ONCHANGE":
+                    OnluIDPengurus3Changed();
+                    break;
                 case "SAVE_CONFIRM":
                     if (cplMain.cplblmessageError.length > 0)
                     {
@@ -84,20 +90,35 @@
         }
         function OnluAgreementChanged(s, e) {
             var grid = luAgreement.GetGridView();
-            grid.GetRowValues(grid.GetFocusedRowIndex(), 'NAME;TENOR;INSTALLMENT;C_NAME', OnGetSelectedAgreementFieldValues);
+            grid.GetRowValues(grid.GetFocusedRowIndex(), 'NAME;TENOR;INSTALLMENT;C_NAME;DISBURSEDT', OnGetSelectedAgreementFieldValues);
         }
         function OnGetSelectedAgreementFieldValues(selectedValues) {
             txtDebitur.SetValue(selectedValues[0]);
             txtTenor.SetValue(selectedValues[1]);
             txtInstallment.SetValue(selectedValues[2]);
             txtBranch.SetValue(selectedValues[3]);
+            deDisburseDate.SetValue(selectedValues[4]);
         }
         function OnluIDPengurusChanged(s, e) {
             var grid = luPengurus.GetGridView();
             grid.GetRowValues(grid.GetFocusedRowIndex(), 'ID;UserName', OnGetSelectedPengurusFieldValues);
         }
+        function OnluIDPengurus2Changed(s, e) {
+            var grid2 = luPengurus2.GetGridView();
+            grid2.GetRowValues(grid2.GetFocusedRowIndex(), 'ID;UserName', OnGetSelectedAdmin2FieldValues);
+        }
+        function OnluIDPengurus3Changed(s, e) {
+            var grid3 = luPengurus3.GetGridView();
+            grid3.GetRowValues(grid3.GetFocusedRowIndex(), 'ID;UserName', OnGetSelectedAdmin3FieldValues);
+        }
         function OnGetSelectedPengurusFieldValues(selectedValues) {
             txtNamaPengurus.SetValue(selectedValues[1]);
+        }
+        function OnGetSelectedAdmin2FieldValues(selectedValues) {
+            txtNamaAdmin2.SetValue(selectedValues[1]);
+        }
+        function OnGetSelectedAdmin3FieldValues(selectedValues) {
+            txtNamaAdmin3.SetValue(selectedValues[1]);
         }
         function OnrbtPengurusChanged(rbtPengurus) {
             txtNamaPengurus.SetText("");
@@ -187,6 +208,8 @@
                                                 </dx:GridViewDataColumn>
                                                 <dx:GridViewDataColumn Caption="Installment" FieldName="INSTALLMENT" ShowInCustomizationForm="True" VisibleIndex="3">
                                                 </dx:GridViewDataColumn>
+                                                <dx:GridViewDataColumn Caption="Disburse Date" FieldName="DISBURSEDT" ShowInCustomizationForm="True" VisibleIndex="4">
+                                                </dx:GridViewDataColumn>
                                             </Columns>
                                             <GridViewStyles AdaptiveDetailButtonWidth="22">
                                             </GridViewStyles>
@@ -218,6 +241,18 @@
                                     <HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
                                     <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
                                 </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Disburse Date" Width="25%">
+                        <CaptionSettings Location="Left"/>
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxDateEdit runat="server" ID="deDisburseDate" ClientInstanceName="deDisburseDate" Width="100%">
+                                    <HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
+                                    <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
+                                </dx:ASPxDateEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -308,9 +343,9 @@
                                             </Columns>
                                             <GridViewStyles AdaptiveDetailButtonWidth="22">
                                             </GridViewStyles>
-                                            <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                            <%--<ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
                                                 <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
-                                            </ValidationSettings>
+                                            </ValidationSettings>--%>
                                         </dx:ASPxGridLookup>
                                 </dx:LayoutItemNestedControlContainer>
                             </LayoutItemNestedControlCollection>
@@ -329,22 +364,131 @@
                     </dx:LayoutItem>
                     <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
                     <dx:EmptyLayoutItem Width="100%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="No. SPPH" Width="25%">
+
+
+
+                    <dx:LayoutItem ShowCaption="True" Caption="ID Sales Admin" Width="25%">
+                            <LayoutItemNestedControlCollection>
+                                <dx:LayoutItemNestedControlContainer>
+                                    <dx:ASPxGridLookup
+                                            runat="server"
+                                            ID="luPengurus2"
+                                            ClientInstanceName="luPengurus2" 
+                                            OnDataBinding="luPengurus2_DataBinding" OnInit="luPengurus2_Init"
+                                            AutoGenerateColumns="False"
+                                            DisplayFormatString="{0}"
+                                            TextFormatString="{0}"
+                                            KeyFieldName="ID"
+                                            SelectionMode="Single"
+                                            AnimationType="Fade" NullText="-- Select --" HelpText="Please select pic id.">
+                                            <HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
+                                            <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
+                                            <ClientSideEvents ValueChanged="function(s, e) { cplMain.PerformCallback('SALESADMIN_ONCHANGE;' + 'CHANGE'); }"/>
+                                            <GridViewProperties EnablePagingCallbackAnimation="true">
+                                                <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" EnableRowHotTrack="true" />
+                                                <Settings ShowFilterBar="Hidden" ShowFilterRow="false" ShowFilterRowMenu="True" ShowFilterRowMenuLikeItem="True" ShowHeaderFilterButton="True" ShowStatusBar="Visible" />
+                                                <SettingsSearchPanel ShowApplyButton="True" ShowClearButton="True" Visible="True"/>
+                                            </GridViewProperties>
+                                            <Columns>
+                                                <dx:GridViewDataColumn Caption="ID" FieldName="ID" ShowInCustomizationForm="True" VisibleIndex="0">
+                                                </dx:GridViewDataColumn>
+                                                <dx:GridViewDataColumn Caption="Nama" FieldName="UserName" ShowInCustomizationForm="True" VisibleIndex="1">
+                                                </dx:GridViewDataColumn>
+                                            </Columns>
+                                            <GridViewStyles AdaptiveDetailButtonWidth="22">
+                                            </GridViewStyles>
+                                            <%--<ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                                <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                            </ValidationSettings>--%>
+                                        </dx:ASPxGridLookup>
+                                </dx:LayoutItemNestedControlContainer>
+                            </LayoutItemNestedControlCollection>
+                        </dx:LayoutItem>
+                    <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Nama Sales Admin" Width="25%">
                         <CaptionSettings Location="Left"/>
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxTextBox runat="server" ID="txtNoSPPH" ClientInstanceName="txtNoSPPH" NullText="..." Width="100%">
+                                <dx:ASPxTextBox runat="server" ID="txtNamaAdmin2" ClientInstanceName="txtNamaAdmin2" NullText="..." Width="100%">
                                     <HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
                                     <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
-                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
-                                        <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
-                                    </ValidationSettings>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
                     <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
                     <dx:EmptyLayoutItem Width="100%"></dx:EmptyLayoutItem>
+
+                    <dx:LayoutItem ShowCaption="True" Caption="ID Marketing Head" Width="25%">
+                            <LayoutItemNestedControlCollection>
+                                <dx:LayoutItemNestedControlContainer>
+                                    <dx:ASPxGridLookup
+                                            runat="server"
+                                            ID="luPengurus3"
+                                            ClientInstanceName="luPengurus3" 
+                                            OnDataBinding="luPengurus3_DataBinding" OnInit="luPengurus3_Init"
+                                            AutoGenerateColumns="False"
+                                            DisplayFormatString="{0}"
+                                            TextFormatString="{0}"
+                                            KeyFieldName="ID"
+                                            SelectionMode="Single"
+                                            AnimationType="Fade" NullText="-- Select --" HelpText="Please select pic id.">
+                                            <HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
+                                            <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
+                                            <ClientSideEvents ValueChanged="function(s, e) { cplMain.PerformCallback('MARKETINGHEAD_ONCHANGE;' + 'CHANGE'); }"/>
+                                            <GridViewProperties EnablePagingCallbackAnimation="true">
+                                                <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" EnableRowHotTrack="true" />
+                                                <Settings ShowFilterBar="Hidden" ShowFilterRow="false" ShowFilterRowMenu="True" ShowFilterRowMenuLikeItem="True" ShowHeaderFilterButton="True" ShowStatusBar="Visible" />
+                                                <SettingsSearchPanel ShowApplyButton="True" ShowClearButton="True" Visible="True"/>
+                                            </GridViewProperties>
+                                            <Columns>
+                                                <dx:GridViewDataColumn Caption="ID" FieldName="ID" ShowInCustomizationForm="True" VisibleIndex="0">
+                                                </dx:GridViewDataColumn>
+                                                <dx:GridViewDataColumn Caption="Nama" FieldName="UserName" ShowInCustomizationForm="True" VisibleIndex="1">
+                                                </dx:GridViewDataColumn>
+                                            </Columns>
+                                            <GridViewStyles AdaptiveDetailButtonWidth="22">
+                                            </GridViewStyles>
+                                            <%--<ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                                <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                            </ValidationSettings>--%>
+                                        </dx:ASPxGridLookup>
+                                </dx:LayoutItemNestedControlContainer>
+                            </LayoutItemNestedControlCollection>
+                        </dx:LayoutItem>
+                    <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Nama Marketing Head" Width="25%">
+                        <CaptionSettings Location="Left"/>
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxTextBox runat="server" ID="txtNamaAdmin3" ClientInstanceName="txtNamaAdmin3" NullText="..." Width="100%">
+                                    <HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
+                                    <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
+                    <dx:EmptyLayoutItem Width="100%"></dx:EmptyLayoutItem>
+
+
+                    <dx:LayoutItem ShowCaption="true" Caption="No. SPPH" Width="25%">
+                        <CaptionSettings Location="Left"/>
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxTextBox runat="server" ID="txtNoSPPH" ClientInstanceName="txtNoSPPH" NullText="..." Width="100%">
+                                    <%--<HelpTextSettings DisplayMode="Popup"></HelpTextSettings>
+                                    <HelpTextStyle ForeColor="DarkGreen"></HelpTextStyle>
+                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                        <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                    </ValidationSettings>--%>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:EmptyLayoutItem Width="75%"></dx:EmptyLayoutItem>
+                    <dx:EmptyLayoutItem Width="100%"></dx:EmptyLayoutItem>
+
                     <dx:TabbedLayoutGroup Name="tbLayoutGroup" ClientInstanceName="tbLayoutGroup" Height="100px" Width="100%" ActiveTabIndex="0" Border-BorderStyle="Solid" Border-BorderWidth="0" Border-BorderColor="#d1ecee" Visible="False">
                         <Items>
                             <dx:LayoutGroup Caption="Upload Document">

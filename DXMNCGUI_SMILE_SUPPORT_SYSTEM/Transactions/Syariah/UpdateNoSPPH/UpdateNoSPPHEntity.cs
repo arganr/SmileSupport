@@ -200,6 +200,34 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             set { myRow["Branch"] = value; }
         }
 
+        public object IDSalesAdmin
+        {
+            get { return myRow["IDSalesAdmin"]; }
+            set { myRow["IDSalesAdmin"] = value; }
+        }
+        public object NamaSalesAdmin
+        {
+            get { return myRow["NamaSalesAdmin"]; }
+            set { myRow["NamaSalesAdmin"] = value; }
+        }
+
+        public object IDMktHead
+        {
+            get { return myRow["IDMktHead"]; }
+            set { myRow["IDMktHead"] = value; }
+        }
+        public object NamaMktHead
+        {
+            get { return myRow["NamaMktHead"]; }
+            set { myRow["NamaMktHead"] = value; }
+        }
+
+        public object DisburseDate
+        {
+            get { return myRow["DisburseDate"]; }
+            set { myRow["DisburseDate"] = value; }
+        }
+
         public DataTable Applicationtable
         {
             get { return myDataSet.Tables[0]; }

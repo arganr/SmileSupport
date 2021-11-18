@@ -32,6 +32,7 @@
         function FocusedRowChanged(s) {
             if (gvMain.GetFocusedRowIndex() > -1) {
                 gvHistory.PerformCallback('LOAD_HISTORY;' + s.GetRowKey(s.GetFocusedRowIndex()));
+                gvComment.PerformCallback('LOAD_COMMENT;' + s.GetRowKey(s.GetFocusedRowIndex()));
             }
         }
         function gvMain_CustomButtonClick(s, e) {
@@ -39,13 +40,54 @@
                 case "GridbtnProceed":
                     gvMain.GetRowValues(e.visibleIndex, "STATUS;APPLICNO", btnProceedOnCLick);
                     break;
+                case "GridbtnComment":
+                    gvMain.GetRowValues(e.visibleIndex, "APPLICNO", btnCommentOnCLick);
+                    break;
             }
         }
         function btnProceedOnCLick() {
             apcProceed.Show();
         }
+        function btnCommentOnCLick() {
+            apcFormComment.Show();
+        }
     </script>
     <dx:ASPxHiddenField runat="server" ID="HiddenField" ClientInstanceName="HiddenField" />
+    <dx:ASPxPopupControl ID="apcFormComment" ClientInstanceName="apcFormComment" runat="server" Modal="True"
+        PopupHorizontalAlign="WindowCenter" ShowCloseButton="true" PopupVerticalAlign="WindowCenter" HeaderText="Add Comment" AllowDragging="True" PopupAnimationType="Fade"
+        EnableCallbackAnimation="true" CloseAction="CloseButton"
+        EnableViewState="False"
+        Width="400px"
+        Height="200px"
+        FooterStyle-Wrap="False" ShowFooter="false" FooterText="" AllowResize="false">
+        <ContentCollection>
+            <dx:PopupControlContentControl ID="PopupControlContentControl3" runat="server">
+                <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" ColCount="2" Width="100%">
+                    <Items>                       
+                        <dx:LayoutItem ShowCaption="True" Caption="Comment" Width="100%" ColSpan="2">
+                            <LayoutItemNestedControlCollection>
+                                <dx:LayoutItemNestedControlContainer>
+                                    <dx:ASPxMemo runat="server" ID="mmComment" ClientInstanceName="mmComment" Width="100%" Height="100px"></dx:ASPxMemo>
+                                </dx:LayoutItemNestedControlContainer>
+                            </LayoutItemNestedControlCollection>
+                        </dx:LayoutItem>
+                        <dx:LayoutItem ShowCaption="True" Caption="" Width="100%" ColSpan="2" HorizontalAlign="Right">
+                            <LayoutItemNestedControlCollection>
+                                <dx:LayoutItemNestedControlContainer ID="LayoutItemNestedControlContainer3" runat="server">
+                                    <dx:ASPxButton ID="btnSaveComment" runat="server" Text="Save" AutoPostBack="False" UseSubmitBehavior="false" Width="50%">
+                                        <ClientSideEvents Click="function(s, e) { cplMain.PerformCallback('SAVE_COMMENT'); apcFormComment.Hide(); }" />
+                                    </dx:ASPxButton>
+                                    <dx:ASPxButton ID="btnCancelComment" runat="server" Text="Cancel" AutoPostBack="False" UseSubmitBehavior="false" Width="50%">
+                                        <ClientSideEvents Click="function(s, e) { apcFormComment.Hide(); }" />
+                                    </dx:ASPxButton>
+                                </dx:LayoutItemNestedControlContainer>
+                            </LayoutItemNestedControlCollection>
+                        </dx:LayoutItem>
+                    </Items>
+                </dx:ASPxFormLayout>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+    </dx:ASPxPopupControl>
     <dx:ASPxPopupControl ID="apcconfirm" ClientInstanceName="apcconfirm" runat="server" Modal="True"
         PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" HeaderText="Alert Confirmation !" AllowDragging="True" PopupAnimationType="Fade" EnableViewState="False">
         <ContentCollection>
@@ -168,7 +210,7 @@
                                     OnCustomCallback="gvMain_CustomCallback"
                                     OnCustomColumnDisplayText="gvMain_CustomColumnDisplayText" OnInit="gvMain_Init" OnCustomButtonInitialize="gvMain_CustomButtonInitialize"
                                     EnableTheming="True"
-                                    Theme="Glass" Font-Size="Small" Font-Names="Calibri">
+                                    Theme="Glass" Font-Size="Small" Font-Names="Calibri" >
                                     <SettingsAdaptivity AdaptivityMode="HideDataCellsWindowLimit" AllowOnlyOneAdaptiveDetailExpanded="True" HideDataCellsAtWindowInnerWidth="700">
                                     </SettingsAdaptivity>
                                     <ClientSideEvents
@@ -199,10 +241,10 @@
                                         <dx:GridViewDataMemoColumn Name="colBranch" Caption="Branch" FieldName="BRANCH" ReadOnly="true" ShowInCustomizationForm="true" VisibleIndex="1">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataMemoColumn>
-                                        <dx:GridViewDataTextColumn Name="colSTEP" Caption="Current Status" FieldName="STATUS" ReadOnly="true" ShowInCustomizationForm="true" VisibleIndex="2" Width="15%">
+                                        <dx:GridViewDataTextColumn Name="colSTEP" Caption="Current Status" FieldName="STATUS" ReadOnly="true" ShowInCustomizationForm="true" VisibleIndex="2">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Name="colAPPLICNO" Caption="App No." FieldName="APPLICNO" ReadOnly="True" ShowInCustomizationForm="true" Visible="true" VisibleIndex="3" Width="15%">
+                                        <dx:GridViewDataTextColumn Name="colAPPLICNO" Caption="App No." FieldName="APPLICNO" ReadOnly="True" ShowInCustomizationForm="true" Visible="true" VisibleIndex="3" >
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>
                                         <dx:GridViewDataTextColumn Name="colDebiturName" Caption="Debitur" FieldName="DEBITUR_NAME" ReadOnly="true" ShowInCustomizationForm="true" VisibleIndex="4">
@@ -214,17 +256,23 @@
                                         <dx:GridViewDataTextColumn Name="colTenor" Caption="Tenor" FieldName="TENOR" ReadOnly="true" ShowInCustomizationForm="true" VisibleIndex="6" Width="5%">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Name="colCRE_BY" Caption="Created By" FieldName="CRE_BY" ReadOnly="True" ShowInCustomizationForm="true" VisibleIndex="7" Width="15%">
+                                        <dx:GridViewDataSpinEditColumn Name="colNTF" Caption="NTF" FieldName="NTF" ReadOnly="true" ShowInCustomizationForm="true" PropertiesSpinEdit-DisplayFormatString="#,0.00" VisibleIndex="7" >
+                                            <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                        </dx:GridViewDataSpinEditColumn>
+                                        <dx:GridViewDataTextColumn Name="colCRE_BY" Caption="Created By" FieldName="CRE_BY" ReadOnly="True" ShowInCustomizationForm="true" VisibleIndex="8">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataDateColumn Name="colCRE_DATE" Caption="Created Date" FieldName="CRE_DATE" ReadOnly="True" ShowInCustomizationForm="true" Visible="true" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy" VisibleIndex="8" Width="15%">
+                                        <dx:GridViewDataDateColumn Name="colCRE_DATE" Caption="Created Date" FieldName="CRE_DATE" ReadOnly="True" ShowInCustomizationForm="true" Visible="true" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy" VisibleIndex="9">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataDateColumn>
-                                        <dx:GridViewCommandColumn ButtonType="Button"  Caption="" Width="8%" Name="colAction" VisibleIndex="9">
+                                        <dx:GridViewCommandColumn ButtonType="Button"  Caption="" Width="20%" Name="colAction" VisibleIndex="10">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true"/>
                                             <CustomButtons>
                                                 <dx:GridViewCommandColumnCustomButton ID="GridbtnProceed" Text="Proceed" Styles-Style-HoverStyle-ForeColor="Green">
                                                     <Image Height="20px" Width="20px" ToolTip="Click here to proceed application."></Image>
+                                                </dx:GridViewCommandColumnCustomButton>
+                                                <dx:GridViewCommandColumnCustomButton ID="GridbtnComment" Text="Comment" Styles-Style-HoverStyle-ForeColor="Green">
+                                                    <Image Height="20px" Width="20px" ToolTip="Click here to add comment."></Image>
                                                 </dx:GridViewCommandColumnCustomButton>
                                             </CustomButtons>
                                         </dx:GridViewCommandColumn>
@@ -291,6 +339,50 @@
                         </dx:ASPxGridView>
                     </dx:LayoutItemNestedControlContainer>
                 </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                                        <dx:LayoutItem ShowCaption="False">
+                <LayoutItemNestedControlCollection>
+                    <dx:LayoutItemNestedControlContainer>
+                        <dx:ASPxLabel ID="lblComment" runat="server" Text="Comment :" Font-Bold="true" Font-Names="Calibri" ForeColor="SlateGray"></dx:ASPxLabel>
+                    </dx:LayoutItemNestedControlContainer>
+                </LayoutItemNestedControlCollection>
+            </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="False">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxGridView 
+                                    runat="server" 
+                                    ID="gvComment" 
+                                    ClientInstanceName="gvComment" 
+                                    Width="100%"
+                                    AutoGenerateColumns="False" 
+                                    EnableTheming="true" 
+                                    Theme="Glass" OnDataBinding="gvComment_DataBinding"
+                                    EnableCallBacks="true"
+                                    EnablePagingCallbackAnimation="true" 
+                                    EnableCallbackAnimation="true" 
+                                    OnCustomCallback="gvComment_CustomCallback" 
+                                    EndCallback="gvComment_EndCallBack"
+                                    Font-Size="8" Font-Names="Calibri">
+                                    <Settings ShowFooter="true"/>
+                                    <SettingsBehavior AllowFocusedRow="false" EnableRowHotTrack="true" AllowSort="false"/>
+                                    <SettingsLoadingPanel Mode="ShowOnStatusBar"/>
+                                    <Columns>
+                                        <dx:GridViewDataTextColumn Caption="Comment By" FieldName="CommentBy" Name="colCommentBy" ReadOnly="True" ShowInCustomizationForm="True" VisibleIndex="0" Width="20%">
+                                            <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataDateColumn Caption="Comment Date" FieldName="CommentDate" Name="colCommentDate" ReadOnly="True" ShowInCustomizationForm="True" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy hh:mm:ss tt" VisibleIndex="1" Width="15%">
+                                            <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                        </dx:GridViewDataDateColumn>
+                                        <dx:GridViewDataMemoColumn Caption="Comment" FieldName="CommentNote" Name="colCommentNote" ReadOnly="True" ShowInCustomizationForm="True" VisibleIndex="2" Width="65%">
+                                            <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                        </dx:GridViewDataMemoColumn>
+                                    </Columns>
+                                    <SettingsPager PageSize="30"></SettingsPager>
+                                    <Styles AdaptiveDetailButtonWidth="22" Footer-Font-Bold="false"></Styles>
+                                </dx:ASPxGridView>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
                 </Items>
             </dx:LayoutGroup>

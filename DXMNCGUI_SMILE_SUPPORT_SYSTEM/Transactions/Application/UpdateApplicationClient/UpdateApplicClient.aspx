@@ -39,7 +39,7 @@
             var grid = luAppNo.GetGridView();
             if (luAppNo.GetText() != "") {
                 
-                grid.GetRowValues(grid.GetFocusedRowIndex(), 'NAME;KTP;IBUKANDUNG;SALARY;StatusPekerjaan;INJAMIN;INJAMADD1;INJAMADD2;INJAMADD3;INJAMKTP;INPHONE;INJAMHUB;INEMERNAME;INSPOUNAME;INSPOUPLC;INSPOUBRDT;INSPOUKT;INSPOUEDU;INMARITAL;', OnGetSelectedFieldValues);
+                grid.GetRowValues(grid.GetFocusedRowIndex(), 'NAME;KTP;IBUKANDUNG;SALARY;StatusPekerjaan;INJAMIN;INJAMADD1;INJAMADD2;INJAMADD3;INJAMKTP;INPHONE;INJAMHUB;INEMERNAME;INSPOUNAME;INSPOUPLC;INSPOUBRDT;INSPOUKT;INSPOUEDU;INMARITAL;TEMPATLAHIR;TGLLAHIR;REAL_NAME', OnGetSelectedFieldValues);
                 cplMain.PerformCallback("LUAPPNO_CHANGED;" + luAppNo.GetValue().toString());
             }
         }
@@ -47,12 +47,13 @@
             txtClient.SetValue(selectedValues[0]);
             txtKTP.SetValue(selectedValues[1]);
             txtIbu.SetValue(selectedValues[2]);
-            txtIncome.SetValue(selectedValues[3]);
+            //txtIncome.SetValue(selectedValues[3]);
+            seIncome.SetValue(selectedValues[3]);
             cbJobStat.SetValue(selectedValues[4]);
             txtRefName.SetValue(selectedValues[5]);
             txtAddress1.SetValue(selectedValues[6]);
-            txtAddress2.SetValue(selectedValues[7]);
-            txtAddress3.SetValue(selectedValues[8]);
+            deTglLahirPenjamin.SetValue(selectedValues[7]);
+            sePenghasilanPenjamin.SetValue(selectedValues[8]);
             txtRefID.SetValue(selectedValues[9]);
             txtTelp.SetValue(selectedValues[10]);
             txtRelation.SetValue(selectedValues[11]);
@@ -80,7 +81,11 @@
                 formLayout.GetItemByName("liSpousKTP").SetVisible(true);
                 formLayout.GetItemByName("liSpousEdu").SetVisible(true);
                 formLayout.GetItemByName("liSpousEmpty").SetVisible(true);
-            } 
+            }
+
+            txtTempatLahir.SetValue(selectedValues[19]);
+            deTanggalLahir.SetValue(selectedValues[20]);
+            txtRealName.SetValue(selectedValues[21]);
         }
 
         function OnAppNoValidation(s, e) {
@@ -224,6 +229,41 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
+
+                    <dx:LayoutItem ShowCaption="True" Caption="Tgl Lahir" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxDateEdit runat="server" ID="deTanggalLahir" ClientInstanceName="deTanggalLahir" DisplayFormatString="dd/MM/yyyy" CalendarProperties-ShowClearButton="false">
+                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                        <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                    </ValidationSettings>
+                                </dx:ASPxDateEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="True" Caption="Tempat Lahir" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxTextBox runat="server" ID="txtTempatLahir" ClientInstanceName="txtTempatLahir">
+                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                        <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                    </ValidationSettings>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="True" Caption="Nama Sesuai KTP" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxTextBox runat="server" ID="txtRealName" ClientInstanceName="txtRealName">
+                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                        <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                    </ValidationSettings>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+
                     <dx:LayoutItem ShowCaption="True" Caption="Nama Ibu Kandung" Width="100%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
@@ -235,16 +275,22 @@
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
+
                     <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
 
                     <dx:LayoutItem ShowCaption="True" Caption="Income" Width="100%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxTextBox runat="server" ID="txtIncome" ClientInstanceName="txtIncome">
+                                <%--<dx:ASPxTextBox runat="server" ID="txtIncome" ClientInstanceName="txtIncome">
                                     <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
                                         <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
                                     </ValidationSettings>
-                                </dx:ASPxTextBox>
+                                </dx:ASPxTextBox>--%>
+                                <dx:ASPxSpinEdit runat="server" ID="seIncome" ClientInstanceName="seIncome" DisplayFormatString="{0:#,0}" NullText="0">
+                                    <ValidationSettings Display="Dynamic" SetFocusOnError="True" ValidationGroup="ValidationSave">
+                                        <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
+                                    </ValidationSettings>
+                                </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -349,10 +395,23 @@
                                         <RequiredField ErrorText="* Value can't be empty." IsRequired="True" />
                                     </ValidationSettings>--%>
                                 </dx:ASPxTextBox>
-                                <dx:ASPxTextBox runat="server" ID="txtAddress2" ClientInstanceName="txtAddress2">
-                                </dx:ASPxTextBox>
-                                <dx:ASPxTextBox runat="server" ID="txtAddress3" ClientInstanceName="txtAddress3">
-                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="True" Caption="Tgl Lahir Penjamin" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxDateEdit runat="server" ID="deTglLahirPenjamin" ClientInstanceName="deTglLahirPenjamin" DisplayFormatString="dd/MM/yyyy" NullText="-- Select --">
+                                </dx:ASPxDateEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="True" Caption="Penghasilan Penjamin" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxSpinEdit runat="server" ID="sePenghasilanPenjamin" ClientInstanceName="sePenghasilanPenjamin" DisplayFormatString="{0:#,0}" NullText="0">
+                                    
+                                </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

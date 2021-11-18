@@ -141,9 +141,12 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
             //                "from LS_AGREEMENT a with(NOLOCK) inner join SYS_COMPANY b with(NOLOCK) on a.C_CODE = b.C_CODE " +
             //                "where CONTRACT_STATUS = 'GOLIVE' and MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK))";
 
-            string ssql = "select LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE " +
+            string ssql = "select a.LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE " +
                             "from LS_AGREEMENT a with(NOLOCK) inner join SYS_COMPANY b with(NOLOCK) on a.C_CODE = b.C_CODE " +
-                            "where MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK))";
+                            "left join LS_AGREEASSET c with(NOLOCK)on a.LSAGREE = c.LSAGREE " +
+                            "where MODULE not in ('6') and ISNULL(c.STATUS,'') <> 'CU' " +
+                            "and a.LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK)) " +
+                            "and NAME not in (select SUBSTRING(DESCRIPTION, 12, 999) [Name] from LS_CROSS_COLLATERAL_H with(NOLOCK)) ";
 
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);

@@ -58,6 +58,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application {
         protected global::DevExpress.Web.ASPxGridView gvTempData;
         
         /// <summary>
+        /// mmRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo mmRemarks;
+        
+        /// <summary>
         /// btnReject control.
         /// </summary>
         /// <remarks>

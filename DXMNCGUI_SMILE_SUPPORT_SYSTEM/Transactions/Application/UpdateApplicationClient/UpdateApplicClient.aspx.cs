@@ -112,8 +112,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
                 SqlParameter sqlParameter4 = sqlCommand.Parameters.Add("@IbuKandung", SqlDbType.VarChar, 200);
                 sqlParameter4.Value = txtIbu.Value;
 
-                SqlParameter sqlParameter5 = sqlCommand.Parameters.Add("@Income", SqlDbType.Decimal);
-                sqlParameter5.Value = txtIncome.Value;
+                SqlParameter sqlParameter5 = sqlCommand.Parameters.Add("@Income", SqlDbType.VarChar, 200);
+                sqlParameter5.Value = seIncome.Value;
 
                 SqlParameter sqlParameter6 = sqlCommand.Parameters.Add("@jobstat", SqlDbType.VarChar, 50);
                 sqlParameter6.Value = cbJobStat.SelectedItem.Value;
@@ -124,11 +124,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
                 SqlParameter sqlParameter8 = sqlCommand.Parameters.Add("@addr1", SqlDbType.VarChar, 200);
                 sqlParameter8.Value = txtAddress1.Value;
 
-                SqlParameter sqlParameter9 = sqlCommand.Parameters.Add("@addr2", SqlDbType.VarChar, 200);
-                sqlParameter9.Value = txtAddress2.Value;
+                SqlParameter sqlParameter9 = sqlCommand.Parameters.Add("@addr2", SqlDbType.DateTime);
+                sqlParameter9.Value = deTglLahirPenjamin.Value;
 
-                SqlParameter sqlParameter10 = sqlCommand.Parameters.Add("@addr3", SqlDbType.VarChar, 200);
-                sqlParameter10.Value = txtAddress3.Value;
+                SqlParameter sqlParameter10 = sqlCommand.Parameters.Add("@addr3", SqlDbType.Decimal);
+                sqlParameter10.Value = sePenghasilanPenjamin.Value;
 
                 SqlParameter sqlParameter11 = sqlCommand.Parameters.Add("@refidno", SqlDbType.VarChar, 50);
                 sqlParameter11.Value = txtRefID.Value;
@@ -159,6 +159,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
 
                 SqlParameter sqlParameter20 = sqlCommand.Parameters.Add("@audit_user", SqlDbType.VarChar, 60);
                 sqlParameter20.Value = str_username;
+
+                SqlParameter sqlParameter21 = sqlCommand.Parameters.Add("@tglLahir", SqlDbType.DateTime);
+                sqlParameter21.Value = deTanggalLahir.Value;
+
+                SqlParameter sqlParameter22 = sqlCommand.Parameters.Add("@tempatlahir", SqlDbType.VarChar, 200);
+                sqlParameter22.Value = txtTempatLahir.Value;
+
+                SqlParameter sqlParameter23 = sqlCommand.Parameters.Add("@realname", SqlDbType.VarChar, 200);
+                sqlParameter23.Value = txtRealName.Value;
 
                 sqlCommand.ExecuteNonQuery();
             }

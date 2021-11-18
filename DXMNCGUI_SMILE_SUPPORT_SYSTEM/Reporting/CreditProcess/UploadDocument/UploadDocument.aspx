@@ -376,7 +376,7 @@
                         'Internal Memo' Module, '' CONTRACT_STATUS, '' APPLICDT, '' DISBURSEDT
                         FROM [INFORMA].[dbo].[InternalMemo]
                         ORDER BY a.APPLICDT DESC"></asp:SqlDataSource>--%>
-    <asp:SqlDataSource ID="sdsApplication" runat="server" ConnectionString="<%$ ConnectionStrings:SqlConnectionString %>" ProviderName="<%$ ConnectionStrings:SqlConnectionString.ProviderName %>"
+    <%--<asp:SqlDataSource ID="sdsApplication" runat="server" ConnectionString="<%$ ConnectionStrings:SqlConnectionString %>" ProviderName="<%$ ConnectionStrings:SqlConnectionString.ProviderName %>"
         SelectCommand="select c.C_NAME, a.APPLICNO, b.LSAGREE, a.NAME, 
                         case a.MODULE
                         when '1' then 'Leasing'
@@ -395,5 +395,25 @@
                         SELECT '' C_NAME, DocNo APPLICNO, '' LSAGREE, '' NAME,
                         'Internal Memo' Module, '' CONTRACT_STATUS, '' APPLICDT, '' DISBURSEDT
                         FROM [DBNONCORE].[INFORMA].[dbo].[InternalMemo]
+                        ORDER BY a.APPLICDT DESC"></asp:SqlDataSource>--%>
+    <asp:SqlDataSource ID="sdsApplication" runat="server" ConnectionString="<%$ ConnectionStrings:SqlConnectionString %>" ProviderName="<%$ ConnectionStrings:SqlConnectionString.ProviderName %>"
+        SelectCommand="select c.C_NAME, a.APPLICNO, b.LSAGREE, a.NAME, 
+                        case a.MODULE
+                        when '1' then 'Leasing'
+                        when '2' then 'Consumer Finance'
+                        when '3' then 'IMBT'
+                        when '4' then 'Murabahah'
+                        when '5' then 'Factoring'
+                        when '6' then 'OPL'
+                        when '7' then 'Hawalah'
+                        else 'Other'
+                        end Module, b.CONTRACT_STATUS, a.APPLICDT, b.DISBURSEDT
+                        from [MNC_GUI_SSS].[dbo].LS_APPLICATION a with(NOLOCK) left join [MNC_GUI_SSS].[dbo].LS_AGREEMENT b with(NOLOCK) on a.APPLICNO = b.APPLICNO
+                        inner join sys_company c on a.C_CODE = c.C_CODE
+                        WHERE a.APPSTATUS NOT IN ('CANCEL', 'REJECT') --
+                        UNION ALL
+                        SELECT '' C_NAME, DocNo COLLATE Latin1_General_CI_AS APPLICNO, '' LSAGREE, '' NAME,
+                        'Internal Memo' Module, '' CONTRACT_STATUS, '' APPLICDT, '' DISBURSEDT
+                        FROM [INFORMA].[dbo].[InternalMemo]
                         ORDER BY a.APPLICDT DESC"></asp:SqlDataSource>
 </asp:Content>

@@ -66,6 +66,12 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.UpdateSLIK
                 mytableSearch = new DataTable();
                 mytableDetailSearch = new DataTable();
                 this.myUpdateSLIKDB = UpdateSLIKDB.Create(myDBSetting, myLocalDBSetting, dbsession);
+
+                if (!accessright.IsAccessibleByUserID(UserID, "VERIFICATION_TASK") && !accessright.IsAccessibleByUserID(UserID, "SLIK_MNTC_SHOW"))
+                {
+                    FormLayout1.FindItemOrGroupByName("New").Visible = false;
+                }
+
                 if (!accessright.IsAccessibleByUserID(UserID, "WLC_VIEW_ALL"))
                 {
                     mytableSearch = this.myUpdateSLIKDB.LoadBrowseTable(false, myDBSession.LoginUserID);

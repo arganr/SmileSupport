@@ -53,6 +53,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["myPengurusTable" + this.ViewState["_PageID"]]; }
             set { HttpContext.Current.Session["myPengurusTable" + this.ViewState["_PageID"]] = value; }
         }
+        protected DataTable myPengurusTable2
+        {
+            get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["myPengurusTable2" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["myPengurusTable2" + this.ViewState["_PageID"]] = value; }
+        }
         protected DataTable myUploadTable
         {
             get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["myUploadTable" + this.ViewState["_PageID"]]; }
@@ -169,7 +174,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                     sCondition = @" and isnull(b.FAKTURNO,'') = ''";
 
                 myAgreementTable = new DataTable();
-                myAgreementTable = myDBSetting.GetDataTable(@"select c.C_NAME, a.LSAGREE, a.NAME, a.LSPERIOD TENOR, a.RENTAL INSTALLMENT
+                myAgreementTable = myDBSetting.GetDataTable(@"select c.C_NAME, a.LSAGREE, a.NAME, a.LSPERIOD TENOR, a.RENTAL INSTALLMENT, DISBURSEDT
                                                                 from LS_AGREEMENT a with(NOLOCK)
                                                                 left join LS_ASSETVEHICLE b with(NOLOCK) on a.LSAGREE = b.LSAGREE 
                                                                 left join SYS_COMPANY c with(NOLOCK) on a.C_CODE = c.C_CODE
@@ -223,6 +228,19 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                 luPengurus.DataSource = myPengurusTable;
                 luPengurus.DataBind();
 
+                myPengurusTable2 = new DataTable();
+                myPengurusTable2 = myLocalDBSetting.GetDataTable(@"select USER_ID as [ID], 
+                    USER_NAME as [UserName],
+                    'KARYAWAN' 'Tipe'
+                    from MASTER_USER
+                    where IS_ACTIVE_FLAG=1", false);
+
+                luPengurus2.DataSource = myPengurusTable2;
+                luPengurus2.DataBind();
+
+                luPengurus3.DataSource = myPengurusTable2;
+                luPengurus3.DataBind();
+
                 if (myAction == DXSSAction.Edit || myAction == DXSSAction.View)
                 {
                     ASPxFormLayout.FindItemOrGroupByName("tbLayoutGroup").Visible = true;
@@ -260,6 +278,18 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             txtNamaPengurus.BackColor = System.Drawing.Color.Transparent;
             txtNamaPengurus.ForeColor = System.Drawing.Color.Black;
 
+            txtNamaAdmin2.ClientEnabled = false;
+            txtNamaAdmin2.BackColor = System.Drawing.Color.Transparent;
+            txtNamaAdmin2.ForeColor = System.Drawing.Color.Black;
+
+            txtNamaAdmin3.ClientEnabled = false;
+            txtNamaAdmin3.BackColor = System.Drawing.Color.Transparent;
+            txtNamaAdmin3.ForeColor = System.Drawing.Color.Black;
+
+            deDisburseDate.ClientEnabled = false;
+            deDisburseDate.BackColor = System.Drawing.Color.Transparent;
+            deDisburseDate.ForeColor = System.Drawing.Color.Black;
+
             btnApprove.ClientVisible = false;
             btnReject.ClientVisible = false;
 
@@ -287,6 +317,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                 txtNoSPPH.BackColor = System.Drawing.Color.Transparent;
                 txtNoSPPH.ForeColor = System.Drawing.Color.Black;
 
+                luPengurus2.ClientEnabled = false;
+                luPengurus2.BackColor = System.Drawing.Color.Transparent;
+                luPengurus2.ForeColor = System.Drawing.Color.Black;
+
+                luPengurus3.ClientEnabled = false;
+                luPengurus3.BackColor = System.Drawing.Color.Transparent;
+                luPengurus3.ForeColor = System.Drawing.Color.Black;
+
                 btnSave.ClientVisible = false;
                 btnApprove.ClientVisible = false;
                 btnReject.ClientVisible = false;
@@ -294,6 +332,29 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             else if (myAction == DXSSAction.Edit)
             {
                 ASPxFormLayout.FindItemOrGroupByName("LayoutGroupUpdateNoSPPHEntry").Caption = "Edit Update No. SPPH Entry";
+
+                if (txtNamaPengurus.Text != null && txtNamaPengurus.Text != "")
+                {
+                    rbtPengurus.ClientEnabled = false;
+                    rbtPengurus.BackColor = System.Drawing.Color.Transparent;
+                    rbtPengurus.ForeColor = System.Drawing.Color.Black;
+
+                    luPengurus.ClientEnabled = false;
+                    luPengurus.BackColor = System.Drawing.Color.Transparent;
+                    luPengurus.ForeColor = System.Drawing.Color.Black;
+                }
+                if (txtNamaAdmin2.Text != null && txtNamaAdmin2.Text != "")
+                {
+                    luPengurus2.ClientEnabled = false;
+                    luPengurus2.BackColor = System.Drawing.Color.Transparent;
+                    luPengurus2.ForeColor = System.Drawing.Color.Black;
+                }
+                if (txtNamaAdmin3.Text != null && txtNamaAdmin3.Text != "")
+                {
+                    luPengurus3.ClientEnabled = false;
+                    luPengurus3.BackColor = System.Drawing.Color.Transparent;
+                    luPengurus3.ForeColor = System.Drawing.Color.Black;
+                }
 
                 foreach (DataRow dr in myApproveAccesstable.Rows)
                 {
@@ -304,15 +365,20 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                     }
                 }
 
-                if (accessright.IsAccessibleByUserID(UserID, "SPPH_CAN_APPROVE"))
+                //if (accessright.IsAccessibleByUserID(UserID, "SPPH_CAN_APPROVE"))
+                //{
+                //    btnApprove.ClientVisible = true;
+                //    btnReject.ClientVisible = true;
+                //}
+
+                if (Convert.ToString(myUpdateNoSPPHEntity.Status).Contains("SPPH"))
                 {
-                    btnApprove.ClientVisible = true;
-                    btnReject.ClientVisible = true;
+                    btnApprove.ClientVisible = false;
+                    btnReject.ClientVisible = false;
                 }
 
                 if (Convert.ToString(myUpdateNoSPPHEntity.Status).Contains("APPROVE") || Convert.ToString(myUpdateNoSPPHEntity.Status).Contains("REJECT"))
                 {
-
                     luAgreement.ClientEnabled = false;
                     luAgreement.BackColor = System.Drawing.Color.Transparent;
                     luAgreement.ForeColor = System.Drawing.Color.Black;
@@ -320,6 +386,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                     luPengurus.ClientEnabled = false;
                     luPengurus.BackColor = System.Drawing.Color.Transparent;
                     luPengurus.ForeColor = System.Drawing.Color.Black;
+
+                    luPengurus2.ClientEnabled = false;
+                    luPengurus2.BackColor = System.Drawing.Color.Transparent;
+                    luPengurus2.ForeColor = System.Drawing.Color.Black;
+
+                    luPengurus3.ClientEnabled = false;
+                    luPengurus3.BackColor = System.Drawing.Color.Transparent;
+                    luPengurus3.ForeColor = System.Drawing.Color.Black;
 
                     rbtPengurus.ClientEnabled = false;
                     rbtPengurus.BackColor = System.Drawing.Color.Transparent;
@@ -335,6 +409,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                 }
             }
         }
+
         private void BindingMaster()
         {
             luAgreement.Value = myUpdateNoSPPHEntity.AgreementNo;
@@ -343,6 +418,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             txtTenor.Value = myUpdateNoSPPHEntity.Tenor;
             txtInstallment.Value = myUpdateNoSPPHEntity.Installment;
             txtBranch.Value = myUpdateNoSPPHEntity.Branch;
+            deDisburseDate.Value = myUpdateNoSPPHEntity.DisburseDate;
 
             if (myUpdateNoSPPHEntity.JenisPengurus != DBNull.Value)
                 rbtPengurus.Items.FindByValue(Convert.ToString(myUpdateNoSPPHEntity.JenisPengurus)).Selected = true;
@@ -351,9 +427,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             txtNamaPengurus.Value = myUpdateNoSPPHEntity.NamaPengurus;
             txtNoSPPH.Value = myUpdateNoSPPHEntity.NoSPPH;
 
+            luPengurus2.Value = myUpdateNoSPPHEntity.IDSalesAdmin;
+            txtNamaAdmin2.Value = myUpdateNoSPPHEntity.NamaSalesAdmin;
+            luPengurus3.Value = myUpdateNoSPPHEntity.IDMktHead;
+            txtNamaAdmin3.Value = myUpdateNoSPPHEntity.NamaMktHead;
+
             if (myAction == DXSSAction.Edit)
             {
-
+                
             }
         }
         private bool Save(SaveAction saveAction)
@@ -370,6 +451,19 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             myUpdateNoSPPHEntity.Tenor = txtTenor.Value;
             myUpdateNoSPPHEntity.Installment = txtInstallment.Value;
             myUpdateNoSPPHEntity.Branch = txtBranch.Value;
+            myUpdateNoSPPHEntity.IDSalesAdmin = luPengurus2.Value;
+            myUpdateNoSPPHEntity.NamaSalesAdmin = txtNamaAdmin2.Text;
+            myUpdateNoSPPHEntity.IDMktHead = luPengurus3.Value;
+            myUpdateNoSPPHEntity.NamaMktHead = txtNamaAdmin3.Text;
+            myUpdateNoSPPHEntity.DisburseDate = deDisburseDate.Date;
+            
+            if(txtNoSPPH.Value == null)
+            {
+                myUpdateNoSPPHEntity.Status = "WAITING FOR SPPH";
+            }else
+            {
+                myUpdateNoSPPHEntity.Status = "NEW";
+            }
 
             if (myAction == DXSSAction.New)
             {
@@ -379,13 +473,17 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                 myUpdateNoSPPHEntity.LastModifiedDateTime = myLocalDBSetting.GetServerTime();
             }
             myUpdateNoSPPHEntity.Save(this.UserID, this.UserName, saveAction);
+
             return bSave;
         }
+        
+
         protected bool ErrorInField(out string strmessageError, SaveAction saveaction)
         {
             bool errorF = false;
             strmessageError = "";
             cplMain.JSProperties["cplActiveTabIndex"] = 0;
+
             return errorF;
         }
 
@@ -426,6 +524,58 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                                                                 Tipe=?", false, rbtPengurus.Value);
             luPengurus.DataSource = myPengurusTable;
             luPengurus.DataBind();
+
+            //luPengurus2.DataSource = myPengurusTable;
+            //luPengurus2.DataBind();
+
+            //luPengurus3.DataSource = myPengurusTable;
+            //luPengurus3.DataBind();
+        }
+
+        
+        protected void luPengurus2_DataBinding(object sender, EventArgs e)
+        {
+            (sender as ASPxGridLookup).DataSource = myPengurusTable2;
+        }
+        protected void luPengurus2_Init(object sender, EventArgs e)
+        {
+            ASPxGridLookup lookup = (ASPxGridLookup)sender;
+            ASPxGridView gridView = lookup.GridView;
+            gridView.CustomCallback += new ASPxGridViewCustomCallbackEventHandler(luPengurus2_CustomCallback);
+        }
+        void luPengurus2_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            myPengurusTable2 = new DataTable();
+            myPengurusTable2 = myLocalDBSetting.GetDataTable(@"select USER_ID as [ID], 
+                USER_NAME as [UserName],
+                'KARYAWAN' 'Tipe'
+                from MASTER_USER
+                where IS_ACTIVE_FLAG=1", false);
+            luPengurus2.DataSource = myPengurusTable2;
+            luPengurus2.DataBind();
+        }
+
+        protected void luPengurus3_DataBinding(object sender, EventArgs e)
+        {
+            (sender as ASPxGridLookup).DataSource = myPengurusTable2;
+        }
+        protected void luPengurus3_Init(object sender, EventArgs e)
+        {
+            ASPxGridLookup lookup = (ASPxGridLookup)sender;
+            ASPxGridView gridView = lookup.GridView;
+            gridView.CustomCallback += new ASPxGridViewCustomCallbackEventHandler(luPengurus3_CustomCallback);
+        }
+        void luPengurus3_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            myPengurusTable2 = new DataTable();
+            myPengurusTable2 = myLocalDBSetting.GetDataTable(@"select 
+                USER_ID as [ID], 
+                USER_NAME as [UserName],
+                'KARYAWAN' 'Tipe'
+                from MASTER_USER
+                where IS_ACTIVE_FLAG=1", false);
+            luPengurus3.DataSource = myPengurusTable2;
+            luPengurus3.DataBind();
         }
 
         protected void cplMain_Callback(object source, CallbackEventArgs e)
@@ -460,19 +610,33 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                         cplMain.JSProperties["cplblmessageError"] = strmessageError;
                     }
 
-                    object obj = localdbsetting.ExecuteScalar("SELECT COUNT(*) FROM UpdateSPPHNo WHERE AgreementNo=? AND Status = 'NEW'", paramValue2);
-                    if (obj != null || obj != DBNull.Value)
+                    if (myAction != DXSSAction.Edit)
                     {
-                        if (Convert.ToInt32(obj) >= 1)
-                        { cplMain.JSProperties["cplblmessageError"] = "Duplikat nomor agreement, silahkan proses terlebih dahulu data sebelumnya."; return; }
+                        object obj = localdbsetting.ExecuteScalar("SELECT COUNT(*) FROM UpdateSPPHNo WHERE AgreementNo=? ", paramValue2);
+                        if (obj != null || obj != DBNull.Value)
+                        {
+                            if (Convert.ToInt32(obj) >= 1)
+                            { cplMain.JSProperties["cplblmessageError"] = "Duplikat nomor agreement."; return; }
+                        }
+
+                        //object obj = localdbsetting.ExecuteScalar("SELECT COUNT(*) FROM UpdateSPPHNo WHERE AgreementNo=? AND Status = 'NEW' AND ISNULL(NoSPPH,'') <> ''", paramValue2);
+                        //if (obj != null || obj != DBNull.Value)
+                        //{
+                        //    if (myAction == DXSSAction.New)
+                        //    {
+                        //        if (Convert.ToInt32(obj) >= 1)
+                        //        { cplMain.JSProperties["cplblmessageError"] = "Duplikat nomor agreement, silahkan proses terlebih dahulu data sebelumnya."; return; }
+                        //    }
+                        //}
+
+                        //obj = localdbsetting.ExecuteScalar("SELECT COUNT(*) FROM UpdateSPPHNo WHERE AgreementNo=? AND Status = 'APPROVE'", paramValue2);
+                        //if (obj != null || obj != DBNull.Value)
+                        //{
+                        //    if (Convert.ToInt32(obj) >= 1)
+                        //    { cplMain.JSProperties["cplblmessageError"] = "Duplikat nomor agreement, No SPPH sudah pernah diupdate sebelumnya."; return; }
+                        //}
                     }
 
-                    obj = localdbsetting.ExecuteScalar("SELECT COUNT(*) FROM UpdateSPPHNo WHERE AgreementNo=? AND Status = 'APPROVE'", paramValue2);
-                    if (obj != null || obj != DBNull.Value)
-                    {
-                        if (Convert.ToInt32(obj) >= 1)
-                        { cplMain.JSProperties["cplblmessageError"] = "Duplikat nomor agreement, No SPPH sudah pernah diupdate sebelumnya."; return; }
-                    }
 
                     break;
                 case "SAVE":
@@ -538,6 +702,23 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             return mytable;
         }
 
+        protected DataTable LoadListAdmin(string strAgreeNo)
+        {
+            string ssql = "";
+            DataTable mytable = new DataTable();
+            SqlConnection myconn = new SqlConnection(localdbsetting.ConnectionString);
+            ssql = @"SELECT * FROM (SELECT ROW_NUMBER() OVER (ORDER BY DocKey ASC) AS rownumber, IDPengurus, NamaPengurus FROM SSS.dbo.UpdateSPPHNo WHERE AgreementNo = @AgreeNo) AS tblAdmin";
+            using (SqlCommand cmdclientdata = new SqlCommand(ssql, myconn))
+            {
+                SqlDataAdapter adapter = new SqlDataAdapter(cmdclientdata);
+                cmdclientdata.CommandType = CommandType.Text;
+                cmdclientdata.Parameters.Add("@AgreeNo", SqlDbType.NVarChar);
+                cmdclientdata.Parameters["@AgreeNo"].Value = strAgreeNo;
+                adapter.Fill(mytable);
+            }
+            return mytable;
+        }
+
         protected void gvUploadDoc_CustomButtonCallback(object sender, ASPxGridViewCustomButtonCallbackEventArgs e)
         {
             if (e.ButtonID == "GridbtnDownload")
@@ -585,5 +766,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
             myApproveAccesstable = myDBSetting.GetDataTable(strQuery, false, sID);
             return myApproveAccesstable;
         }
+
+        
+        
     }
 }

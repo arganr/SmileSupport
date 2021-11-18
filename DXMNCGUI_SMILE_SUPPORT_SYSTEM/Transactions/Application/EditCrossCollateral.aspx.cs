@@ -78,15 +78,36 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
                 ccDtTable = GetListCC();
                 gvCrossColl.DataSource = ccDtTable;
                 gvCrossColl.DataBind();
+                
+                if (this.Request.QueryString["CODE"] != null)
+                {
+                    var ccode = this.Request.QueryString["CODE"].ToString();
+                    gvCrossColl.Value = ccode;
+                    
+                    oldDtTable = GetDataExist(ccode);
 
-                newDtTable = GetListNoApp("");
-                gvNewItem.DataSource = newDtTable;
-                gvNewItem.DataBind();
+                    tmpDtTable = GetDataExist(ccode);
+                    gvTempData.DataSource = tmpDtTable;
+                    gvTempData.DataBind();
 
-                logDtTable = GetLogData("");
-                gvLogData.DataSource = logDtTable;
-                gvLogData.DataBind();
+                    newDtTable = GetListNoApp(ccode);
+                    gvNewItem.DataSource = newDtTable;
+                    gvNewItem.DataBind();
 
+                    logDtTable = GetLogData(ccode);
+                    gvLogData.DataSource = logDtTable;
+                    gvLogData.DataBind();
+                }
+                else
+                {
+                    newDtTable = GetListNoApp("");
+                    gvNewItem.DataSource = newDtTable;
+                    gvNewItem.DataBind();
+
+                    logDtTable = GetLogData("");
+                    gvLogData.DataSource = logDtTable;
+                    gvLogData.DataBind();
+                }
                 //loadDataExist("");
             }
             if (!IsCallback)
@@ -254,13 +275,19 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
 
         DataTable GetListNoApp(string ccode)
         {
-            //string ssql = "select LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE, DESCS " +
+            
+            //string ssql = "select a.LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE, DESCS " +
             //                "from LS_AGREEMENT a with(NOLOCK) inner join SYS_COMPANY b with(NOLOCK) on a.C_CODE = b.C_CODE " +
-            //                "where CONTRACT_STATUS = 'GOLIVE' and MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
+            //                "left join LS_AGREEASSET c with(NOLOCK)on a.LSAGREE = c.LSAGREE " +
+            //                "where MODULE not in ('6') and ISNULL(c.STATUS,'') <> 'CU' and CONTRACT_STATUS <> 'TERMINATE' " +
+            //                "and a.LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
 
-            string ssql = "select LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE, DESCS " +
+            string ssql = "select a.LSAGREE, NAME, C_NAME BRANCH, DISBURSEDT, MODULE, DESCS " +
                             "from LS_AGREEMENT a with(NOLOCK) inner join SYS_COMPANY b with(NOLOCK) on a.C_CODE = b.C_CODE " +
-                            "where MODULE not in ('6') and LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
+                            "left join LS_AGREEASSET c with(NOLOCK)on a.LSAGREE = c.LSAGREE " +
+                            "where MODULE not in ('6') and ISNULL(c.STATUS,'') <> 'CU' " +
+                            "and a.LSAGREE not in (select LSAGREE from LS_CROSS_COLLATERAL_D with(NOLOCK) where CODE <> '" + ccode + "')";
+
 
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);

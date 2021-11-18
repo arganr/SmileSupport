@@ -17,6 +17,13 @@
                     gvDebSLIK.Refresh();
                     gvDetailSLIK.Refresh();
                     break;
+                case "SOURCE":
+                    gvClient.SetValue(null);
+                    gvClient.GetGridView().Refresh();
+                    gvTempData.Refresh();
+                    gvDebSLIK.Refresh();
+                    gvDetailSLIK.Refresh();
+                    break;
             }
             cplMain.cpCallbackParam = null;
         }
@@ -34,7 +41,9 @@
         }
         function OnTempGetRowValues(values) {
             cplMain.PerformCallback("DEB;" + values[0].toString() + ";" + values[1].toString());
-            
+        }
+        function OnSourceChanged() {
+            cplMain.PerformCallback("SOURCE;");
         }
     </script>
     <dx:ASPxHiddenField runat="server" ID="HiddenField" ClientInstanceName="HiddenField"/>
@@ -90,185 +99,257 @@
             <dx:LayoutGroup Name="LayoutGroupClient" ShowCaption="True" Caption="Client SLIK Checking" GroupBoxDecoration="Box" ColCount="1" >
                 <GroupBoxStyle BackColor="Transparent" Caption-BackColor="#f8fafd" Caption-Font-Bold="true"></GroupBoxStyle>
                 <Items>
-                    <dx:LayoutItem ShowCaption="True" Caption="Find Client">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxGridLookup runat="server" ID="gvClient" ClientInstanceName="gvClient" KeyFieldName="CIF" OnDataBinding="gvClient_DataBinding" DisplayFormatString="{1}" TextFormatString="{1}" MultiTextSeparator=";" Width="30%">
-                                    <ClientSideEvents ValueChanged="function(s, e) { OnClientChanged(s); }"/>
-                                    <GridViewProperties EnablePagingCallbackAnimation="true">
-                                        <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" EnableRowHotTrack="true" />
-                                        <Settings ShowFilterBar="Hidden" ShowFilterRow="false" ShowFilterRowMenu="True" ShowFilterRowMenuLikeItem="True" ShowHeaderFilterButton="True" ShowStatusBar="Visible" />
-                                        <SettingsSearchPanel ShowApplyButton="True" ShowClearButton="True" Visible="True"/>
-                                    </GridViewProperties>
-                                </dx:ASPxGridLookup>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
                     <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="False" Width="50%">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxGridView
-                                    ID="gvTempData"
-                                    runat="server"
-                                    ClientInstanceName="gvTempData"
-                                    OnDataBinding="gvTempData_DataBinding"
-                                    Width="100%">
-                                    <SettingsBehavior AllowDragDrop="false" AllowSort="false" AllowFocusedRow="true"/>
-                                    <ClientSideEvents FocusedRowChanged="function(s, e) { OnTempGridFocusedRowChanged(); }"/>
-                                    <Columns>
-                                        <dx:GridViewDataTextColumn FieldName="CLIENT" Caption="CLIENT" Visible="false"></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="SID_PENGURUSID" Caption="SID_PENGURUSID" Visible="false"></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="KTP" Caption="No. KTP" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="NAME" Caption="Nama KTP" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="INBORNDT" Caption="Tgl Lahir" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="INBORNPLC" Caption="Tempat Lahir" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="ADDRESS" Caption="Alamat" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="NPWP" Caption="No. NPWP" Visible="false" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="INGENDER" Caption="Gender" Visible="false" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="IBUKANDUNG" Caption="Ibu Kandung" Visible="false" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="CUSTTYPE" Caption="Cust Type" Visible="false" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="TYPEDESC" Caption="Type" ></dx:GridViewDataTextColumn>
-                                    </Columns>
-                                </dx:ASPxGridView>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="false">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxButton runat="server" ID="btnProgress" ClientInstanceName="btnProgress" Height="30px" Text="Request SLIK Checking" AutoPostBack="false"  Theme="MaterialCompact" ClientVisible="false">
-                                    <%--<ClientSideEvents Click="function(s, e) { lp.Show(); } " />--%>
-                                    <ClientSideEvents Click="function(s, e) { apcconfirm.Show(); }" />
-                                </dx:ASPxButton>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="False">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxLabel ID="lblListSLIK" runat="server" Text="List SLIK Request :" Font-Bold="true" Font-Names="Calibri" ForeColor="SlateGray"></dx:ASPxLabel>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:LayoutItem ShowCaption="False" Width="50%">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxGridView
-                                    ID="gvDebSLIK"
-                                    runat="server"
-                                    ClientInstanceName="gvDebSLIK"
-                                    OnDataBinding="gvDebSLIK_DataBinding"
-                                    Width="100%">
-                                    <SettingsBehavior AllowDragDrop="false" AllowSort="false" AllowFocusedRow="true"/>
-                                    <ClientSideEvents FocusedRowChanged="function(s, e) { OnDebGridFocusedRowChanged(); }"/>
-                                    <Columns>
-                                        <dx:GridViewDataTextColumn FieldName="REFID" Caption="No. Reference" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="NAME" Caption="Nama KTP" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="KTP" Caption="No. KTP" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="NPWP" Caption="No. NPWP" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="DOB" Caption="Tgl Lahir" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="REQSTATUS" Caption="Last Req Status" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="CRE_BY" Caption="Created By" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="CRE_DATE" Caption="Created Date" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="CUSTTYPE" Caption="CUSTTYPE" Visible="false"></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="CLIENT" Caption="CLIENT" Visible="false"></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="SID_PENGURUSID" Caption="SID_PENGURUSID" Visible="false"></dx:GridViewDataTextColumn>
-                                    </Columns>
-                                </dx:ASPxGridView>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="false">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxButton runat="server" ID="btnView" ClientInstanceName="btnView" Height="30px" Text="Check Request & View SLIK" AutoPostBack="true" OnClick="btnView_Click" Theme="MaterialCompact">
-                                    <ClientSideEvents Click="function(s, e) { lp.Show(); } " />
-                                </dx:ASPxButton>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="False">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxLabel ID="lblHasilCheck" runat="server" Text="Hasil Pengecekan :" Font-Bold="true" Font-Names="Calibri" ForeColor="SlateGray"></dx:ASPxLabel>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:LayoutItem ShowCaption="False" Width="50%">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxGridView
-                                    ID="gvDetailSLIK"
-                                    runat="server"
-                                    ClientInstanceName="gvDetailSLIK"
-                                    OnDataBinding="gvDetailSLIK_DataBinding"
-                                    Width="100%">
-                                    <Settings HorizontalScrollBarMode="Visible" />
+                    <dx:TabbedLayoutGroup Name="tbLayoutGroup" ClientInstanceName="tbLayoutGroup" Width="100%" ActiveTabIndex="0" Border-BorderStyle="Solid" Border-BorderWidth="0">
+                        <Items>
+                            <dx:LayoutGroup Caption="SLIK">
+                                <Items>
+                                    <dx:LayoutItem ShowCaption="True" Caption="Data Source">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxComboBox runat="server" ID="cbSource" ClientInstanceName="cbSource" DropDownStyle="DropDownList" Height="23px" Width="30%">
+                                                    <Items>
+                                                        <dx:ListEditItem Text="SMILE" Value="SMILE" Selected="true" />
+                                                        <dx:ListEditItem Text="Others" Value="Others" />
+                                                    </Items>
+                                                    <ClientSideEvents SelectedIndexChanged="OnSourceChanged"/>
+                                                </dx:ASPxComboBox>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
 
-                                    <SettingsBehavior AllowDragDrop="false" AllowSort="false" AllowFocusedRow="false"/>
-                                    <SettingsExport EnableClientSideExportAPI="true" ExcelExportMode="WYSIWYG" Landscape="true" PaperKind="A4" />
-                                    <Toolbars>
-                                        <dx:GridViewToolbar ItemAlign="Right" EnableAdaptivity="true" Position="Top">
-                                            <Items>
-                                                <dx:GridViewToolbarItem Command="ExportToXlsx" Text="Export to .xlsx" ToolTip="Click here to export grid data to excel" />
-                                            </Items>
-                                        </dx:GridViewToolbar>
-                                    </Toolbars>
-                                    <Columns>
-                                        <dx:GridViewDataTextColumn FieldName="LJK" Caption="LJK" Width="250px"></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="JENIS" Caption="Jenis Kredit Pembiayaan" Width="250px" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="JENIS_PENGGUNAAN" Caption="Jenis Penggunaan" Width="250px" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="PLAFON" Caption="Plafon Awal" >
-                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="BAKIDEBET" Caption="Baki Debet" >
-                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="BUNGA" Caption="Bunga" >
-                                            <PropertiesTextEdit DisplayFormatString="{0}%" /> 
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="AKADAWAL" Caption="Akad Awal" >
-                                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="TGLAWAL_SISATENOR" Caption="Awal Sisa Tenor" >
-                                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="JATUHTEMPO" Caption="Jatuh Tempo" >
-                                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="RoundJangka" Caption="Jangka" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="RoundSisaTenor" Caption="Sisa Tenor" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="ANGSURAN" Caption="Angsuran" >
-                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="KOLEKTIBILITAS" Caption="Kolektibilitas" Width="200px">
-                                            <%--<CellStyle HorizontalAlign="Center"></CellStyle>--%>
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="HISTORY_KOLEKTIBILITAS" Caption="History" Width="200px">
-                                            <%--<CellStyle HorizontalAlign="Center"></CellStyle>--%>
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="FREKUENSI_TUNGGAKAN" Caption="Frek Tunggakan" ></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="TUNGGAKAN_POKOK" Caption="T. Pokok" >
-                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="TUNGGAKAN_BUNGA" Caption="T. Bunga" >
-                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="DENDA" Caption="Denda" >
-                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
-                                        </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="KONDISI" Caption="Kondisi"  Width="250px"></dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="AGUNAN_LIST" Caption="List Agunan"  Width="250px"></dx:GridViewDataTextColumn>
-                                    </Columns>
-                                </dx:ASPxGridView>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
+                                    <dx:LayoutItem ShowCaption="True" Caption="Find Client">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxGridLookup runat="server" ID="gvClient" ClientInstanceName="gvClient" KeyFieldName="CIF" OnDataBinding="gvClient_DataBinding" DisplayFormatString="{1}" TextFormatString="{1}" MultiTextSeparator=";" Width="30%">
+                                                    <ClientSideEvents ValueChanged="function(s, e) { OnClientChanged(s); }"/>
+                                                    <GridViewProperties EnablePagingCallbackAnimation="true">
+                                                        <SettingsBehavior AllowFocusedRow="True" AllowSelectSingleRowOnly="True" EnableRowHotTrack="true" />
+                                                        <Settings ShowFilterBar="Hidden" ShowFilterRow="false" ShowFilterRowMenu="True" ShowFilterRowMenuLikeItem="True" ShowHeaderFilterButton="True" ShowStatusBar="Visible" />
+                                                        <SettingsSearchPanel ShowApplyButton="True" ShowClearButton="True" Visible="True"/>
+                                                    </GridViewProperties>
+                                                </dx:ASPxGridLookup>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
+                                    <dx:LayoutItem ShowCaption="False" Width="50%">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxGridView
+                                                    ID="gvTempData"
+                                                    runat="server"
+                                                    ClientInstanceName="gvTempData"
+                                                    OnDataBinding="gvTempData_DataBinding"
+                                                    Width="100%">
+                                                    <SettingsBehavior AllowDragDrop="false" AllowSort="false" AllowFocusedRow="true"/>
+                                                    <ClientSideEvents FocusedRowChanged="function(s, e) { OnTempGridFocusedRowChanged(); }"/>
+                                                    <Columns>
+                                                        <dx:GridViewDataTextColumn FieldName="CLIENT" Caption="CLIENT" Visible="false"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="SID_PENGURUSID" Caption="SID_PENGURUSID" Visible="false"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="KTP" Caption="No. KTP" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="NPWP" Caption="No. NPWP" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="NAME" Caption="Nama KTP" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="INBORNDT" Caption="Tgl Lahir" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="INBORNPLC" Caption="Tempat Lahir" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="ADDRESS" Caption="Alamat" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="NPWP" Caption="No. NPWP" Visible="false" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="INGENDER" Caption="Gender" Visible="false" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="IBUKANDUNG" Caption="Ibu Kandung" Visible="false" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="CUSTTYPE" Caption="Cust Type" Visible="false" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="TYPEDESC" Caption="Type" ></dx:GridViewDataTextColumn>
+                                                    </Columns>
+                                                </dx:ASPxGridView>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
+                                    <dx:LayoutItem ShowCaption="false">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxButton runat="server" ID="btnProgress" ClientInstanceName="btnProgress" Height="30px" Text="Request SLIK Checking" AutoPostBack="false"  Theme="MaterialCompact" ClientVisible="false">
+                                                    <%--<ClientSideEvents Click="function(s, e) { lp.Show(); } " />--%>
+                                                    <ClientSideEvents Click="function(s, e) { apcconfirm.Show(); }" />
+                                                </dx:ASPxButton>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
+                                    <dx:LayoutItem ShowCaption="False">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxLabel ID="lblListSLIK" runat="server" Text="List SLIK Request :" Font-Bold="true" Font-Names="Calibri" ForeColor="SlateGray"></dx:ASPxLabel>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:LayoutItem ShowCaption="False" Width="50%">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxGridView
+                                                    ID="gvDebSLIK"
+                                                    runat="server"
+                                                    ClientInstanceName="gvDebSLIK"
+                                                    OnDataBinding="gvDebSLIK_DataBinding"
+                                                    Width="100%">
+                                                    <SettingsBehavior AllowDragDrop="false" AllowSort="false" AllowFocusedRow="true"/>
+                                                    <ClientSideEvents FocusedRowChanged="function(s, e) { OnDebGridFocusedRowChanged(); }"/>
+                                                    <Columns>
+                                                        <dx:GridViewDataTextColumn FieldName="REFID" Caption="No. Reference" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="NAME" Caption="Nama KTP" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="KTP" Caption="No. KTP" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="NPWP" Caption="No. NPWP" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="DOB" Caption="Tgl Lahir" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="REQSTATUS" Caption="Last Req Status" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="CRE_BY" Caption="Created By" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="CRE_DATE" Caption="Created Date" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="CUSTTYPE" Caption="CUSTTYPE" Visible="false"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="CLIENT" Caption="CLIENT" Visible="false"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="SID_PENGURUSID" Caption="SID_PENGURUSID" Visible="false"></dx:GridViewDataTextColumn>
+                                                    </Columns>
+                                                </dx:ASPxGridView>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
+                                    <dx:LayoutItem ShowCaption="false">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxButton runat="server" ID="btnView" ClientInstanceName="btnView" Height="30px" Text="Check Request & View SLIK" AutoPostBack="true" OnClick="btnView_Click" Theme="MaterialCompact">
+                                                    <ClientSideEvents Click="function(s, e) { lp.Show(); } " />
+                                                </dx:ASPxButton>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
+                                    <dx:LayoutItem ShowCaption="False">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxLabel ID="lblHasilCheck" runat="server" Text="Hasil Pengecekan :" Font-Bold="true" Font-Names="Calibri" ForeColor="SlateGray"></dx:ASPxLabel>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:LayoutItem ShowCaption="False" Width="50%">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxGridView
+                                                    ID="gvDetailSLIK"
+                                                    runat="server"
+                                                    ClientInstanceName="gvDetailSLIK"
+                                                    OnDataBinding="gvDetailSLIK_DataBinding"
+                                                    Width="100%">
+                                                    <Settings HorizontalScrollBarMode="Visible" />
+
+                                                    <SettingsBehavior AllowDragDrop="false" AllowSort="false" AllowFocusedRow="false"/>
+                                                    <SettingsExport EnableClientSideExportAPI="true" ExcelExportMode="WYSIWYG" Landscape="true" PaperKind="A4" />
+                                                    <Toolbars>
+                                                        <dx:GridViewToolbar ItemAlign="Right" EnableAdaptivity="true" Position="Top">
+                                                            <Items>
+                                                                <dx:GridViewToolbarItem Command="ExportToXlsx" Text="Export to .xlsx" ToolTip="Click here to export grid data to excel" />
+                                                            </Items>
+                                                        </dx:GridViewToolbar>
+                                                    </Toolbars>
+                                                    <Columns>
+                                                        <dx:GridViewDataTextColumn FieldName="LJK" Caption="LJK" Width="250px"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="JENIS" Caption="Jenis Kredit Pembiayaan" Width="250px" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="JENIS_PENGGUNAAN" Caption="Jenis Penggunaan" Width="250px" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="PLAFON" Caption="Plafon Awal" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="BAKIDEBET" Caption="Baki Debet" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="BUNGA" Caption="Bunga" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0}%" /> 
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="AKADAWAL" Caption="Akad Awal" >
+                                                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <%--<dx:GridViewDataTextColumn FieldName="TGLAWAL_SISATENOR" Caption="Awal Sisa Tenor" >
+                                                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy" />
+                                                        </dx:GridViewDataTextColumn>--%>
+                                                        <dx:GridViewDataTextColumn FieldName="JATUHTEMPO" Caption="Jatuh Tempo" >
+                                                            <PropertiesTextEdit DisplayFormatString="dd/MM/yyyy" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="JANGKA" Caption="Jangka (Month)" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="YearJangka" Caption="Jangka (Year)" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="SISATENOR" Caption="Sisa Tenor (Month)" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="YearSisaTenor" Caption="Sisa Tenor (Year)" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="ANGSURAN" Caption="Angsuran" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="KOLEKTIBILITAS" Caption="Kolektibilitas" Width="200px">
+                                                            <%--<CellStyle HorizontalAlign="Center"></CellStyle>--%>
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="HISTORY_KOLEKTIBILITAS" Caption="History" Width="200px">
+                                                            <%--<CellStyle HorizontalAlign="Center"></CellStyle>--%>
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="FREKUENSI_TUNGGAKAN" Caption="Frek Tunggakan" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="TUNGGAKAN_POKOK" Caption="T. Pokok" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="TUNGGAKAN_BUNGA" Caption="T. Bunga" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="DENDA" Caption="Denda" >
+                                                            <PropertiesTextEdit DisplayFormatString="{0:#,0}" />
+                                                        </dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="KONDISI" Caption="Kondisi"  Width="250px"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="AGUNAN_LIST" Caption="List Agunan"  Width="250px"></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="flagPlafon" Caption="flagPlafon" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="flagTenor" Caption="flagTenor" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="flagBank" Caption="flagBank" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="flagRate" Caption="flagRate" ></dx:GridViewDataTextColumn>
+                                                        <dx:GridViewDataTextColumn FieldName="flagBakiDebt" Caption="flagBakiDebt" ></dx:GridViewDataTextColumn>
+                                                    </Columns>
+                                                </dx:ASPxGridView>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                </Items>
+                            </dx:LayoutGroup>
+
+                            <dx:LayoutGroup Caption="Upload File">
+                                <Items>
+                                    <dx:LayoutItem ShowCaption="True" Caption="Upload File" >
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxUploadControl ID="ucFileClient" runat="server" ClientInstanceName="ucFileClient" ClientEnabled="false">
+                                                    <ValidationSettings AllowedFileExtensions=".xls,.xlsx">
+                                                    </ValidationSettings>
+                                                    <ClientSideEvents FilesUploadStart="function(s, e) { lp.Show(); }"/>
+                                                </dx:ASPxUploadControl>
+                                                
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:LayoutItem ShowCaption="True" Caption=" "> 
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxButton runat="server" ID="btnTemplate" ClientInstanceName="btnTemplate" RenderMode="Link" Text="Click here to download template file." OnClick="btnTemplate_Click">
+                                                    <%--<Image Height="20px" Width="20px" Url="../../../Content/Images/download.png" ToolTip="Click here to download file."></Image>--%>
+                                                </dx:ASPxButton>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:EmptyLayoutItem></dx:EmptyLayoutItem>
+                                    <dx:LayoutItem ShowCaption="false">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer>
+                                                <dx:ASPxButton runat="server" ID="btnUpload" ClientInstanceName="btnUpload" Height="30px" Text="Upload & Request SLIK Checking" OnClick="btnUpload_Click" Theme="MaterialCompact" ClientEnabled="false">
+                                                    <ClientSideEvents Click="function(s, e) { lp.Show(); } " />
+                                                </dx:ASPxButton>
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                </Items>
+                            </dx:LayoutGroup>
+                        </Items>
+                    </dx:TabbedLayoutGroup>
+                    
+                    
+                    
                 </Items>
             </dx:LayoutGroup>
         </Items>

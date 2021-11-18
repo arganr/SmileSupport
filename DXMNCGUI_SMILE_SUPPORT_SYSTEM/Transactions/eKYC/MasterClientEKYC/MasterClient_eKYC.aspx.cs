@@ -202,11 +202,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.MasterClientEKYC
                 {
                     if (e.CellValue.ToString() == "Not Match" || e.CellValue.ToString() == "")
                     {
-                        e.Cell.BackColor = System.Drawing.Color.LightYellow;
+                        e.Cell.BackColor = System.Drawing.Color.Red;
+                        e.Cell.Font.Bold = true;
                     }
                     else
                     {
                         e.Cell.BackColor = System.Drawing.Color.LightCyan;
+                        e.Cell.Font.Bold = true;
                     }
                 }
             }
@@ -254,11 +256,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.MasterClientEKYC
                 {
                     if (e.CellValue.ToString() == "Not Match" || e.CellValue.ToString() == "")
                     {
-                        e.Cell.BackColor = System.Drawing.Color.LightYellow;
+                        e.Cell.BackColor = System.Drawing.Color.Red;
+                        e.Cell.Font.Bold = true;
                     }
                     else
                     {
                         e.Cell.BackColor = System.Drawing.Color.LightCyan;
+                        e.Cell.Font.Bold = true;
                     }
                 }
             }

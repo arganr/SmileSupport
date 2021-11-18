@@ -4,8 +4,11 @@ using DXMNCGUI_SMILE_SUPPORT_SYSTEM.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
@@ -15,6 +18,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
 {
     public partial class MasterClientSLIKCheck : BasePage
     {
+        const string UploadDirectory = @"~/Transactions/eKYC/UploadSLIK/";
+
         protected SqlDBSetting myDBSetting
         {
             get { isValidLogin(false); return (SqlDBSetting)HttpContext.Current.Session["myDBSetting" + this.ViewState["_PageID"]]; }
@@ -65,11 +70,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                 debDtTable = new DataTable();
                 detailDtTable = new DataTable();
 
-                clientDtTable = GetListClient();
+                clientDtTable = GetListClient(cbSource.Text);
                 gvClient.DataSource = clientDtTable;
                 gvClient.DataBind();
 
-                tmpDtTable = GetTempData("");
+                tmpDtTable = GetTempData("", cbSource.Text);
                 gvTempData.DataSource = tmpDtTable;
                 gvTempData.DataBind();
 
@@ -81,6 +86,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                 gvDetailSLIK.DataSource = detailDtTable;
                 gvDetailSLIK.DataBind();
 
+                var isAuth = GetUserRoleAuth();
+                //var isAuth = 1;
+                if (isAuth > 0)
+                {
+                    ucFileClient.ClientEnabled = true;
+                    btnUpload.ClientEnabled = true;
+                }
             }
             if (!IsCallback)
             {
@@ -103,7 +115,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                     detailDtTable.Clear();
                     debDtTable.Clear();
                     ccode = callbackParam[1].ToString();
-                    tmpDtTable = GetTempData(ccode);
+                    tmpDtTable = GetTempData(ccode, cbSource.Text);
                     var isAuth = GetUserRoleAuth();
                     //var isAuth = 1;
                     if (isAuth > 0)
@@ -117,22 +129,31 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                     ctype = Convert.ToInt32(callbackParam[2].ToString());
                     debDtTable = GetDebData(ccode, ctype);
                     break;
+                case "SOURCE":
+                    clientDtTable.Clear();
+                    clientDtTable = GetListClient(cbSource.Text);
+
+                    tmpDtTable.Clear();
+                    debDtTable.Clear();
+                    detailDtTable.Clear();
+
+                    break;
             }
         }
 
 
 
-        DataTable GetListClient()
+        DataTable GetListClient(string source)
         {
-            string ssql = "select " +
-                            "CLIENT[CIF], " +
-                            "NAME[Client Name], " +
-                            "INKTP[No KTP], " +
-                            "INBORNDT[Tgl Lahir], " +
-                            "INBORNPLC[Tempat Lahir], " +
-                            "LTRIM(RTRIM(ISNULL(ADDRESS1, '')))[Alamat] " +
-                        "from[dbo].[SYS_CLIENT] " +
-                        "order by [Client Name]";
+            string ssql = string.Empty;
+            if(source == "SMILE")
+            {
+                ssql = "select CLIENT[CIF], NAME[Client Name], INKTP[No KTP], ''[NPWP], INBORNDT[Tgl Lahir], INBORNPLC[Tempat Lahir], LTRIM(RTRIM(ISNULL(ADDRESS1, '')))[Alamat] from[dbo].[SYS_CLIENT] order by [Client Name]";
+            }
+            else
+            {
+                ssql = "select distinct NAME[CIF], NAME[Client Name], ISNULL(KTP,'')[No KTP], ISNULL(NPWP,'')[NPWP],null[Tgl Lahir], ''[Tempat Lahir], ''[Alamat] from [dbo].[trxClientUploadSLIK]";
+            }
 
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
@@ -158,9 +179,9 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
             return resDT;
         }
 
-        DataTable GetTempData(string value)
+        DataTable GetTempData(string value, string source)
         {
-            string ssql = "exec [dbo].[spMNCL_getClientSLIK] '" + value + "'";
+            string ssql = "exec [dbo].[spMNCL_getClientSLIK] '" + value + "', '" + source + "'";
 
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
@@ -217,7 +238,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
 
         DataTable GetDetailData(string value)
         {
-            string ssql = "select *, ROUND(JANGKA,1) [RoundJangka], ROUND(SISATENOR,1) [RoundSisaTenor] from trxFinancingCreditSLIK where REFID = '" + value + "'";
+            string ssql = "select *, ROUND((JANGKA / 12),0) [YearJangka], ROUND((SISATENOR / 12),0) [YearSisaTenor] from trxFinancingCreditSLIK where REFID = '" + value + "'";
 
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
@@ -246,7 +267,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
         Int32 GetUserRoleAuth()
         {
             int countAuth = 0;
-            //string ssql = "select Count(1) Auth from MASTER_USER_COMPANY_GROUP where GROUP_CODE like'%HO-CRD%' and USER_ID = '" + UserID + "'";
+
+            //Cek user CA
             string ssql = "select Count(1) Auth from MASTER_USER_COMPANY_GROUP where GROUP_CODE like'%HO-CRD%' and USER_ID = '" + UserID + "'";
             DataTable resDT = new DataTable();
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
@@ -261,7 +283,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                 resDT.Load(reader);
                 foreach (DataRow row in resDT.Rows)
                 {
-                    countAuth = Convert.ToInt32(row["Auth"]);
+                    countAuth += Convert.ToInt32(row["Auth"]);
                 }
             }
             catch (Exception ex)
@@ -271,6 +293,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
             finally
             {
                 myconn.Close();
+            }
+
+            //User Selain CA yg dapat akses
+            ssql = "select Count(1) Auth from AccessRight where CMDid = 'SLIK_CAN_REQUEST' and nik = ?";
+            object obj = myLocalDBSetting.ExecuteScalar(ssql, this.UserID);
+            if (obj != null && obj != DBNull.Value)
+            {
+                countAuth += Convert.ToInt32(obj);
             }
 
             if (UserID == "2009023")
@@ -402,15 +432,43 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
             {
                 string clientcode = myrow["CLIENT"].ToString();
                 int pengurusid = Convert.ToInt32(myrow["SID_PENGURUSID"]);
-                int CheckReqCount = CheckRequestCount(clientcode, pengurusid);
-                if (CheckReqCount == 0)
+                string npwp_client = myrow["NPWP"].ToString();
+
+                if (cbSource.Text == "SMILE")
                 {
+                    int CheckReqCount = CheckRequestCount(clientcode, pengurusid);
+                    if (CheckReqCount == 0)
+                    {
+                        var dtFindDeb = from row in tmpDtTable.AsEnumerable()
+                                        where row.Field<string>("CLIENT") == clientcode
+                                        && row.Field<Int32>("SID_PENGURUSID") == pengurusid
+                                        select row;
+                        var dtCheckSLIK = dtFindDeb.CopyToDataTable();
+
+                        API_SLIK APIClass = new API_SLIK();
+                        var reqSLIK = await APIClass.RequestSLIK(dtCheckSLIK);
+
+                        if (reqSLIK != "")
+                        {
+                            apcalert.Text = reqSLIK;
+                            apcalert.ShowOnPageLoad = true;
+                        }
+                    }
+                    else
+                    {
+                        apcalert.Text = "Debitur already request SLIK checking, please view latest SLIK checking below";
+                        apcalert.ShowOnPageLoad = true;
+                    }
+                }
+                else
+                {
+                    //apcalert.Text = "SLIK request must from data source SMILE";
+                    //apcalert.ShowOnPageLoad = true;
                     var dtFindDeb = from row in tmpDtTable.AsEnumerable()
                                     where row.Field<string>("CLIENT") == clientcode
-                                    && row.Field<Int32>("SID_PENGURUSID") == pengurusid
+                                    && row.Field<string>("NPWP") == npwp_client
                                     select row;
                     var dtCheckSLIK = dtFindDeb.CopyToDataTable();
-
 
                     API_SLIK APIClass = new API_SLIK();
                     var reqSLIK = await APIClass.RequestSLIK(dtCheckSLIK);
@@ -421,11 +479,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                         apcalert.ShowOnPageLoad = true;
                     }
                 }
-                else
-                {
-                    apcalert.Text = "Debitur already request SLIK checking, please view latest SLIK checking below";
-                    apcalert.ShowOnPageLoad = true;
-                }
+
 
                 //var isAuth = GetUserRoleAuth();
                 //if (isAuth > 0)
@@ -504,10 +558,160 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + "please select row first.." + "');", true);
                 return;
             }
+        }
+        
+        public bool InsertClientUpload(string filename, DataTable dtFromExcel)
+        {
+            bool res = true;
 
-            
+            if(dtFromExcel != null)
+            {
+                SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
+                SqlTransaction sqlTrx;
+                
+                myconn.Open();
+                sqlTrx = myconn.BeginTransaction();
+
+                try
+                {
+                    foreach (DataRow dr in dtFromExcel.Rows)
+                    {
+                        if (dr["Name"].ToString() != "" && dr["Name"].ToString() != "-" && dr["NPWP"].ToString() != "-" && dr["NPWP"].ToString() != "")
+                        {
+                            SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO [dbo].[trxClientUploadSLIK] ([FILENAME],[NAME],[NPWP],[CLIENTTYPE],[CRE_BY],[CRE_DATE]) VALUES(@FILENAME,@NAME,@NPWP,@CLIENTTYPE,@CRE_BY,GETDATE())");
+                            sqlCommand.Connection = myconn;
+                            sqlCommand.Transaction = sqlTrx;
+
+                            SqlParameter sqlParameter1 = sqlCommand.Parameters.Add("@FILENAME", SqlDbType.VarChar);
+                            sqlParameter1.Value = filename;
+                            sqlParameter1.Direction = ParameterDirection.Input;
+                            SqlParameter sqlParameter2 = sqlCommand.Parameters.Add("@NAME", SqlDbType.VarChar);
+                            sqlParameter2.Value = dr["Name"].ToString();
+                            sqlParameter2.Direction = ParameterDirection.Input;
+                            SqlParameter sqlParameter3 = sqlCommand.Parameters.Add("@NPWP", SqlDbType.VarChar);
+                            sqlParameter3.Value = dr["NPWP"].ToString();
+                            sqlParameter3.Direction = ParameterDirection.Input;
+                            SqlParameter sqlParameter4 = sqlCommand.Parameters.Add("@CLIENTTYPE", SqlDbType.VarChar);
+                            sqlParameter4.Value = dr["Type"].ToString();
+                            sqlParameter4.Direction = ParameterDirection.Input;
+                            SqlParameter sqlParameter5 = sqlCommand.Parameters.Add("@CRE_BY", SqlDbType.VarChar);
+                            sqlParameter5.Value = UserID;
+                            sqlParameter5.Direction = ParameterDirection.Input;
+
+                            sqlCommand.ExecuteNonQuery();
+                        }
+                    }
+                    sqlTrx.Commit();
+                }
+                catch (SqlException sqlError)
+                {
+                    sqlTrx.Rollback();
+                    res = false;
+                }
+                myconn.Close();
+            }
+
+            return res;
         }
 
-        
+        public static DataTable ConvertExcelToDataTable(string FileName)
+        {
+            DataTable dtResult = null;
+            int totalSheet = 0; //No of sheets on excel file  
+            using (OleDbConnection objConn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + FileName + ";Extended Properties='Excel 12.0;HDR=YES;IMEX=1;';"))
+            {
+                objConn.Open();
+                OleDbCommand cmd = new OleDbCommand();
+                OleDbDataAdapter oleda = new OleDbDataAdapter();
+                DataSet ds = new DataSet();
+                DataTable dt = objConn.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                string sheetName = string.Empty;
+                if (dt != null)
+                {
+                    var tempDataTable = (from dataRow in dt.AsEnumerable()
+                                         where !dataRow["TABLE_NAME"].ToString().Contains("FilterDatabase")
+                                         select dataRow).CopyToDataTable();
+                    dt = tempDataTable;
+                    totalSheet = dt.Rows.Count;
+                    sheetName = dt.Rows[0]["TABLE_NAME"].ToString();
+                }
+                cmd.Connection = objConn;
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = "SELECT * FROM [" + sheetName + "]";
+                oleda = new OleDbDataAdapter(cmd);
+                oleda.Fill(ds, "excelData");
+                dtResult = ds.Tables["excelData"];
+                objConn.Close();
+                return dtResult; //Returning Dattable  
+            }
+        }
+
+        protected async void btnUpload_Click(object sender, EventArgs e)
+        {
+            ASPxUploadControl uploadControl = ucFileClient as ASPxUploadControl;
+
+            if (uploadControl.UploadedFiles != null && uploadControl.UploadedFiles.Length > 0)
+            {
+                for (int i = 0; i < uploadControl.UploadedFiles.Length; i++)
+                {
+                    UploadedFile file = uploadControl.UploadedFiles[i];
+                    if (file.FileName != "")
+                    {
+                        string resultExtension = Path.GetExtension(file.FileName);
+                        string resultFileName = "SLIK_" + Path.ChangeExtension(Path.GetRandomFileName(), resultExtension);
+
+                        string fileName = string.Format("{0}{1}", MapPath(UploadDirectory), resultFileName);
+                        file.SaveAs(fileName, true);
+
+                        DataTable dtFromExcel = new DataTable();
+                        dtFromExcel = ConvertExcelToDataTable(fileName);
+                        try
+                        {
+                            bool resUpload = InsertClientUpload(resultFileName, dtFromExcel);
+
+                            if(resUpload == true)
+                            {
+                                API_SLIK APIClass = new API_SLIK();
+                                var reqSLIK = await APIClass.RequestSLIKUpload(dtFromExcel);
+
+                                //Clear All GridView
+                                clientDtTable.Clear();
+                                clientDtTable = GetListClient(cbSource.Text);
+                                gvClient.DataBind();
+                                tmpDtTable.Clear();
+                                gvTempData.DataBind();
+                                debDtTable.Clear();
+                                gvDebSLIK.DataBind();
+                                detailDtTable.Clear();
+                                gvDetailSLIK.DataBind();
+
+                                apcalert.Text = "Upload SLIK Request Success";
+                                apcalert.ShowOnPageLoad = true;
+                            }else
+                            {
+                                apcalert.Text = "Excel file is Incorrect";
+                                apcalert.ShowOnPageLoad = true;
+                            }
+                            
+                        }
+                        catch(Exception ex)
+                        {
+                            apcalert.Text = "Error: " + ex.Message;
+                            apcalert.ShowOnPageLoad = true;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                apcalert.Text = "Upload file is empty";
+                apcalert.ShowOnPageLoad = true;
+            }
+        }
+
+        protected void btnTemplate_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(@"~/Transactions/eKYC/TemplateUpload/TemplateUploadSLIK.xlsx");
+        }
     }
 }

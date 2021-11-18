@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
-{
-
-
-    public partial class SurveyTask
-    {
-
+namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask {
+    
+    
+    public partial class SurveyTask {
+        
         /// <summary>
         /// HiddenField control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxHiddenField HiddenField;
-
+        
         /// <summary>
         /// apcalert control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl apcalert;
-
+        
         /// <summary>
         /// ASPxFormLayout control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout;
-
+        
         /// <summary>
         /// luAppNo control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridLookup luAppNo;
-
+        
         /// <summary>
         /// txtAppNo control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtAppNo;
-
+        
         /// <summary>
         /// txtDebitur control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtDebitur;
-
+        
         /// <summary>
         /// txtPhoneDebitur control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtPhoneDebitur;
-
+        
         /// <summary>
         /// txtTglLahirDeb control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtTglLahirDeb;
-
+        
         /// <summary>
         /// txtMaritalStat control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtMaritalStat;
-
+        
         /// <summary>
         /// txtSpouName control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtSpouName;
-
+        
         /// <summary>
         /// mmAddress control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxMemo mmAddress;
-
+        
         /// <summary>
         /// txtPenjamin control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtPenjamin;
-
+        
         /// <summary>
         /// txtPhonePenjamin control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtPhonePenjamin;
-
+        
         /// <summary>
         /// txtRelation control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtRelation;
-
+        
         /// <summary>
         /// mmAddressPenjamin control.
         /// </summary>
@@ -148,7 +146,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxMemo mmAddressPenjamin;
-
+        
         /// <summary>
         /// txtIncome control.
         /// </summary>
@@ -157,7 +155,34 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtIncome;
-
+        
+        /// <summary>
+        /// txtIncomeOther control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit txtIncomeOther;
+        
+        /// <summary>
+        /// txtIncomePenjamin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit txtIncomePenjamin;
+        
+        /// <summary>
+        /// txtIncomePasanganPenjamin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit txtIncomePasanganPenjamin;
+        
         /// <summary>
         /// txtInsSLIK control.
         /// </summary>
@@ -166,7 +191,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtInsSLIK;
-
+        
         /// <summary>
         /// txtInsDeb control.
         /// </summary>
@@ -175,7 +200,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtInsDeb;
-
+        
         /// <summary>
         /// txtInsSpouse control.
         /// </summary>
@@ -184,7 +209,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtInsSpouse;
-
+        
         /// <summary>
         /// txtInsChild control.
         /// </summary>
@@ -193,7 +218,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtInsChild;
-
+        
         /// <summary>
         /// txtInsOther control.
         /// </summary>
@@ -202,7 +227,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtInsOther;
-
+        
         /// <summary>
         /// txtDBR control.
         /// </summary>
@@ -211,7 +236,34 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtDBR;
-
+        
+        /// <summary>
+        /// txtBiayaHidup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit txtBiayaHidup;
+        
+        /// <summary>
+        /// txtFreeCashFlow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtFreeCashFlow;
+        
+        /// <summary>
+        /// mmRemarks control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo mmRemarks;
+        
         /// <summary>
         /// cbSurveyObj control.
         /// </summary>
@@ -220,7 +272,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbSurveyObj;
-
+        
         /// <summary>
         /// gvSurveyItem control.
         /// </summary>
@@ -229,7 +281,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvSurveyItem;
-
+        
         /// <summary>
         /// gvLoadSurvey control.
         /// </summary>
@@ -238,7 +290,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvLoadSurvey;
-
+        
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -247,7 +299,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSave;
-
+        
         /// <summary>
         /// cplMain control.
         /// </summary>

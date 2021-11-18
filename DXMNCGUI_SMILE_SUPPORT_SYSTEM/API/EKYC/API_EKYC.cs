@@ -90,17 +90,56 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.EKYC
             cINBORNPLC = getConvertBool(dtEKYC.data.birthplace);
             cADDRESS = dtEKYC.data.address;
 
-            string connString = ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString;
-            string ssql;
-            ssql = "exec spMNCL_InputEKYC '" + clientID + "'," + pengurusid + ",'" + cName.Replace("'", "") + "','" + cINBORNDT + "','" + cINBORNPLC.Replace("'","") + "','" + cADDRESS.Replace("'", "") + "','" + auditUser + "'";
-            
-            using (SqlConnection conn = new SqlConnection(connString))
-            using (SqlCommand cmd = new SqlCommand(ssql, conn))
+            //string connString = ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString;
+            //string ssql;
+            //ssql = "exec spMNCL_InputEKYC '" + clientID + "'," + pengurusid + ",'" + cName.Replace("'", "") + "','" + cINBORNDT + "','" + cINBORNPLC.Replace("'","") + "','" + cADDRESS.Replace("'", "") + "','" + auditUser + "'";
+
+            //using (SqlConnection conn = new SqlConnection(connString))
+            //using (SqlCommand cmd = new SqlCommand(ssql, conn))
+            //{
+            //    conn.Open();
+            //    cmd.ExecuteNonQuery();
+            //    conn.Close();
+            //}
+
+            SqlConnection myconn = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString);
+            SqlCommand sqlCommand = new SqlCommand(@"exec spMNCL_InputEKYC @CLIENTID,@PENGURUSID,@NAME,@INBORNDT,@INBORNPLC,@ADDRESS,@USERID");
+            sqlCommand.Connection = myconn;
+            myconn.Open();
+
+            try
             {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                SqlParameter sqlParameter1 = sqlCommand.Parameters.Add("@CLIENTID", SqlDbType.VarChar);
+                sqlParameter1.Value = clientID;
+                sqlParameter1.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter2 = sqlCommand.Parameters.Add("@PENGURUSID", SqlDbType.VarChar);
+                sqlParameter2.Value = pengurusid;
+                sqlParameter2.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter3 = sqlCommand.Parameters.Add("@NAME", SqlDbType.VarChar);
+                sqlParameter3.Value = cName;
+                sqlParameter3.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter4 = sqlCommand.Parameters.Add("@INBORNDT", SqlDbType.VarChar);
+                sqlParameter4.Value = cINBORNDT;
+                sqlParameter4.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter5 = sqlCommand.Parameters.Add("@INBORNPLC", SqlDbType.VarChar);
+                sqlParameter5.Value = cINBORNPLC;
+                sqlParameter5.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter6 = sqlCommand.Parameters.Add("@ADDRESS", SqlDbType.VarChar);
+                sqlParameter6.Value = cADDRESS;
+                sqlParameter6.Direction = ParameterDirection.Input;
+                SqlParameter sqlParameter7 = sqlCommand.Parameters.Add("@USERID", SqlDbType.VarChar);
+                sqlParameter7.Value = UserID;
+                sqlParameter7.Direction = ParameterDirection.Input;
+
+                sqlCommand.ExecuteNonQuery();
             }
+            catch (Exception ex)
+            {
+
+            }
+            myconn.Close();
+
+            
         }
 
         public string getConvertBool(bool value)

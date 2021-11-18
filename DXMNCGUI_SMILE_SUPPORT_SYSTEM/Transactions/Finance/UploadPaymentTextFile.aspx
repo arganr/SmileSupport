@@ -125,7 +125,7 @@
                                     <dx:ASPxUploadControl ID="CtlUpload" runat="server" ClientInstanceName="CtlUpload" FileUploadMode="OnPageLoad" UploadMode="Advanced" OnFilesUploadComplete="CtlUpload_FilesUploadComplete" ShowProgressPanel="true" BrowseButton-Text="Browse" ShowTextBox="true" Height="23px">
                                     <AdvancedModeSettings EnableMultiSelect="true" EnableFileList="True" EnableDragAndDrop="True"></AdvancedModeSettings>
                                     <ValidationSettings AllowedFileExtensions=".txt" MaxFileSize="4000000" ErrorStyle-BackColor="Red" ShowErrors="true">
-                                        <ErrorStyle BackColor="Red"></ErrorStyle>
+                                        <ErrorStyle ForeColor="Red"></ErrorStyle>
                                     </ValidationSettings>
                                         <ClientSideEvents FilesUploadComplete="onFilesUploadComplete"/>
                                     <AdvancedModeSettings EnableDragAndDrop="True">

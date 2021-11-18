@@ -121,6 +121,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking {
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout;
         
         /// <summary>
+        /// cbSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox cbSource;
+        
+        /// <summary>
         /// gvClient control.
         /// </summary>
         /// <remarks>
@@ -191,6 +200,33 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.eKYC.SLIKChecking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvDetailSLIK;
+        
+        /// <summary>
+        /// ucFileClient control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl ucFileClient;
+        
+        /// <summary>
+        /// btnTemplate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnTemplate;
+        
+        /// <summary>
+        /// btnUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnUpload;
         
         /// <summary>
         /// cplMain control.

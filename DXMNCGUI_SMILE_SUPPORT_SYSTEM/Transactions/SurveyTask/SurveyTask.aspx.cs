@@ -96,6 +96,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
 
             //Get Amount
             decimal income = 0, insSLIK = 0, insDeb = 0, insSpouse = 0, insChild = 0, insOthers = 0;
+            decimal incomeOther = 0, incomePenjamin = 0, incomePasanganPenjamin = 0;
+
             if (txtIncome.Text != "") income = Convert.ToDecimal(txtIncome.Text);
             if (txtInsSLIK.Text != "") insSLIK = Convert.ToDecimal(txtInsSLIK.Text);
             if (txtInsDeb.Text != "") insDeb = Convert.ToDecimal(txtInsDeb.Text);
@@ -103,17 +105,36 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
             if (txtInsSpouse.Text != "") insSpouse = Convert.ToDecimal(txtInsSpouse.Text);
             if (txtInsOther.Text != "") insOthers = Convert.ToDecimal(txtInsOther.Text);
 
+            if (txtIncomeOther.Text != "") incomeOther = Convert.ToDecimal(txtIncomeOther.Text);
+            if (txtIncomePenjamin.Text != "") incomePenjamin = Convert.ToDecimal(txtIncomePenjamin.Text);
+            if (txtIncomePasanganPenjamin.Text != "") incomePasanganPenjamin = Convert.ToDecimal(txtIncomePasanganPenjamin.Text);
+
             //recalculate
             decimal resDBR = 0;
             decimal totalIns = insSLIK + insDeb + insSpouse + insChild + insOthers;
+            decimal totalIncome = income + incomeOther + incomePenjamin + incomePasanganPenjamin;
 
-            if (income != 0)
+            if (totalIncome != 0)
             {
-                resDBR = totalIns / income;
+                resDBR = (totalIns / totalIncome) * 100;
+            }else
+            {
+                resDBR = 100;
+            }
+
+            //Perhitungan Free Cash Flow
+            decimal costiving = 0, resFCF = 0;
+            if (txtBiayaHidup.Text != "") costiving = Convert.ToDecimal(txtBiayaHidup.Text);
+
+            decimal totalMinIns = totalIncome - insSLIK - insDeb - insSpouse - insChild - insOthers;
+            if (costiving != 0)
+            {
+                resFCF = (totalMinIns / costiving) * 100;
             }
 
             InsertDBR(luAppNo.Text, income.ToString(), insSLIK.ToString(), insDeb.ToString(), insSpouse.ToString(), insChild.ToString(), insOthers.ToString(),
-                resDBR.ToString().Replace(",", "."));
+                resDBR.ToString().Replace(",", "."), costiving.ToString(), resFCF.ToString().Replace(",", "."),
+                incomeOther.ToString(), incomePenjamin.ToString(), incomePasanganPenjamin.ToString());
 
             cplMain.JSProperties["cpAlertMessage"] = "Transaction has been save...";
             cplMain.JSProperties["cplblActionButton"] = "SAVE";
@@ -157,24 +178,43 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
 
                 case "DBR":
                     //Angsuran SLIK + Pengajuan cicilan haji)/Income Salary.
-                    decimal income = 0, insSLIK = 0, insDeb = 0, insSpouse = 0, insChild = 0, insOthers = 0;
+                    decimal income = 0, insSLIK = 0, insDeb = 0, insSpouse = 0, insChild = 0, insOthers = 0, costiving = 0;
+                    decimal incomeOther = 0, incomePenjamin = 0, incomePasanganPenjamin = 0;
                     if (txtIncome.Text != "") income = Convert.ToDecimal(txtIncome.Text);
                     if (txtInsSLIK.Text != "") insSLIK = Convert.ToDecimal(txtInsSLIK.Text);
                     if (txtInsDeb.Text != "") insDeb = Convert.ToDecimal(txtInsDeb.Text);
                     if (txtInsChild.Text != "") insChild = Convert.ToDecimal(txtInsChild.Text);
                     if (txtInsSpouse.Text != "") insSpouse = Convert.ToDecimal(txtInsSpouse.Text);
                     if (txtInsOther.Text != "") insOthers = Convert.ToDecimal(txtInsOther.Text);
+                    if (txtBiayaHidup.Text != "") costiving = Convert.ToDecimal(txtBiayaHidup.Text);
+
+                    if (txtIncomeOther.Text != "") incomeOther = Convert.ToDecimal(txtIncomeOther.Text);
+                    if (txtIncomePenjamin.Text != "") incomePenjamin = Convert.ToDecimal(txtIncomePenjamin.Text);
+                    if (txtIncomePasanganPenjamin.Text != "") incomePasanganPenjamin = Convert.ToDecimal(txtIncomePasanganPenjamin.Text);
 
                     decimal resDBR = 0;
                     decimal totalIns = insSLIK + insDeb + insSpouse + insChild + insOthers;
+                    decimal totalIncome = income + incomeOther + incomePenjamin + incomePasanganPenjamin;
 
-                    if (income != 0)
+                    if (totalIncome != 0)
                     {
-                        resDBR = totalIns / income;
+                        resDBR = (totalIns / totalIncome) * 100;
+                    }
+                    else
+                    {
+                        resDBR = 100;
+                    }
+
+                    //Perhitungan Free Cash Flow
+                    decimal resFCF = 0;
+                    decimal totalMinIns = totalIncome - insSLIK - insDeb - insSpouse - insChild - insOthers;
+                    if (costiving != 0)
+                    {
+                        resFCF = (totalMinIns / costiving) * 100;
                     }
 
                     cplMain.JSProperties["cpDBR"] = resDBR.ToString("0.##");
-
+                    cplMain.JSProperties["cpFCF"] = resFCF.ToString("0.##");
 
                     break;
 
@@ -269,6 +309,23 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
                     txtInsOther.Enabled = false;
                     txtDBR.Text = dr["dbr"].ToString();
                     txtDBR.Enabled = false;
+                    txtBiayaHidup.Text = dr["biayahidup"].ToString();
+                    txtBiayaHidup.Enabled = false;
+                    txtFreeCashFlow.Text = dr["freecashflow"].ToString();
+                    txtFreeCashFlow.Enabled = false;
+
+                    txtIncomeOther.Text = dr["income_other"].ToString();
+                    txtIncomeOther.Enabled = false;
+                    txtIncomePenjamin.Text = dr["income_penjamin"].ToString();
+                    txtIncomePenjamin.Enabled = false;
+                    txtIncomePasanganPenjamin.Text = dr["income_penjamin_spouse"].ToString();
+                    txtIncomePasanganPenjamin.Enabled = false;
+
+                    if(dr["remarks"] != null)
+                    {
+                        mmRemarks.Text = dr["remarks"].ToString();
+                    }
+                    mmRemarks.Enabled = false;
                 }
             }
 
@@ -509,10 +566,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
             cbSurveyObj.DataBind();
         }
 
-        private void InsertDBR(string applicno, string income, string insslik, string insdeb, string insspouse, string inschild, string insothers, string dbr)
+        private void InsertDBR(string applicno, string income, string insslik, string insdeb, string insspouse, string inschild, string insothers, string dbr, string costliving, string fcashflow, string income_otr, string income_penj, string income_penj_spouse)
         {
-            string cmd = "insert trxSurveyDBR(applicno, income, ins_slik, ins_deb, ins_spouse, ins_child, ins_other, dbr, cr_user, cr_date) " +
-                "values('" + applicno + "', " + income + "," + insslik + "," + insdeb + "," + insspouse + "," + inschild + "," + insothers + "," + dbr + ",'" + UserID.ToString() + "',getdate())";
+            string cmd = "insert trxSurveyDBR(applicno, income, ins_slik, ins_deb, ins_spouse, ins_child, ins_other, dbr, cr_user, cr_date, biayahidup, freecashflow, income_other, income_penjamin, income_penjamin_spouse, remarks) " +
+                "values('" + applicno + "', " + income + "," + insslik + "," + insdeb + "," + insspouse + "," + inschild + "," + insothers + "," + dbr + ",'" + UserID.ToString() + 
+                "',getdate(), " + costliving + ", " + fcashflow + ", " + income_otr + ", " + income_penj + ", " + income_penj_spouse + ",'" + mmRemarks.Text + "'" +   ")";
 
             SqlConnection myconn = new SqlConnection(myLocalDBSetting.ConnectionString);
             myconn.Open();

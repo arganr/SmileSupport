@@ -148,6 +148,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH {
         protected global::DevExpress.Web.ASPxTextBox txtStatus;
         
         /// <summary>
+        /// deDisburseDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxDateEdit deDisburseDate;
+        
+        /// <summary>
         /// txtDebitur control.
         /// </summary>
         /// <remarks>
@@ -200,6 +209,42 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtNamaPengurus;
+        
+        /// <summary>
+        /// luPengurus2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridLookup luPengurus2;
+        
+        /// <summary>
+        /// txtNamaAdmin2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtNamaAdmin2;
+        
+        /// <summary>
+        /// luPengurus3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridLookup luPengurus3;
+        
+        /// <summary>
+        /// txtNamaAdmin3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtNamaAdmin3;
         
         /// <summary>
         /// txtNoSPPH control.

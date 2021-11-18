@@ -17,13 +17,23 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
             {
                 //myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT * FROM [dbo].[Application] ORDER BY DocDate DESC", true);
                 //myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT A.*, A.CreatedBy + ' - ' + B.USER_NAME AS FULLNAME FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC", true);
-                myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT A.*, A.CreatedBy + ' - ' + ISNULL(B.USER_NAME, 'USER NAME BELUM SINKRON KE SISTEM') AS FULLNAME FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC", true);
+                //myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT A.*, A.CreatedBy + ' - ' + ISNULL(B.USER_NAME, 'USER NAME BELUM SINKRON KE SISTEM') AS FULLNAME FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC", true);
+
+                string ssql = @"SELECT A.*, A.CreatedBy + ' - ' + ISNULL(B.USER_NAME, 'USER NAME BELUM SINKRON KE SISTEM') AS FULLNAME, 
+                    STUFF((SELECT ',' + ItemDescription FROM [dbo].[ApplicationDetail] X WHERE X.DocKey = A.DocKey FOR XML PATH ('')), 1, 1, '') AS UNIT 
+                    FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC";
+                myLocalDBSetting.LoadDataTable(myBrowseTable, ssql, true);
             }
             else
             {
                 //myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT * FROM [dbo].[Application] ORDER BY DocDate DESC", true);
                 //myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT A.*, A.CreatedBy + ' - ' + B.USER_NAME AS FULLNAME FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC", true);
-                myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT A.*, A.CreatedBy + ' - ' + ISNULL(B.USER_NAME, 'USER NAME BELUM SINKRON KE SISTEM') AS FULLNAME FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC", true);
+                //myLocalDBSetting.LoadDataTable(myBrowseTable, "SELECT A.*, A.CreatedBy + ' - ' + ISNULL(B.USER_NAME, 'USER NAME BELUM SINKRON KE SISTEM') AS FULLNAME FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC", true);
+
+                string ssql = @"SELECT A.*, A.CreatedBy + ' - ' + ISNULL(B.USER_NAME, 'USER NAME BELUM SINKRON KE SISTEM') AS FULLNAME, 
+                    STUFF((SELECT ',' + ItemDescription FROM [dbo].[ApplicationDetail] X WHERE X.DocKey = A.DocKey FOR XML PATH ('')), 1, 1, '') AS UNIT 
+                    FROM [dbo].[Application] A left join MASTER_USER B on B.USER_ID=A.CreatedBy ORDER BY A.DocDate DESC";
+                myLocalDBSetting.LoadDataTable(myBrowseTable, ssql, true);
             }
             DataColumn[] keyHeader = new DataColumn[1];
             keyHeader[0] = myBrowseTable.Columns["DocKey"];
@@ -466,14 +476,16 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                 sqlParameter5.Value = Mydate;
                 sqlParameter5.Direction = ParameterDirection.Input;
                 SqlParameter sqlParameter6 = sqlCommand.Parameters.Add("@distDate", SqlDbType.DateTime);
-                
-                if(distDate.Date != null)
+
+                if (distDate != DateTime.MinValue)
                 {
                     sqlParameter6.Value = distDate;
                 }
-                else{
+                else
+                { 
                     sqlParameter6.Value = DBNull.Value;
                 }
+
                 sqlParameter6.Direction = ParameterDirection.Input;
                 sqlCommand.ExecuteNonQuery();
             }

@@ -46,6 +46,17 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
                 myLocalDBSetting = localdbsetting;
 
                 gvMain.DataBind();
+
+                int IsAuth = GetUserRoleAuth();
+                if(IsAuth > 0)
+                {
+                    //btnNew.Visible = true;
+                    FormLayout1.FindItemOrGroupByName("New").Visible = true;
+                }else
+                {
+                    FormLayout1.FindItemOrGroupByName("New").Visible = false;
+                }
+
             }
             if (!IsCallback)
             {
@@ -163,6 +174,41 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.SurveyTask
 
 
 
+
+        }
+
+        protected Int32 GetUserRoleAuth()
+        {
+            int countAuth = 0;
+
+            //Cek user CA
+            string ssql = "select Count(1) Auth from MASTER_USER_COMPANY_GROUP where GROUP_CODE like'%HO-CRD%' and USER_ID = '" + UserID + "'";
+            DataTable resDT = new DataTable();
+            SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
+            myconn.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(ssql);
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = myconn;
+
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                resDT.Load(reader);
+                foreach (DataRow row in resDT.Rows)
+                {
+                    countAuth += Convert.ToInt32(row["Auth"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            finally
+            {
+                myconn.Close();
+            }
+
+            return countAuth;
 
         }
     }

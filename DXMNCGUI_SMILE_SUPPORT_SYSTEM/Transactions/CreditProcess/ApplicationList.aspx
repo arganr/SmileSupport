@@ -315,6 +315,9 @@
                                         <dx:GridViewDataTextColumn Name="colOnHold" Caption="Hold?" FieldName="OnHold" ReadOnly="true" ShowInCustomizationForm="true" Visible="true" >
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataTextColumn Name="colUnit" Caption="Unit" FieldName="UNIT" ReadOnly="true" ShowInCustomizationForm="true" Visible="true" >
+                                            <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                        </dx:GridViewDataTextColumn>
                                     </Columns>
                                     <Styles>
                                         <AlternatingRow Enabled="True"></AlternatingRow>

@@ -17,6 +17,7 @@
                     break;
                 case "DBR":
                     txtDBR.SetValue(cplMain.cpDBR);
+                    txtFreeCashFlow.SetValue(cplMain.cpFCF);
                     break;
                 case "SLIK":
                     txtInsSLIK.SetValue(cplMain.cpInsSLIK);
@@ -38,8 +39,6 @@
                 
                 cplMain.PerformCallback("LUAPPNO_CHANGED;" + luAppNo.GetValue().toString());
                 cplMain.PerformCallback("DBR;");
-                
-                
             }
         }
 
@@ -63,14 +62,15 @@
             //txtInsSLIK.SetValue(0);
             txtDBR.SetValue("");
             txtIncome.SetValue(0);
+            txtIncomeOther.SetValue(0);
+            txtIncomePenjamin.SetValue(0);
+            txtIncomePasanganPenjamin.SetValue(0);
             txtInsDeb.SetValue(0);
             txtInsSpouse.SetValue(0);
             txtInsChild.SetValue(0);
             txtInsOther.SetValue(0);
-            
-
-
-
+            txtFreeCashFlow.SetValue("");
+            txtBiayaHidup.SetValue(0);
         }
     </script>
 
@@ -78,7 +78,7 @@
     <dx:ASPxPopupControl ID="apcalert" ClientInstanceName="apcalert" runat="server" Modal="True"
         PopupHorizontalAlign="WindowCenter" AutoUpdatePosition="true" ShowCloseButton="true" PopupVerticalAlign="WindowCenter" HeaderText="Alert!" AllowDragging="True" PopupAnimationType="Fade" EnableViewState="False" Width="250px">
     </dx:ASPxPopupControl>
-    <dx:ASPxFormLayout ID="ASPxFormLayout" ClientInstanceName="ASPxFormLayout" runat="server" Theme="Glass">
+    <dx:ASPxFormLayout ID="ASPxFormLayout" ClientInstanceName="ASPxFormLayout" runat="server" Theme="Glass" ColCount="1">
         <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="800"/>
         <Items>
             <dx:LayoutItem ShowCaption="True" Caption="SMILE Application No." Width="30%">
@@ -194,72 +194,117 @@
                 </Items>
             </dx:LayoutGroup>
 
-            <dx:LayoutGroup Name="LayoutGroupListDBR" ShowCaption="True" Caption="DBR" GroupBoxDecoration="Box" ColCount="1" Width="100%">
+            <dx:LayoutGroup Name="LayoutGroupListDBR" ShowCaption="True" Caption="DBR & Free Cash Flow" GroupBoxDecoration="Box" ColCount="2" Width="100%">
                 <GroupBoxStyle BackColor="Transparent" Caption-BackColor="#f8fafd" Caption-Font-Bold="true"></GroupBoxStyle>
                 <Items>
-                    <dx:LayoutItem ShowCaption="true" Caption="Income Salary" Width="30%">
+                    <dx:LayoutItem ShowCaption="true" Caption="Income Debitur" Width="50%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
                                 <%--<dx:ASPxTextBox runat="server" ID="txtIncomeSalary" ClientInstanceName="txtIncomeSalary" ClientEnabled="true"></dx:ASPxTextBox>--%>
-                                <dx:ASPxSpinEdit ID="txtIncome" runat="server" ClientInstanceName="txtIncome" Number="0" DisplayFormatString="{0:#,0}" NullText="0">
-                                    <ClientSideEvents KeyPress="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                <dx:ASPxSpinEdit ID="txtIncome" runat="server" ClientInstanceName="txtIncome" Number="0" DisplayFormatString="{0:#,0}" NullText="0" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
                                 </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem Width="70%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran SLIK" Width="30%">
+                    <dx:LayoutItem ShowCaption="true" Caption="Other Income" Width="50%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxTextBox runat="server" ID="txtInsSLIK" ClientInstanceName="txtInsSLIK" ClientEnabled="false" DisplayFormatString="{0:#,0}"></dx:ASPxTextBox>
-                            </dx:LayoutItemNestedControlContainer>
-                        </LayoutItemNestedControlCollection>
-                    </dx:LayoutItem>
-                    <dx:EmptyLayoutItem Width="70%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Debitur" Width="30%">
-                        <LayoutItemNestedControlCollection>
-                            <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxSpinEdit ID="txtInsDeb" runat="server" ClientInstanceName="txtInsDeb" Number="0" DisplayFormatString="{0:#,0}">
-                                    <ClientSideEvents KeyPress="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                <dx:ASPxSpinEdit ID="txtIncomeOther" runat="server" ClientInstanceName="txtIncomeOther" Number="0" DisplayFormatString="{0:#,0}" NullText="0" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
                                 </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem Width="70%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Pasangan Debitur" Width="30%">
+                    <dx:LayoutItem ShowCaption="true" Caption="Income Penjamin" Width="50%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxSpinEdit ID="txtInsSpouse" runat="server" ClientInstanceName="txtInsSpouse" Number="0" DisplayFormatString="{0:#,0}">
-                                    <ClientSideEvents KeyPress="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                <dx:ASPxSpinEdit ID="txtIncomePenjamin" runat="server" ClientInstanceName="txtIncomePenjamin" Number="0" DisplayFormatString="{0:#,0}" NullText="0" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
                                 </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem Width="70%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Anak Debitur" Width="30%">
+                    <dx:LayoutItem ShowCaption="true" Caption="Income Pasangan Penjamin" Width="50%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxSpinEdit ID="txtInsChild" runat="server" ClientInstanceName="txtInsChild" Number="0" DisplayFormatString="{0:#,0}">
-                                    <ClientSideEvents KeyPress="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                <dx:ASPxSpinEdit ID="txtIncomePasanganPenjamin" runat="server" ClientInstanceName="txtIncomePasanganPenjamin" Number="0" DisplayFormatString="{0:#,0}" NullText="0" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
                                 </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem Width="70%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Anggota Keluarga Lainnya" Width="30%">
+                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran SLIK" ColSpan="2" Width="100%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxSpinEdit ID="txtInsOther" runat="server" ClientInstanceName="txtInsOther" Number="0" DisplayFormatString="{0:#,0}">
-                                    <ClientSideEvents KeyPress="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                <dx:ASPxTextBox runat="server" ID="txtInsSLIK" ClientInstanceName="txtInsSLIK" ClientEnabled="false" DisplayFormatString="{0:#,0}" Width="250px"></dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Debitur" ColSpan="2" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxSpinEdit ID="txtInsDeb" runat="server" ClientInstanceName="txtInsDeb" Number="0" DisplayFormatString="{0:#,0}" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
                                 </dx:ASPxSpinEdit>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
-                    <dx:EmptyLayoutItem Width="70%"></dx:EmptyLayoutItem>
-                    <dx:LayoutItem ShowCaption="true" Caption="Hasil Perhitungan DBR" Width="30%">
+                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Pasangan Debitur" ColSpan="2" Width="100%">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer>
-                                <dx:ASPxTextBox runat="server" ID="txtDBR" ClientInstanceName="txtDBR" ClientEnabled="false"></dx:ASPxTextBox>
+                                <dx:ASPxSpinEdit ID="txtInsSpouse" runat="server" ClientInstanceName="txtInsSpouse" Number="0" DisplayFormatString="{0:#,0}" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                </dx:ASPxSpinEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Anak Debitur" ColSpan="2" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxSpinEdit ID="txtInsChild" runat="server" ClientInstanceName="txtInsChild" Number="0" DisplayFormatString="{0:#,0}" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                </dx:ASPxSpinEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Angsuran Anggota Keluarga Lainnya" ColSpan="2" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxSpinEdit ID="txtInsOther" runat="server" ClientInstanceName="txtInsOther" Number="0" DisplayFormatString="{0:#,0}" Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                </dx:ASPxSpinEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Hasil Perhitungan DBR" ColSpan="2" Width="100%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxTextBox runat="server" ID="txtDBR" ClientInstanceName="txtDBR" ClientEnabled="false" Width="250px"></dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Biaya Hidup" Width="50%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxSpinEdit ID="txtBiayaHidup" runat="server" ClientInstanceName="txtBiayaHidup" Number="0" DisplayFormatString="{0:#,0}"  Width="250px">
+                                    <ClientSideEvents KeyUp="function(s,e) { cplMain.PerformCallback('DBR;'); }" />
+                                </dx:ASPxSpinEdit>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Free Cash Flow" Width="50%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxTextBox runat="server" ID="txtFreeCashFlow" ClientInstanceName="txtFreeCashFlow" ClientEnabled="false" Width="250px"></dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                    <dx:LayoutItem ShowCaption="true" Caption="Remarks" Width="50%">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer>
+                                <dx:ASPxMemo runat="server" ID="mmRemarks" ClientInstanceName="mmRemarks" Width="250px" Height="100px">
+                                </dx:ASPxMemo>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -370,7 +415,7 @@
                             
                         </dx:ASPxButton>--%>
 
-                        <dx:ASPxButton runat="server" ID="btnSave" ClientInstanceName="btnSave" AutoPostBack="false" Height="30px" Text="Save" Theme="MaterialCompact">
+                        <dx:ASPxButton runat="server" ID="btnSave" ClientInstanceName="btnSave" AutoPostBack="false" Height="30px" Text="Save" Theme="MaterialCompact" UseSubmitBehavior="false">
                             <ClientSideEvents Click="function(s,e) { cplMain.PerformCallback('SAVE;' + 'CLICK'); }" />
                         </dx:ASPxButton>
                     </dx:LayoutItemNestedControlContainer>

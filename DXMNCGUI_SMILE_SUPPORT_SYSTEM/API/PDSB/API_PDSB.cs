@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -17,8 +18,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.PDSB
 {
     public class API_PDSB : BasePage
     {
-        string secretkey = ConfigurationManager.AppSettings["pdsb_token"].ToString();
-        Uri LoginUri = new Uri(ConfigurationManager.AppSettings["pdsb_uri_test"].ToString());
+        string secretkey = ConfigurationManager.AppSettings["pdsb_secretkey"].ToString();
+        Uri LoginUri = new Uri(ConfigurationManager.AppSettings["pdsb_login_uri"].ToString());
         Uri AccUri = new Uri(ConfigurationManager.AppSettings["pdsb_acc_uri"].ToString());
 
         public async Task<string> GetToken()
@@ -46,17 +47,17 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.PDSB
                 }
                 catch (Exception ex2)
                 {
-                    //strResult = "ERROR: " + ex2.Message;
+                    strResult = "ERROR: " + ex2.Message;
                 }
             }
             catch (Exception ex)
             {
-                //strResult = "ERROR: " + ex.Message;
+                strResult = "ERROR: " + ex.Message;
             }
 
             return strResult;
         }
-
+        
         public async Task<string> Account_Registeration(string token, DataTable dtAcc, string branch)
         {
             string strResult = "";
@@ -99,11 +100,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.PDSB
                     var response = new HttpResponseMessage();
                     var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
+
                     HttpClientHandler clientHandler = new HttpClientHandler();
                     var client = new HttpClient();
+                    client.Timeout = TimeSpan.FromMinutes(30);
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", token);
-
                     response = await client.PostAsync(AccUri, httpContent);
+
+
                     var stringResponse = await response.Content.ReadAsStringAsync();
 
                     var settings = new JsonSerializerSettings
@@ -115,16 +119,22 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.PDSB
                     try
                     {
                         messageResult = JsonConvert.DeserializeObject<ResultAccount>(stringResponse);
-                        strResult = messageResult.account_number;
-                        //strResult = stringResponse;
-
-                        InsertLogData(AccUri.ToString(), stringResponse, 0, jsonString, strResult, "sysadmin");
+                        if(messageResult.responseCode == "500")
+                        {
+                            strResult = "ERROR: " + messageResult.messages;
+                            InsertLogData(AccUri.ToString(), stringResponse, 1, jsonString, strResult, "sysadmin");
+                        }
+                        else
+                        {
+                            strResult = messageResult.account_number;
+                            InsertLogData(AccUri.ToString(), stringResponse, 0, jsonString, strResult, "sysadmin");
+                        }
                     }
                     catch (Exception ex2)
                     {
-                        var ErrorResult = JsonConvert.DeserializeObject<ResultArray>(stringResponse);
-                        //strResult = "ERROR: " + ex2.Message;
-                        strResult = "ERROR: " + ErrorResult.messages;
+                        //var ErrorResult = JsonConvert.DeserializeObject<ResultArray>(stringResponse);
+                        strResult = "ERROR: " + ex2.Message;
+                        //strResult = "ERROR: " + ErrorResult.messages;
                         //strResult = "ERROR";
                         InsertLogData(AccUri.ToString(), stringResponse, 1, jsonString, "", "sysadmin");
                     }

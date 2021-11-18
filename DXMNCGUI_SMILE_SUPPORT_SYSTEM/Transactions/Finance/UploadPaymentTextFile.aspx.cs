@@ -89,13 +89,17 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Finance
 
                             sqlCommand.Parameters.AddWithValue("@Seq", dataRow["No"]);
                             sqlCommand.Parameters.AddWithValue("@OrderNumber", dataRow["OrderNumber"]);
-                            sqlCommand.Parameters.AddWithValue("@Tanggal", dataRow["Tanggal"]);
+                            //sqlCommand.Parameters.AddWithValue("@Tanggal", (object)dataRow["Tanggal"]);
+                            //sqlCommand.Parameters.Add("@Tanggal", SqlDbType.Date).Value = dataRow["Tanggal"];
+                            sqlCommand.Parameters.Add("@Tanggal", SqlDbType.Date).Value = DateTime.ParseExact(dataRow["Tanggal"].ToString(), "dd/MM/yyyy", null);
                             sqlCommand.Parameters.AddWithValue("@NomorKontrak", dataRow["NomorKontrak"]);
                             sqlCommand.Parameters.AddWithValue("@AyoconnectPrice", dataRow["AyoconnectPrice"]);
                             sqlCommand.Parameters.AddWithValue("@PotonganAyoconnect", dataRow["PotonganAyoconnect"]);
                             sqlCommand.Parameters.AddWithValue("@Disburse", dataRow["Disburse"]);
                             sqlCommand.Parameters.AddWithValue("@Status", dataRow["Status"]);
-                            sqlCommand.Parameters.AddWithValue("@PaidOn", dataRow["PaidOn"]);
+                            //sqlCommand.Parameters.AddWithValue("@PaidOn", (object)dataRow["PaidOn"]);
+                            //sqlCommand.Parameters.Add("@PaidOn", SqlDbType.Date).Value = dataRow["PaidOn"];
+                            sqlCommand.Parameters.Add("@PaidOn", SqlDbType.Date).Value = DateTime.ParseExact(dataRow["PaidOn"].ToString(), "dd/MM/yyyy", null);
                             sqlCommand.Parameters.AddWithValue("@PaymentMode", dataRow["PaymentMode"]);
                             sqlCommand.Parameters.AddWithValue("@UploadBy", (object)this.UserName);
                             sqlCommand.Parameters.AddWithValue("@UploadDateTime", (object)myLocalDBSetting.GetServerTime());

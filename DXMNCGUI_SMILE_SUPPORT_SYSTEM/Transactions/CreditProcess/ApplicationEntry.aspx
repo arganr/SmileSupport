@@ -260,10 +260,10 @@
             <dx:PopupControlContentControl ID="PopupControlContentControl2" runat="server">
                 <dx:ASPxFormLayout ID="ASPxFormLayout" runat="server" ColCount="2" Width="100%">
                     <Items>      
-                        <dx:LayoutItem ShowCaption="True" Caption="Dist Date" Width="100%" ColSpan="2">
+                        <dx:LayoutItem ShowCaption="True" Caption="Req. Disb. Date" Width="100%" ColSpan="2" Name="lytDisbDate">
                             <LayoutItemNestedControlCollection>
                                 <dx:LayoutItemNestedControlContainer>
-                                    <dx:ASPxDateEdit runat="server" ID="deDistDate" ClientInstanceName="deDistDate" Width="100%" Enabled="false"></dx:ASPxDateEdit>
+                                    <dx:ASPxDateEdit runat="server" ID="deDistDate" ClientInstanceName="deDistDate" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy" DisplayFormatString="dd/MM/yyyy" Width="100%" ClientEnabled="false"></dx:ASPxDateEdit>
                                 </dx:LayoutItemNestedControlContainer>
                             </LayoutItemNestedControlCollection>
                         </dx:LayoutItem>                 

@@ -136,12 +136,20 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.Mitra
                         dataRow["Password"] = MD5Hash(strPassword);
                     }
 
-                    obj = dbsetting.ExecuteScalar("select top 1 b.C_NAME from SYS_TBLEMPLOYEE a inner join SYS_COMPANY b on a.C_CODE=b.C_CODE WHERE a.CODE=?", dataRow["CreatedBy"].ToString());
+                    //obj = dbsetting.ExecuteScalar("select top 1 b.C_NAME from SYS_TBLEMPLOYEE a inner join SYS_COMPANY b on a.C_CODE=b.C_CODE WHERE a.CODE=?", dataRow["CreatedBy"].ToString());
+                    //if (obj != null && obj != DBNull.Value)
+                    //{
+                    //    dataRow["Branch"] = obj;
+                    //}
+
+                    obj = dbsetting.ExecuteScalar("select top 1 b.C_NAME from SYS_TBLEMPLOYEE a inner join SYS_COMPANY b on a.C_CODE=b.C_CODE WHERE a.ISACTIVE = 1 and a.DESCS=?", dataRow["PIC"].ToString());
                     if (obj != null && obj != DBNull.Value)
                     {
                         dataRow["Branch"] = obj;
                     }
-                    
+
+                    //select top 1 b.C_NAME from SYS_TBLEMPLOYEE a inner join SYS_COMPANY b on a.C_CODE=b.C_CODE WHERE a.ISACTIVE = 1 and a.DESCS=''
+
                     if (Mitra.MKey != null)
                     {
                         ClearBankDetail(Mitra, saveaction);

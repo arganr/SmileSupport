@@ -142,16 +142,39 @@
                                         <dx:GridViewDataTextColumn FieldName="ClientName" Name="colClientName" Caption="Client Name" Width="20%" VisibleIndex="1">
                                             <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="FromStatus" Name="colFromStatus" Caption="From" Width="20%" VisibleIndex="2">
+                                        <dx:GridViewDataTextColumn FieldName="TipeDebitur" Name="colTipeDebitur" Caption="Client Type" Width="20%" VisibleIndex="2">
                                             <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="Status" Name="colToStatus" Caption="To" Width="20%" VisibleIndex="3">
+                                        <dx:GridViewDataTextColumn FieldName="Branch" Name="colBranch" Caption="Branch" Width="20%" VisibleIndex="3">
                                             <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="TransBy" Name="colTransBy" Caption="Action By" Width="20%" VisibleIndex="4">
+                                        <dx:GridViewDataTextColumn FieldName="ObjectPembiayaan" Name="colObjectPembiayaan" Caption="Lease Object" Width="20%" VisibleIndex="4">
                                             <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataSpinEditColumn FieldName="DiffTime" Name="colDiffTime" Caption="Working Time In Minutes" PropertiesSpinEdit-DisplayFormatString="#,0" Width="10%" VisibleIndex="5">
+                                        <dx:GridViewDataTextColumn FieldName="JenisPengikatan" Name="colJenisPengikatan" Caption="Binding Type" Width="20%" VisibleIndex="5">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataSpinEditColumn FieldName="NTF" Name="colNTF" Caption="NTF" PropertiesSpinEdit-DisplayFormatString="#,0.00" Width="120" VisibleIndex="6">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                        </dx:GridViewDataSpinEditColumn>
+                                        <dx:GridViewDataTextColumn FieldName="SupplierName" Name="colSupplierName" Caption="Supplier" Width="20%" VisibleIndex="7">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataTextColumn FieldName="StatusFrom" Name="colFromStatus" Caption="From" Width="20%" VisibleIndex="8">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                            <SettingsHeaderFilter Mode="CheckedList"></SettingsHeaderFilter>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataTextColumn FieldName="StatusTo" Name="colToStatus" Caption="To" Width="20%" VisibleIndex="9">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                            <SettingsHeaderFilter Mode="CheckedList"></SettingsHeaderFilter>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataTextColumn FieldName="TransBy" Name="colTransBy" Caption="Action By" Width="20%" VisibleIndex="10">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataDateColumn FieldName="TransDate" Name="colTransDate" Caption="Date Time" Width="20%" VisibleIndex="11" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy hh:mm:ss tt">
+                                            <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
+                                        </dx:GridViewDataDateColumn>
+                                        <dx:GridViewDataSpinEditColumn FieldName="DiffTime" Name="colDiffTime" Caption="Working Time In Minutes" PropertiesSpinEdit-DisplayFormatString="#,0" Width="10%" VisibleIndex="12">
                                             <HeaderStyle Font-Bold="true" HorizontalAlign="Center" Font-Names="Calibri"/>
                                             <CellStyle Font-Bold="true"></CellStyle>
                                         </dx:GridViewDataSpinEditColumn>

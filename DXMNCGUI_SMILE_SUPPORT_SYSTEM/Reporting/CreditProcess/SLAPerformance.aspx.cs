@@ -299,7 +299,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Reporting.CreditProcess
                         ISNULL((SELECT (SUM(DiffTime)) FROM [dbo].[ApplicationHistory] WHERE DocKey = A.DocKey AND FromStatus='DONE'),0) AS 'DONE'
                         ------------------------------------------------------------------------------------------------------------------------------------------
                         FROM [dbo].[Application] A 
-                        INNER JOIN [dbo].[ApplicationWorkflowScheme] B ON A.Status = B.StateDescription";
+                        LEFT JOIN [dbo].[ApplicationWorkflowScheme] B ON A.Status = B.StateDescription";
             #endregion
             sQuery = (myWhereString.Length > 0 ? sQuery + myWhereString : sQuery);
             myTable = myLocalDBSetting.GetDataTable(sQuery, false, "");

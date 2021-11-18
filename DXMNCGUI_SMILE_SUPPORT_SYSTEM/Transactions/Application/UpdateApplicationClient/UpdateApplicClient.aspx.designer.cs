@@ -7,13 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicationClient
-{
-
-
-    public partial class UpdateApplicClient
-    {
-
+namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicationClient {
+    
+    
+    public partial class UpdateApplicClient {
+        
         /// <summary>
         /// HiddenField control.
         /// </summary>
@@ -22,7 +20,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxHiddenField HiddenField;
-
+        
         /// <summary>
         /// apcconfirm control.
         /// </summary>
@@ -31,7 +29,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl apcconfirm;
-
+        
         /// <summary>
         /// PopupControlContentControl1 control.
         /// </summary>
@@ -40,7 +38,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.PopupControlContentControl PopupControlContentControl1;
-
+        
         /// <summary>
         /// ASPxFormLayout6 control.
         /// </summary>
@@ -49,7 +47,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout6;
-
+        
         /// <summary>
         /// LayoutItemNestedControlContainer7 control.
         /// </summary>
@@ -58,7 +56,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.LayoutItemNestedControlContainer LayoutItemNestedControlContainer7;
-
+        
         /// <summary>
         /// lblmessage control.
         /// </summary>
@@ -67,7 +65,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblmessage;
-
+        
         /// <summary>
         /// LayoutItemNestedControlContainer8 control.
         /// </summary>
@@ -76,7 +74,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.LayoutItemNestedControlContainer LayoutItemNestedControlContainer8;
-
+        
         /// <summary>
         /// btnSaveConfirm control.
         /// </summary>
@@ -85,7 +83,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSaveConfirm;
-
+        
         /// <summary>
         /// LayoutItemNestedControlContainer9 control.
         /// </summary>
@@ -94,7 +92,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.LayoutItemNestedControlContainer LayoutItemNestedControlContainer9;
-
+        
         /// <summary>
         /// btnCancelConfirm control.
         /// </summary>
@@ -103,7 +101,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnCancelConfirm;
-
+        
         /// <summary>
         /// apcalert control.
         /// </summary>
@@ -112,7 +110,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl apcalert;
-
+        
         /// <summary>
         /// formLayout control.
         /// </summary>
@@ -121,7 +119,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxFormLayout formLayout;
-
+        
         /// <summary>
         /// luAppNo control.
         /// </summary>
@@ -130,7 +128,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridLookup luAppNo;
-
+        
         /// <summary>
         /// txtClient control.
         /// </summary>
@@ -139,7 +137,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtClient;
-
+        
         /// <summary>
         /// txtKTP control.
         /// </summary>
@@ -148,7 +146,34 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtKTP;
-
+        
+        /// <summary>
+        /// deTanggalLahir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxDateEdit deTanggalLahir;
+        
+        /// <summary>
+        /// txtTempatLahir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtTempatLahir;
+        
+        /// <summary>
+        /// txtRealName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtRealName;
+        
         /// <summary>
         /// txtIbu control.
         /// </summary>
@@ -157,16 +182,16 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtIbu;
-
+        
         /// <summary>
-        /// txtIncome control.
+        /// seIncome control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtIncome;
-
+        protected global::DevExpress.Web.ASPxSpinEdit seIncome;
+        
         /// <summary>
         /// cbJobStat control.
         /// </summary>
@@ -175,7 +200,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbJobStat;
-
+        
         /// <summary>
         /// txtSpousName control.
         /// </summary>
@@ -184,7 +209,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtSpousName;
-
+        
         /// <summary>
         /// txtSpousPlc control.
         /// </summary>
@@ -193,7 +218,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtSpousPlc;
-
+        
         /// <summary>
         /// deSpousBrth control.
         /// </summary>
@@ -202,7 +227,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxDateEdit deSpousBrth;
-
+        
         /// <summary>
         /// txtSpousKTP control.
         /// </summary>
@@ -211,7 +236,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtSpousKTP;
-
+        
         /// <summary>
         /// cbSpousEdu control.
         /// </summary>
@@ -220,7 +245,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cbSpousEdu;
-
+        
         /// <summary>
         /// txtRefName control.
         /// </summary>
@@ -229,7 +254,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtRefName;
-
+        
         /// <summary>
         /// txtAddress1 control.
         /// </summary>
@@ -238,25 +263,25 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtAddress1;
-
+        
         /// <summary>
-        /// txtAddress2 control.
+        /// deTglLahirPenjamin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtAddress2;
-
+        protected global::DevExpress.Web.ASPxDateEdit deTglLahirPenjamin;
+        
         /// <summary>
-        /// txtAddress3 control.
+        /// sePenghasilanPenjamin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtAddress3;
-
+        protected global::DevExpress.Web.ASPxSpinEdit sePenghasilanPenjamin;
+        
         /// <summary>
         /// txtRefID control.
         /// </summary>
@@ -265,7 +290,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtRefID;
-
+        
         /// <summary>
         /// txtTelp control.
         /// </summary>
@@ -274,7 +299,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtTelp;
-
+        
         /// <summary>
         /// txtRelation control.
         /// </summary>
@@ -283,7 +308,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtRelation;
-
+        
         /// <summary>
         /// txtEmergencyName control.
         /// </summary>
@@ -292,7 +317,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtEmergencyName;
-
+        
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -301,7 +326,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton btnSave;
-
+        
         /// <summary>
         /// cplMain control.
         /// </summary>
@@ -310,7 +335,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application.UpdateApplicati
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxCallback cplMain;
-
+        
         /// <summary>
         /// sdsClient control.
         /// </summary>

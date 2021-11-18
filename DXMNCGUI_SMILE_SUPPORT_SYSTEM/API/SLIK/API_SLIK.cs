@@ -44,14 +44,42 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                     mdlReq.Ktp = item["KTP"].ToString();
                     mdlReq.Npwp = item["NPWP"].ToString();
                     mdlReq.Gender = item["INGENDER"].ToString();
-                    mdlReq.Pob = item["INBORNPLC"].ToString();
-                    mdlReq.Mmn = item["IBUKANDUNG"].ToString();
+
+                    string strPOB = item["INBORNPLC"].ToString();
+                    if(strPOB.Length > 30)
+                    {
+                        mdlReq.Pob = strPOB.Substring(0, 30);
+                    }
+                    else
+                    {
+                        mdlReq.Pob = strPOB;
+                    }
+                    
+                    //mdlReq.Mmn = item["IBUKANDUNG"].ToString();
+                    mdlReq.Mmn = "";
                     mdlReq.Address = item["ADDRESS"].ToString();
                     mdlReq.Custtype = item["CUSTTYPE"].ToString();
                     mdlReq.Tenant = SLIK_Tenant;
                     mdlReq.Email = SLIK_Email;
 
+                    //FOR UPLOAD REQUEST
+                    if(mdlReq.Ktp == "")
+                    {
+                        mdlReq.Ktp = "1";
+                    }
+
+                    if(mdlReq.Dob == "")
+                    {
+                        mdlReq.Dob = "2000-01-01";
+                    }
+
+                    if(mdlReq.Custtype == "Perusahaan")
+                    {
+                        mdlReq.Custtype = "2";
+                    }
+
                     string jsonString = JsonConvert.SerializeObject(mdlReq);
+                    string stringResponse = String.Empty;
 
                     try
                     {
@@ -64,7 +92,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
                         response = await client.PostAsync(ReqSLIK_Uri, httpContent);
-                        var stringResponse = await response.Content.ReadAsStringAsync();
+                        stringResponse = await response.Content.ReadAsStringAsync();
 
                         var settings = new JsonSerializerSettings
                         {
@@ -78,6 +106,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                         {
                             var retReffID = messageResult.Data.RequestReffId.ToString();
                             InsertRequestSLIK(mdlReq, retReffID, clientid, pengurusid);
+
+                            InsertLogData(ReqSLIK_Uri.ToString(), stringResponse, 0, jsonString, strResult, "sysadmin");
                         }
                         else
                         {
@@ -100,16 +130,110 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                                 {
                                     strResult += "- email: " + messageResult.Message.Email.FirstOrDefault() + "\n";
                                 }
+                                if (messageResult.Message.NamaIbu != null)
+                                {
+                                    strResult += "- namaibu: " + messageResult.Message.NamaIbu.FirstOrDefault() + "\n";
+                                }
+                            }
+                            else if(messageResult.Code == "SYSTEM_FAILURE")
+                            {
+                                strResult += "- Error connecting to API";
                             }
                             else
                             {
                                 strResult += "- Error connecting to API";
                             }
+
+                            InsertLogData(ReqSLIK_Uri.ToString(), stringResponse, 1, jsonString, strResult, "sysadmin");
                         }
                     }
                     catch (Exception ex)
                     {
                         strResult = "ERROR: " + ex.Message;
+                        InsertLogData(ReqSLIK_Uri.ToString(), stringResponse, 1, jsonString, strResult, "sysadmin");
+
+                    }
+                }
+            }
+
+            return strResult;
+        }
+
+        public async Task<string> RequestSLIKUpload(DataTable dtDeb)
+        {
+            string strResult = "";
+
+            if(dtDeb != null)
+            {
+                foreach (DataRow item in dtDeb.Rows)
+                {
+                    ModelReqSLIK mdlReq = new ModelReqSLIK();
+                    ResultReqSLIK messageResult = new ResultReqSLIK();
+
+                    mdlReq.ReferenceId = Guid.NewGuid().ToString();
+                    mdlReq.Name = item["Name"].ToString();
+                    mdlReq.Dob = "";
+                    mdlReq.Ktp = "";
+                    mdlReq.Npwp = item["NPWP"].ToString();
+                    mdlReq.Gender = "";
+                    mdlReq.Pob = "";
+                    mdlReq.Mmn = "";
+                    mdlReq.Address = "";
+
+                    //mdlReq.Custtype = item["Type"].ToString();
+                    mdlReq.Custtype = "2"; // default for company
+                    if (mdlReq.Custtype == "2")
+                    {
+                        mdlReq.Dob = "2000-01-01";
+                        mdlReq.Ktp = "1";
+                    }
+                    
+                    mdlReq.Tenant = SLIK_Tenant;
+                    mdlReq.Email = SLIK_Email;
+
+                    string jsonString = JsonConvert.SerializeObject(mdlReq);
+                    string stringResponse = String.Empty;
+                    try
+                    {
+                        if(mdlReq.Name != "" && mdlReq.Name != "-" && mdlReq.Npwp != "-" && mdlReq.Npwp != "")
+                        {
+                            var response = new HttpResponseMessage();
+                            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+                            HttpClientHandler clientHandler = new HttpClientHandler();
+                            var client = new HttpClient();
+                            //client.DefaultRequestHeaders.Add("token", secretkey);
+                            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                            response = await client.PostAsync(ReqSLIK_Uri, httpContent);
+                            stringResponse = await response.Content.ReadAsStringAsync();
+
+                            var settings = new JsonSerializerSettings
+                            {
+                                NullValueHandling = NullValueHandling.Ignore,
+                                MissingMemberHandling = MissingMemberHandling.Ignore
+                            };
+
+                            messageResult = JsonConvert.DeserializeObject<ResultReqSLIK>(stringResponse);
+
+                            if (messageResult.Status == "OK")
+                            {
+                                var retReffID = messageResult.Data.RequestReffId.ToString();
+                                InsertRequestSLIK(mdlReq, retReffID, mdlReq.Name, "0");
+                                InsertLogData(ReqSLIK_Uri.ToString(), stringResponse, 0, jsonString, strResult, "sysadmin");
+                            }
+                            else
+                            {
+                                strResult = "ERROR: " + messageResult.Code;
+                                InsertLogData(ReqSLIK_Uri.ToString(), stringResponse, 1, jsonString, strResult, "sysadmin");
+                            }
+                        }
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        strResult = "ERROR: " + ex.Message;
+                        InsertLogData(ReqSLIK_Uri.ToString(), stringResponse, 1, jsonString, strResult, "sysadmin");
                     }
                 }
             }
@@ -126,7 +250,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
 
             mdlRef.request_reff_id = reff_id;
             string jsonString = JsonConvert.SerializeObject(mdlRef);
-
+            string stringResponse = String.Empty;
             try
             {
                 var response = new HttpResponseMessage();
@@ -137,7 +261,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
                 response = await client.PostAsync(GetSLIK_Uri, httpContent);
-                var stringResponse = await response.Content.ReadAsStringAsync();
+                stringResponse = await response.Content.ReadAsStringAsync();
 
                 var settings = new JsonSerializerSettings
                 {
@@ -171,10 +295,14 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                 {
                     strResult = messageResult.ErrorMsg;
                 }
+
+                InsertLogData(GetSLIK_Uri.ToString(), stringResponse, 0, jsonString, strResult, "sysadmin");
             }
             catch (Exception ex)
             {
                 strResult = "ERROR: " + ex.Message;
+
+                InsertLogData(GetSLIK_Uri.ToString(), stringResponse, 1, jsonString, strResult, "sysadmin");
             }
 
             return strResult;
@@ -248,6 +376,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
             foreach (var v in (dtSLIK as IEnumerable<object>))
             {
                 ModelCreditFinancing mdlCredit = new ModelCreditFinancing();
+                ModelFlagSLIK mdlFlag = new ModelFlagSLIK();
+
                 var d = JsonConvert.DeserializeObject<Dictionary<string, dynamic>>(v.ToString());
                 mdlCredit.REFID = reff_id;
                 mdlCredit.LJK = d["ljkKet"];
@@ -311,33 +441,43 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                     mdlCredit.TGLAWAL_SISATENOR = mdlCredit.TGLAWAL_SISATENOR.AddMonths(1);
                 }
 
-                mdlCredit.JANGKA = Math.Round(Math.Round((mdlCredit.JATUHTEMPO - mdlCredit.AKADAWAL).TotalDays, 0) / 365);
+                //TERM
+                //mdlCredit.JANGKA = Math.Round(Math.Round((mdlCredit.JATUHTEMPO - mdlCredit.AKADAWAL).TotalDays, 0) / 365);
+                mdlCredit.JANGKA = ((mdlCredit.JATUHTEMPO.Year - mdlCredit.AKADAWAL.Year) * 12) + mdlCredit.JATUHTEMPO.Month - mdlCredit.AKADAWAL.Month;
 
-                mdlCredit.SISATENOR = Math.Round(Math.Round((mdlCredit.JATUHTEMPO - mdlCredit.TGLAWAL_SISATENOR).TotalDays, 0) / 365);
+                //SISA TENOR
+                //mdlCredit.SISATENOR = Math.Round(Math.Round((mdlCredit.JATUHTEMPO - mdlCredit.TGLAWAL_SISATENOR).TotalDays, 0) / 365);
+                DateTime tglTerakirByr = new DateTime(Convert.ToInt32(d["tahun"]), Convert.ToInt32(d["bulan"]), 1);
+                int monthdiff = ((mdlCredit.JATUHTEMPO.Year - tglTerakirByr.Year) * 12) + mdlCredit.JATUHTEMPO.Month - tglTerakirByr.Month;
+                //double monthdiff = mdlCredit.JATUHTEMPO.Subtract(tglTerakirByr).Days / (365.25 / 12);
+                int hariTunggakan = Convert.ToInt32(d["jumlahHariTunggakan"]) / 30;
+                mdlCredit.SISATENOR = monthdiff + hariTunggakan;
 
                 //Rumus Angsuran
-                //if (mdlCredit.PLAFON > mdlCredit.BAKIDEBET)
-                //{
-                //    mdlCredit.ANGSURAN = ROUNDUP((((mdlCredit.BUNGA / 1.7 * mdlCredit.JANGKA) + 1) * mdlCredit.PLAFON) / (mdlCredit.JANGKA * 12), -3);
-                //}
-                //else
-                //{
-                //    mdlCredit.ANGSURAN = ROUNDUP((((mdlCredit.BUNGA / 1.7 * mdlCredit.JANGKA) + 1) * mdlCredit.BAKIDEBET) / (mdlCredit.SISATENOR * 12), -3);
-                //}
-                if(mdlCredit.JENIS_PENGGUNAAN == "Modal Kerja")
+                if (mdlCredit.JENIS_PENGGUNAAN == "Modal Kerja")
                 {
                     mdlCredit.ANGSURAN = mdlCredit.BAKIDEBET * mdlCredit.BUNGA / 12;
                 }
-                else if(mdlCredit.JENIS_PENGGUNAAN == "Kartu Kredit")
+                else if(mdlCredit.JENIS.Contains("Kartu Kredit") == true)
                 {
                     mdlCredit.ANGSURAN = mdlCredit.BAKIDEBET * 0.1;
                 }
                 else
                 {
-                    var valTermPerMonth = Math.Round(mdlCredit.JANGKA) * 12;
-                    var valPMT = Financial.Pmt(mdlCredit.BUNGA / valTermPerMonth, valTermPerMonth,mdlCredit.PLAFON, 0, 0);
-                    //mdlCredit.ANGSURAN = Math.Ceiling(-valPMT);
-                    mdlCredit.ANGSURAN = ExcelCeiling(-valPMT, 1000);
+                    //var valTermPerMonth = Math.Round(mdlCredit.JANGKA) * 12;
+                    //var valPMT = Financial.Pmt(mdlCredit.BUNGA / valTermPerMonth, valTermPerMonth, mdlCredit.PLAFON, 0, 0);
+                    //mdlCredit.ANGSURAN = ExcelCeiling(-valPMT, 1000);
+
+                    if(mdlCredit.SISATENOR > 0)
+                    {
+                        var valPMT = Financial.Pmt(mdlCredit.BUNGA / 12, mdlCredit.SISATENOR, mdlCredit.BAKIDEBET, 0, 0);
+                        mdlCredit.ANGSURAN = ExcelCeiling(-valPMT, 1000);
+                    }
+                    else
+                    {
+                        mdlCredit.ANGSURAN = 0;
+                    }
+                    
                 }
                 
                 //Check Minus
@@ -362,7 +502,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                     try
                     {
                         var colValue = d[colName];
-                        var colDaysValue = 0;
+                        var colDaysValue = d[colDaysName];
                         if (colValue != "")
                         {
                             int currKol = Convert.ToInt32(colValue);
@@ -371,6 +511,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                             {
                                 maxKol = currKol;
                                 maxKolDays = currKolDays;
+                            }
+                            if(currKol == maxKol)
+                            {
+                                if(currKolDays > maxKolDays)
+                                {
+                                    maxKolDays = currKolDays;
+                                }
                             }
                         }
                     }
@@ -386,7 +533,30 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                     mdlCredit.HISTORY_KOLEKTIBILITAS = maxKol.ToString() + " - " + maxKolDays.ToString() + " Hari Tunggakan";
                 }
 
-                InsertFinancingCredit(mdlCredit);
+                //Fill the Flag
+                string LJKCode = d["ljk"];
+                if(CheckBankSLIK(LJKCode) == true)
+                {
+                    mdlFlag.flagBank = 1;
+                }
+                if (mdlCredit.PLAFON == mdlCredit.BAKIDEBET)
+                {
+                    mdlFlag.flagPlafon = 1;
+                }
+                if (mdlCredit.JANGKA < 12)
+                {
+                    mdlFlag.flagTenor = 1;
+                }
+                if(mdlCredit.BUNGA < 0.05)
+                {
+                    mdlFlag.flagRate = 1;
+                }
+                if(mdlCredit.BAKIDEBET == 0 && DateTime.Now < mdlCredit.JATUHTEMPO && mdlCredit.KONDISI == "Fasilitas Aktif")
+                {
+                    mdlFlag.flagBakiDebt = 1;
+                }
+
+                InsertFinancingCredit(mdlCredit, mdlFlag);
             }
         }
 
@@ -456,15 +626,15 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
             }
         }
 
-        public void InsertFinancingCredit(ModelCreditFinancing mdlCredit)
+        public void InsertFinancingCredit(ModelCreditFinancing mdlCredit, ModelFlagSLIK mdlFlag)
         {
             if(mdlCredit != null)
             {
                 string connString = ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString;
                 SqlConnection myconn = new SqlConnection(connString);
                 SqlCommand sqlCommand = new SqlCommand(@"INSERT INTO [dbo].[trxFinancingCreditSLIK] ([REFID],[LJK],[JENIS],[PLAFON],[BAKIDEBET],[BUNGA],
-                [AKADAWAL],[TGLAWAL_SISATENOR],[JATUHTEMPO],[JANGKA],[SISATENOR],[ANGSURAN],[KOLEKTIBILITAS],[HISTORY_KOLEKTIBILITAS],[CRE_BY],[CRE_DATE],[FREKUENSI_TUNGGAKAN],[TUNGGAKAN_POKOK],[TUNGGAKAN_BUNGA],[DENDA],[AGUNAN_LIST],[JENIS_PENGGUNAAN],[KONDISI]) VALUES 
-                (@REFID,@LJK,@JENIS,@PLAFON,@BAKIDEBET,@BUNGA,@AKADAWAL,@TGLAWAL_SISATENOR,@JATUHTEMPO,@JANGKA,@SISATENOR,@ANGSURAN,@KOLEKTIBILITAS,@HISTORY_KOLEKTIBILITAS,@CRE_BY,GETDATE(),@FREKUENSI_TUNGGAKAN,@TUNGGAKAN_POKOK,@TUNGGAKAN_BUNGA,@DENDA,@AGUNAN_LIST,@JENIS_PENGGUNAAN,@KONDISI)");
+                [AKADAWAL],[TGLAWAL_SISATENOR],[JATUHTEMPO],[JANGKA],[SISATENOR],[ANGSURAN],[KOLEKTIBILITAS],[HISTORY_KOLEKTIBILITAS],[CRE_BY],[CRE_DATE],[FREKUENSI_TUNGGAKAN],[TUNGGAKAN_POKOK],[TUNGGAKAN_BUNGA],[DENDA],[AGUNAN_LIST],[JENIS_PENGGUNAAN],[KONDISI],[flagPlafon],[flagTenor],[flagBank],[flagRate],[flagBakiDebt]) VALUES 
+                (@REFID,@LJK,@JENIS,@PLAFON,@BAKIDEBET,@BUNGA,@AKADAWAL,@TGLAWAL_SISATENOR,@JATUHTEMPO,@JANGKA,@SISATENOR,@ANGSURAN,@KOLEKTIBILITAS,@HISTORY_KOLEKTIBILITAS,@CRE_BY,GETDATE(),@FREKUENSI_TUNGGAKAN,@TUNGGAKAN_POKOK,@TUNGGAKAN_BUNGA,@DENDA,@AGUNAN_LIST,@JENIS_PENGGUNAAN,@KONDISI,@flagPlafon,@flagTenor,@flagBank,@flagRate,@flagBakiDebt)");
                 sqlCommand.Connection = myconn;
                 myconn.Open();
                 try
@@ -535,7 +705,6 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                     SqlParameter sqlParameter15 = sqlCommand.Parameters.Add("@CRE_BY", SqlDbType.VarChar);
                     sqlParameter15.Value = this.UserID;
                     sqlParameter15.Direction = ParameterDirection.Input;
-
                     SqlParameter sqlParameter16 = sqlCommand.Parameters.Add("@FREKUENSI_TUNGGAKAN", SqlDbType.Int);
                     sqlParameter16.Value = mdlCredit.FREKUENSI_TUNGGAKAN;
                     sqlParameter16.Direction = ParameterDirection.Input;
@@ -551,15 +720,31 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
                     SqlParameter sqlParameter20 = sqlCommand.Parameters.Add("@AGUNAN_LIST", SqlDbType.VarChar);
                     sqlParameter20.Value = mdlCredit.AGUNAN_LIST;
                     sqlParameter20.Direction = ParameterDirection.Input;
-
                     SqlParameter sqlParameter21 = sqlCommand.Parameters.Add("@JENIS_PENGGUNAAN", SqlDbType.VarChar);
                     sqlParameter21.Value = mdlCredit.JENIS_PENGGUNAAN;
                     sqlParameter21.Direction = ParameterDirection.Input;
                     SqlParameter sqlParameter22 = sqlCommand.Parameters.Add("@KONDISI", SqlDbType.VarChar);
                     sqlParameter22.Value = mdlCredit.KONDISI;
                     sqlParameter22.Direction = ParameterDirection.Input;
-                    sqlCommand.ExecuteNonQuery();
+
+                    //FLAG
+                    SqlParameter sqlParameter23 = sqlCommand.Parameters.Add("@flagPlafon", SqlDbType.Int);
+                    sqlParameter23.Value = mdlFlag.flagPlafon;
+                    sqlParameter23.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter24 = sqlCommand.Parameters.Add("@flagTenor", SqlDbType.Int);
+                    sqlParameter24.Value = mdlFlag.flagTenor;
+                    sqlParameter24.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter25 = sqlCommand.Parameters.Add("@flagBank", SqlDbType.Int);
+                    sqlParameter25.Value = mdlFlag.flagBank;
+                    sqlParameter25.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter26 = sqlCommand.Parameters.Add("@flagRate", SqlDbType.Int);
+                    sqlParameter26.Value = mdlFlag.flagRate;
+                    sqlParameter26.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter27 = sqlCommand.Parameters.Add("@flagBakiDebt", SqlDbType.Int);
+                    sqlParameter27.Value = mdlFlag.flagRate;
+                    sqlParameter27.Direction = ParameterDirection.Input;
                     
+                    sqlCommand.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
@@ -605,7 +790,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
             return date;
         }
 
-        public double ROUNDUP(double number, int digits)
+        public double ExcelRoundUp(double number, int digits)
         {
             return Math.Ceiling(number * Math.Pow(10, digits)) / Math.Pow(10, digits);
         }
@@ -618,6 +803,44 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK
             }
 
             return Convert.ToDouble(value);
+        }
+
+        public bool CheckBankSLIK(string code)
+        {
+            bool retBool = false;
+
+            int countBank = 0;
+            string ssql = "select count(1) [Bank] from mstBankCodeSLIK where IS_ACTIVE = 1 and CODE = '" + code + "'";
+            DataTable resDT = new DataTable();
+            SqlConnection myconn = new SqlConnection(ConfigurationManager.ConnectionStrings["SqlConnectionString"].ConnectionString);
+            myconn.Open();
+            try
+            {
+                SqlCommand sqlCommand = new SqlCommand(ssql);
+                sqlCommand.CommandType = CommandType.Text;
+                sqlCommand.Connection = myconn;
+
+                SqlDataReader reader = sqlCommand.ExecuteReader();
+                resDT.Load(reader);
+                foreach (DataRow row in resDT.Rows)
+                {
+                    countBank = Convert.ToInt32(row["Bank"]);
+                    if(countBank > 0)
+                    {
+                        retBool = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+            finally
+            {
+                myconn.Close();
+            }
+
+            return retBool;
         }
     }
 }

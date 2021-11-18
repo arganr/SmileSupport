@@ -208,10 +208,10 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
             return resDT;
         }
 
-        protected void UpdateApproval(string ccode, string approval, string agreement)
+        protected void UpdateApproval(string ccode, string approval, string agreement, string remarks)
         {
             string ssql;
-            ssql = "update LS_CROSS_COLLATERAL_APPROVAL set status_approval = '" + approval + "' where id_crosscol = '" + ccode + "' and no_agreement = '" + agreement + "'";
+            ssql = "update LS_CROSS_COLLATERAL_APPROVAL set status_approval = '" + approval + "', remarks = '" + remarks + "' where id_crosscol = '" + ccode + "' and no_agreement = '" + agreement + "'";
             using (SqlConnection conn = new SqlConnection(myDBSetting.ConnectionString))
             using (SqlCommand cmd = new SqlCommand(ssql, conn))
             {
@@ -234,11 +234,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
             }
         }
 
-        protected void LogCrossCol(string ccode, string agreement)
+        protected void LogCrossCol(string ccode, string agreement, string remarks)
         {
             string ssql;
             ssql = "insert into LS_CROSS_COLLATERAL_APPROVAL_LOG " +
-                    "select id_crosscol [ID_CROSSCOL], no_agreement, remarks [REMARKS], status_approval [APPROVAL], update_type [TYPE_UPDATE], " +
+                    "select id_crosscol [ID_CROSSCOL], no_agreement, '" + remarks + "' [REMARKS], status_approval [APPROVAL], update_type [TYPE_UPDATE], " +
                     "'" + UserID + "', GETDATE(), '" + UserID + "', GETDATE() from LS_CROSS_COLLATERAL_APPROVAL where id_crosscol = '" + ccode + "' and no_agreement = '" + agreement + "'";
             using (SqlConnection conn = new SqlConnection(myDBSetting.ConnectionString))
             using (SqlCommand cmd = new SqlCommand(ssql, conn))
@@ -277,51 +277,70 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Application
 
         protected void btnApprove_Click(object sender, EventArgs e)
         {
-            GridViewDataColumn dataColumn = gvTempData.Columns[6] as GridViewDataColumn;
-            for (int i = 0; i < gvTempData.VisibleRowCount; i++)
+            if (mmRemarks.Text == "")
             {
-                string approval = string.Empty;
-                var ccode = gvTempData.GetRowValues(i, "CODE");
-                var lsagree = gvTempData.GetRowValues(i, "LSAGREE");
-                ASPxCheckBox cbApprove = gvTempData.FindRowCellTemplateControl(i, dataColumn, "chkItem") as ASPxCheckBox;
-                if (cbApprove.Checked == true)
-                {
-                    UpdateApproval(ccode.ToString(), "APPROVE",lsagree.ToString());
-                    RemoveCrossCol(ccode.ToString(), lsagree.ToString());
-                    LogCrossCol(ccode.ToString(), lsagree.ToString());
-                }
+                apcalert.Text = "Please fill the remarks first..";
+                apcalert.ShowOnPageLoad = true;
             }
+            else
+            {
+                GridViewDataColumn dataColumn = gvTempData.Columns[6] as GridViewDataColumn;
+                for (int i = 0; i < gvTempData.VisibleRowCount; i++)
+                {
+                    string approval = string.Empty;
+                    var ccode = gvTempData.GetRowValues(i, "CODE");
+                    var lsagree = gvTempData.GetRowValues(i, "LSAGREE");
+                    ASPxCheckBox cbApprove = gvTempData.FindRowCellTemplateControl(i, dataColumn, "chkItem") as ASPxCheckBox;
+                    if (cbApprove.Checked == true)
+                    {
+                        if (mmRemarks.Text == "")
+                        {
+                            apcalert.Text = "Please fill the remarks first..";
+                            apcalert.ShowOnPageLoad = true;
+                            break;
+                        }
 
-            //tmpDtTable = GetListData();
-            //gvTempData.DataSource = tmpDtTable;
-            //gvTempData.DataBind();
+                        UpdateApproval(ccode.ToString(), "APPROVE", lsagree.ToString(), mmRemarks.Text);
+                        RemoveCrossCol(ccode.ToString(), lsagree.ToString());
+                        LogCrossCol(ccode.ToString(), lsagree.ToString(), mmRemarks.Text);
+                    }
+                }
 
-            Response.Redirect("~/Transactions/Application/ListApprovalCrossCollateral.aspx");
+                apcalert.Text = "Approve Success";
+                apcalert.ShowOnPageLoad = true;
+
+                Response.Redirect("~/Transactions/Application/ListApprovalCrossCollateral.aspx");
+            }
         }
 
         protected void btnReject_Click(object sender, EventArgs e)
         {
-            GridViewDataColumn dataColumn = gvTempData.Columns[6] as GridViewDataColumn;
-            for (int i = 0; i < gvTempData.VisibleRowCount; i++)
+            if (mmRemarks.Text == "")
             {
-                string approval = string.Empty;
-                var ccode = gvTempData.GetRowValues(i, "CODE");
-                var lsagree = gvTempData.GetRowValues(i, "LSAGREE");
-                ASPxCheckBox cbApprove = gvTempData.FindRowCellTemplateControl(i, dataColumn, "chkItem") as ASPxCheckBox;
-                if (cbApprove.Checked == true)
-                {
-                    UpdateApproval(ccode.ToString(), "REJECT", lsagree.ToString());
-                    LogCrossCol(ccode.ToString(), lsagree.ToString());
-                }
+                apcalert.Text = "Please fill the remarks first..";
+                apcalert.ShowOnPageLoad = true;
             }
+            else
+            {
+                GridViewDataColumn dataColumn = gvTempData.Columns[6] as GridViewDataColumn;
+                for (int i = 0; i < gvTempData.VisibleRowCount; i++)
+                {
+                    string approval = string.Empty;
+                    var ccode = gvTempData.GetRowValues(i, "CODE");
+                    var lsagree = gvTempData.GetRowValues(i, "LSAGREE");
+                    ASPxCheckBox cbApprove = gvTempData.FindRowCellTemplateControl(i, dataColumn, "chkItem") as ASPxCheckBox;
+                    if (cbApprove.Checked == true)
+                    {
+                        UpdateApproval(ccode.ToString(), "REJECT", lsagree.ToString(), mmRemarks.Text);
+                        LogCrossCol(ccode.ToString(), lsagree.ToString(), mmRemarks.Text);
+                    }
+                }
 
-            //tmpDtTable = GetListData();
-            //gvTempData.DataSource = tmpDtTable;
-            //gvTempData.DataBind();
+                apcalert.Text = "Reject Success";
+                apcalert.ShowOnPageLoad = true;
 
-            Response.Redirect("~/Transactions/Application/ListApprovalCrossCollateral.aspx");
+                Response.Redirect("~/Transactions/Application/ListApprovalCrossCollateral.aspx");
+            }
         }
-
-        
     }
 }

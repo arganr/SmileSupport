@@ -45,6 +45,9 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.API.SLIK.Models
 
         [JsonProperty("email")]
         public List<string> Email { get; set; }
+
+        [JsonProperty("mmn")]
+        public List<string> NamaIbu { get; set; }
     }
 
     public partial class ResultReqSLIK

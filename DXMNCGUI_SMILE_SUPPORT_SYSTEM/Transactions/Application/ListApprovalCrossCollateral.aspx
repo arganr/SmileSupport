@@ -23,7 +23,7 @@
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer ID="LayoutItemNestedControlContainer4" runat="server">
                                 <dx:ASPxButton ID="btnRefresh" ClientInstanceName="btnRefresh" runat="server" Text="Refresh" BackColor="LightGray" AutoPostBack="false" ToolTip="Click here to reload application list" Width="100%">
-                                    <%--<ClientSideEvents Click="function(s,e) { cplMain.PerformCallback('REFRESH;' + 'REFRESH'); }"/>--%>
+                                    
                                 </dx:ASPxButton>
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>

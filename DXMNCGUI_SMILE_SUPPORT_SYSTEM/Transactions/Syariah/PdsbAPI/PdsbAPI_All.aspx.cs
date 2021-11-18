@@ -40,6 +40,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.PdsbAPI
                 this.ViewState["_PageID"] = Guid.NewGuid();
                 myDBSetting = dbsetting;
                 myLocalDBSetting = localdbsetting;
+
+                //for SC only
+                //luKontrak.Text = "070421120200009";
+                //luBranch.Text = "PDSB KC Slipi";
+                //lblResult.InnerText = "No Rekening: 1000101582";
             }
             if (!IsCallback)
             {
@@ -62,34 +67,45 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.PdsbAPI
             //get Token
             string token = await APIClass.GetToken();
 
-            //get No Rek
-            var dtACC = GetDataACC(nokontrak);
-            if (dtACC.Rows.Count > 0)
+            if(token.Substring(0,5) != "ERROR")
             {
-                strNoRek = await APIClass.Account_Registeration(token, dtACC, branchcode);
-
-                if (strNoRek.Substring(0, 5) != "ERROR")
+                //get No Rek
+                var dtACC = GetDataACC(nokontrak);
+                if (dtACC.Rows.Count > 0)
                 {
-                    messageResult = "No Rekening: " + strNoRek;
+                    strNoRek = await APIClass.Account_Registeration(token, dtACC, branchcode);
 
-                    string statUpdateRek = UpdateNoRekClient(luKontrak.Value.ToString(), strNoRek, txtName.Text, "Panin Dubai Syariah", branchname, UserID);
-                    if (statUpdateRek != "")
+                    if (strNoRek.Substring(0, 5) != "ERROR")
                     {
-                        messageResult = "ERROR Update No Rek: " + statUpdateRek;
+                        messageResult = "No Rekening: " + strNoRek;
+
+                        string statUpdateRek = UpdateNoRekClient(luKontrak.Value.ToString(), strNoRek, txtName.Text, "Panin Dubai Syariah", branchname, UserID);
+                        if (statUpdateRek != "")
+                        {
+                            messageResult = "ERROR Update No Rek: " + statUpdateRek;
+                        }
+                    }
+                    else
+                    {
+                        messageResult = strNoRek;
                     }
                 }
                 else
                 {
-                    messageResult = "ERROR No Rekening : " + strNoRek;
+                    messageResult = "ERROR: No Kontrak Not Found";
                 }
             }
             else
             {
-                messageResult = "ERROR: No Kontrak Not Found";
+                messageResult = token;
             }
 
             //txtResult.Text = messageResult;
             lblResult.InnerText = messageResult;
+
+            
+
+
         }
 
         private DataTable GetDataACC(string NoKontrak)
@@ -97,7 +113,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.PdsbAPI
             //string ssql = "exec dbo.spGETPDSB_ParameterWSCIFRegistration '000316160100052'";
             string ssql = "exec dbo.spGETPDSB_ParameterWSAccountRegistration '" + NoKontrak + "'";
             DataTable resDT = new DataTable();
-            SqlConnection myconn = new SqlConnection(myLocalDBSetting.ConnectionString);
+            SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
             myconn.Open();
             try
             {
@@ -126,6 +142,19 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.PdsbAPI
             string strResult = "";
             string ssql = "EXEC dbo.SP_MNCL_UPDATE_REKENING_CLIENT '" + nokontrak + "', '" + bank_acc_no + "', '" + bank_acc_name + "', '" + bank_name + "', '" + bank_branch + "', '" + user_id + "'";
             DataTable resDT = new DataTable();
+
+            //ssql = "EXEC dbo.SP_MNCL_UPDATE_REKENING_CLIENT @nokontrak, @bacnkaccno, @bankname,"
+            //SqlConnection myconn = new SqlConnection(myLocalDBSetting.ConnectionString);
+            //SqlCommand sqlCommand = new SqlCommand(ssql);
+            //sqlCommand.Connection = myconn;
+            //myconn.Open();
+
+            //SqlParameter sqlParameter1 = sqlCommand.Parameters.Add("@DocKey", SqlDbType.Int);
+            //sqlParameter1.Value = txtDocKey.Text;
+            //sqlParameter1.Direction = ParameterDirection.Input;
+
+
+
             SqlConnection myconn = new SqlConnection(myDBSetting.ConnectionString);
             myconn.Open();
             try

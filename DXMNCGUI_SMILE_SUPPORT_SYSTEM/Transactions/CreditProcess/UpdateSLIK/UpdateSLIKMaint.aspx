@@ -105,7 +105,7 @@
                     <Caption ForeColor="SlateGray" Font-Size="Larger" Font-Bold="true" BackColor="Transparent"></Caption>
                 </GroupBoxStyle>
                 <Items>
-                    <dx:LayoutItem ShowCaption="False" Width="10%">
+                    <dx:LayoutItem ShowCaption="False" Width="10%" Name="New">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer ID="LayoutItemNestedControlContainer1" runat="server">
                                 <dx:ASPxButton ID="btnNew" ClientInstanceName="btnNew" runat="server" Text="New" BackColor="LightGray" OnClick="btnNew_Click" Width="100%"></dx:ASPxButton>

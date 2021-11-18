@@ -394,6 +394,12 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.Mitra
                         cplMain.JSProperties["cpVisible"] = false;
                     }
                     break;
+                case "PIC":
+                    cplMain.JSProperties["cplblBranch"] = "";
+                    var picname = cbPIC.Text;
+                    var pic_branch = myDBSetting.GetFirstDataRow("select top 1 b.C_NAME from SYS_TBLEMPLOYEE a inner join SYS_COMPANY b on a.C_CODE=b.C_CODE WHERE a.ISACTIVE = 1 and a.DESCS=? ", picname);
+                    cplMain.JSProperties["cplblBranch"] = pic_branch["C_NAME"];
+                    break;
             }
         }
 

@@ -255,6 +255,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                 cbObjectPembiayaan.Items.Add(new ListEditItem("Medical Equipment", "Medical Equipment"));
                 cbObjectPembiayaan.Items.Add(new ListEditItem("Machinery Equipment", "Machinery Equipment"));
                 cbObjectPembiayaan.Items.Add(new ListEditItem("Invoice", "Invoice"));
+                cbObjectPembiayaan.Items.Add(new ListEditItem("Stock", "Stock"));
 
                 cbFacility.Items.Add(new ListEditItem("Kredit Invetasi", "Kredit Invetasi"));
                 cbFacility.Items.Add(new ListEditItem("Kredit Modal Kerja", "Kredit Modal Kerja"));
@@ -269,6 +270,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
 
                 cbPackage.Items.Add(new ListEditItem("General", "General"));
                 cbPackage.Items.Add(new ListEditItem("Special Package", "Special Package"));
+                cbPackage.Items.Add(new ListEditItem("Supply Chain Financing", "Supply Chain Financing"));
 
                 myDebiturTable = LoadDebitur();
                 luDebitur.DataSource = myDebiturTable;
@@ -378,6 +380,8 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess
                         if(resultFinance != null)
                         {
                             deDistDate.ClientEnabled = true;
+                            //LayoutItem it = ASPxFormLayout.FindItemOrGroupByName("lytDisbDate") as LayoutItem;
+                            //it.Visible = true;
                         }
 
                         if (result != null)

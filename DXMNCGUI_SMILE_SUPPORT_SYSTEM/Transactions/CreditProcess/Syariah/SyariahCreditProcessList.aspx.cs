@@ -16,13 +16,18 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
         public List<int> MergedIndexList = new List<int>();
         protected SqlDBSetting myDBSetting
         {
-            get { isValidLogin(); return (SqlDBSetting)HttpContext.Current.Session["myDBSetting" + HttpContext.Current.Session["UserID"]]; }
-            set { HttpContext.Current.Session["myDBSetting" + HttpContext.Current.Session["UserID"]] = value; }
+            get { isValidLogin(); return (SqlDBSetting)HttpContext.Current.Session["myDBSetting" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["myDBSetting" + this.ViewState["_PageID"]] = value; }
+        }
+        protected SqlLocalDBSetting myLocalDBSetting
+        {
+            get { isValidLogin(false); return (SqlLocalDBSetting)HttpContext.Current.Session["myLocalDBSetting" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["myLocalDBSetting" + this.ViewState["_PageID"]] = value; }
         }
         protected SqlDBSession myDBSession
         {
-            get { isValidLogin(false); return (SqlDBSession)HttpContext.Current.Session["myDBSession" + HttpContext.Current.Session["UserID"]]; }
-            set { HttpContext.Current.Session["myDBSession" + HttpContext.Current.Session["UserID"]] = value; }
+            get { isValidLogin(false); return (SqlDBSession)HttpContext.Current.Session["myDBSession" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["myDBSession" + this.ViewState["_PageID"]] = value; }
         }
         protected DataTable myMainTable
         {
@@ -34,6 +39,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
             get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["myHistoryTable" + this.ViewState["_PageID"]]; }
             set { HttpContext.Current.Session["myHistoryTable" + this.ViewState["_PageID"]] = value; }
         }
+        protected DataTable myCommentTable
+        {
+            get { isValidLogin(false); return (DataTable)HttpContext.Current.Session["myCommentTable" + this.ViewState["_PageID"]]; }
+            set { HttpContext.Current.Session["myCommentTable" + this.ViewState["_PageID"]] = value; }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -42,9 +52,11 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
                 this.ViewState["_PageID"] = Guid.NewGuid();
                 isValidLogin();
                 myDBSetting = dbsetting;
+                myLocalDBSetting = localdbsetting;
                 myDBSession = dbsession;
                 myMainTable = new DataTable();
                 myHistoryTable = new DataTable();
+                myCommentTable = new DataTable();
 
                 myMainTable = this.myDBSetting.GetDataTable(@"SELECT DISTINCT
                     A.APPLICNO,
@@ -54,11 +66,13 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
                     C.C_NAME As BRANCH,
                     A.NAME DEBITUR_NAME,
                     A.CAMPAIGN_DESC,
-                    A.CAMPAIGN_TENOR_DESC TENOR
+                    A.CAMPAIGN_TENOR_DESC TENOR,
+                    ISNULL(E.AMTLEASE,0) NTF
                     FROM LS_APPLICATION A
                     INNER JOIN MNCL_APP_TIME_STAMP B ON A.APPLICNO = B.APPLICNO
                     INNER JOIN SYS_COMPANY C ON A.C_CODE = C.C_CODE
                     LEFT JOIN MASTER_USER D ON A.CRE_BY = D.USER_ID
+                    LEFT JOIN LS_AGREEMENT E ON A.APPLICNO = E.APPLICNO
                     WHERE A.CAMPAIGN_CODE='PCKGHJREG' AND A.CRE_DATE >= '2021-01-01'
                     ORDER BY A.CRE_DATE DESC", false);
                 gvMain.DataBind();
@@ -70,6 +84,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
         {
             string[] callbackParam = e.Parameter.ToString().Split(';');
             cplMain.JSProperties["cpCallbackParam"] = callbackParam[0].ToUpper();
+            string strmessageError = "";
 
             switch (callbackParam[0].ToUpper())
             {
@@ -86,7 +101,30 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
                     cplMain.JSProperties["cplblmessage"] = "are you sure want to proceed this application ?";
                     cplMain.JSProperties["cplblActionButton"] = "PROCEED";
                     break;
+                case "SAVE_COMMENT":
+                    SaveComment();
+                    cplMain.JSProperties["cpAlertMessage"] = "Comment has been save...";
+                    cplMain.JSProperties["cplblActionButton"] = "SAVE_COMMENT";
+                    ASPxWebControl.RedirectOnCallback(Request.Url.AbsoluteUri);
+                    break;
+                case "SAVE_COMMENT_CONFIRM":
+                    cplMain.JSProperties["cplblmessageError"] = "";
+                    cplMain.JSProperties["cplblmessage"] = "are you sure want to save this comment ?";
+                    cplMain.JSProperties["cplblActionButton"] = "SAVE_COMMENT";
+                    if (ErrorInField(out strmessageError, SaveAction.SaveComment))
+                    {
+                        cplMain.JSProperties["cplblmessageError"] = strmessageError;
+                    }
+                    break;
             }
+        }
+        protected bool ErrorInField(out string strmessageError, SaveAction saveaction)
+        {
+            bool errorF = false;
+            strmessageError = "";
+            cplMain.JSProperties["cplActiveTabIndex"] = 0;
+
+            return errorF;
         }
         private bool SaveAssign()
         {
@@ -179,6 +217,52 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
             { }
             return bSave;
         }
+        private void SaveComment()
+        {
+            DataRow myrow = gvMain.GetDataRow(gvMain.FocusedRowIndex);
+            try
+            {
+                SqlConnection myconn = new SqlConnection(myLocalDBSetting.ConnectionString);
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO [dbo].[ApplicationSyariahCommentHistory] (DocNo, CommentBy, CommentNote, CommentDate) VALUES (@DocNo, @CommentBy, @CommentNote, @CommentDate)");
+                sqlCommand.Connection = myconn;
+                try
+                {
+                    myconn.Open();
+                    SqlParameter sqlParameter1 = sqlCommand.Parameters.Add("@DocNo", SqlDbType.NVarChar, 20);
+                    sqlParameter1.Value = Convert.ToString(myrow["APPLICNO"]);
+                    sqlParameter1.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter2 = sqlCommand.Parameters.Add("@CommentBy", SqlDbType.NVarChar, 50);
+                    sqlParameter2.Value = this.UserName;
+                    sqlParameter2.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter3 = sqlCommand.Parameters.Add("@CommentNote", SqlDbType.NVarChar);
+                    sqlParameter3.Value = mmComment.Value;
+                    sqlParameter3.Direction = ParameterDirection.Input;
+                    SqlParameter sqlParameter4 = sqlCommand.Parameters.Add("@CommentDate", SqlDbType.DateTime);
+                    sqlParameter4.Value = myDBSetting.GetServerTime();
+                    sqlParameter4.Direction = ParameterDirection.Input;
+                    sqlCommand.ExecuteNonQuery();
+                }
+                catch (SqlException ex)
+                {
+                    throw new ArgumentException(ex.Message);
+                }
+                catch (HttpUnhandledException ex)
+                {
+                    throw new ArgumentException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    throw new ArgumentException(ex.Message);
+                }
+                finally
+                {
+                    myconn.Close();
+                    myconn.Dispose();
+                }
+            }
+            catch
+            { }
+        }
 
         protected void btnRefresh_Click(object sender, EventArgs e)
         {
@@ -193,6 +277,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
                 this.ViewState["_PageID"] = Guid.NewGuid();
 
                 myDBSetting = dbsetting;
+                myLocalDBSetting = localdbsetting;
                 myDBSession = dbsession;
             }
         }
@@ -284,5 +369,24 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.CreditProcess.Syariah
             }
         }
 
+        protected void gvComment_DataBinding(object sender, EventArgs e)
+        {
+            (sender as ASPxGridView).DataSource = myCommentTable;
+        }
+        protected void gvComment_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            ASPxGridView gridView = (ASPxGridView)sender;
+            string[] callbackParam = e.Parameters.ToString().Split(';');
+            gridView.JSProperties["cpCallbackParam"] = callbackParam[0].ToUpper();
+            object paramName = callbackParam[0].ToUpper();
+            object paramValue = callbackParam[1].ToUpper();
+            switch (callbackParam[0].ToUpper())
+            {
+                case "LOAD_COMMENT":
+                    myCommentTable = myLocalDBSetting.GetDataTable("SELECT * FROM [dbo].[ApplicationSyariahCommentHistory] WHERE DocNo=? ORDER BY CommentDate Desc", false, paramValue.ToString());
+                    gvComment.DataBind();
+                    break;
+            }
+        }
     }
 }

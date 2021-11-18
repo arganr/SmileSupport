@@ -237,6 +237,9 @@
                                             <dx:GridViewDataTextColumn Name="colNoSPPH" Caption="NoSPPH" FieldName="NoSPPH" ReadOnly="True" ShowInCustomizationForm="true">
                                                 <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                             </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataDateColumn Name="colDISBDATE" Caption="Disburse Date" FieldName="DisburseDate" ReadOnly="True" ShowInCustomizationForm="true" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy">
+                                                <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                            </dx:GridViewDataDateColumn>
                                             <dx:GridViewDataTextColumn Name="colPAY_TO_TYPE" Caption="PAY_TO_TYPE" FieldName="PAY_TO_TYPE" ReadOnly="True" ShowInCustomizationForm="true">
                                                 <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                             </dx:GridViewDataTextColumn>
@@ -382,6 +385,9 @@
                                         <dx:GridViewDataTextColumn Name="colStatus" Caption="Status" FieldName="Status" ReadOnly="True" ShowInCustomizationForm="true" Visible="true">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataDateColumn Name="colDisburseDateTime" Caption="Disburse Date" FieldName="DisburseDate" ReadOnly="true" ShowInCustomizationForm="true" PropertiesDateEdit-DisplayFormatString="dd/MM/yyyy">
+                                            <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
+                                        </dx:GridViewDataDateColumn>
                                         <dx:GridViewDataTextColumn Name="colCreatedBy" Caption="Created By" FieldName="FULLNAME" ReadOnly="True" ShowInCustomizationForm="true" Visible="true">
                                             <HeaderStyle BackColor="WhiteSmoke" Font-Bold="true" />
                                         </dx:GridViewDataTextColumn>

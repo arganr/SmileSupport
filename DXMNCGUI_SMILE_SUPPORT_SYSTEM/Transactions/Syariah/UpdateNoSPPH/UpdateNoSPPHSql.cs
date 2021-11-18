@@ -35,13 +35,21 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
         public override DataTable LoadAllIncentiveTable()
         {
             myAllIncentiveTable.Clear();
-            myDBSetting.LoadDataTable(myAllIncentiveTable, @"select a.ID, c.C_NAME CNAME, a.LSAGREE, b.NAME CUST_NAME, d.NoSPPH, PAY_TO_TYPE, PAY_TO, INCENTIVE_SRC, a.AMOUNT, a.CRE_DATE, e.DESCS Creator 
+            myDBSetting.LoadDataTable(myAllIncentiveTable, @"select a.ID, c.C_NAME CNAME, a.LSAGREE, b.NAME CUST_NAME, d.NoSPPH, PAY_TO_TYPE, PAY_TO, INCENTIVE_SRC, a.AMOUNT, a.CRE_DATE, e.DESCS Creator, d.DisburseDate 
                                                                 from INCENTIVE_TRX a with(NOLOCK)
                                                                 inner join LS_AGREEMENT b with(NOLOCK) on a.LSAGREE = b.LSAGREE 
                                                                 inner join SYS_COMPANY c with(NOLOCK) on b.C_CODE = c.C_CODE
-                                                                inner join DBNONCORE.SSS.dbo.UpdateSPPHNo d with(NOLOCK) on a.LSAGREE = d.AgreementNo and d.Status = 'Approve'
+                                                                inner join DBNONCORE.SSS.dbo.UpdateSPPHNo d with(NOLOCK) on a.LSAGREE = d.AgreementNo 
                                                                 inner join SYS_TBLEMPLOYEE e with(NOLOCK) on d.CreatedBy = e.CODE
                                                                 order by a.ID, a.LSAGREE", false);
+
+            //myDBSetting.LoadDataTable(myAllIncentiveTable, @"select a.ID, c.C_NAME CNAME, a.LSAGREE, b.NAME CUST_NAME, d.NoSPPH, PAY_TO_TYPE, PAY_TO, INCENTIVE_SRC, a.AMOUNT, a.CRE_DATE, e.DESCS Creator, d.DisburseDate 
+            //                                                    from INCENTIVE_TRX a with(NOLOCK)
+            //                                                    inner join LS_AGREEMENT b with(NOLOCK) on a.LSAGREE = b.LSAGREE 
+            //                                                    inner join SYS_COMPANY c with(NOLOCK) on b.C_CODE = c.C_CODE
+            //                                                    inner join SSS.dbo.UpdateSPPHNo d with(NOLOCK) on a.LSAGREE = d.AgreementNo and d.Status = 'Approve'
+            //                                                    inner join SYS_TBLEMPLOYEE e with(NOLOCK) on d.CreatedBy = e.CODE
+            //                                                    order by a.ID, a.LSAGREE", false);
             return myAllIncentiveTable;
         }
 
@@ -124,7 +132,7 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                     dataRow["ApproveDateTime"] = Mydate;
                     dbLocalSetting.SimpleSaveDataTable(ds.Tables["Header"], "SELECT * FROM [dbo].[UpdateSPPHNo]");
                     UpdateSMILE(Entity, ds, saveaction, userID);
-                    Exec_SP_SMILE(Convert.ToString(Entity.AgreementNo));
+                    //Exec_SP_SMILE(Convert.ToString(Entity.AgreementNo));
                 }
                 if (saveaction == SaveAction.Reject)
                 {
@@ -136,12 +144,18 @@ namespace DXMNCGUI_SMILE_SUPPORT_SYSTEM.Transactions.Syariah.UpdateNoSPPH
                 if (saveaction == SaveAction.Save)
                 {
                     dbLocalSetting.SimpleSaveDataTable(ds.Tables["Header"], "SELECT * FROM [dbo].[UpdateSPPHNo]");
+                    //Exec_SP_SMILE(Convert.ToString(Entity.AgreementNo));
                 }
                 Entity.strErrorGenTicket = "null";
 
                 if (Entity.strErrorGenTicket == "null")
                 {
                     dbLocalSetting.Commit();
+
+                    if (saveaction == SaveAction.Save)
+                    {
+                        Exec_SP_SMILE(Convert.ToString(Entity.AgreementNo));
+                    }
                 }
                 else
                 {

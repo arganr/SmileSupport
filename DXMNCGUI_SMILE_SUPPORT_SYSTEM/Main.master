@@ -42,6 +42,7 @@
                                             <dx:NavBarItem Name="Application11" Text="SLIK Checking" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/eKYC/SLIKChecking/MasterClientSLIKCheck.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application12" Text="Peminjaman Document" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/PeminjamanDocument/PeminjamanDocList.aspx"></dx:NavBarItem>
                                             <dx:NavBarItem Name="Application13" Text="Release Document" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/CreditProcess/ReleaseDocument/ReleaseDocList.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Name="Application14" Text="Perjalanan Dinas" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Application/PerjalananDinas/PerjalananDinasList.aspx"></dx:NavBarItem>
                                         </Items>
                                     </dx:NavBarGroup>
                                     <dx:NavBarGroup Name="nbg2" Text="Lease/Loan Operations">
@@ -99,6 +100,7 @@
                                             <dx:NavBarItem Text="Generate Virtual Account CIMB" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/GenerateVA_cimb.aspx"></dx:NavBarItem>
                                             <%--<dx:NavBarItem Text="Users Monitoring" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="~/GeneralMaintenance/UsersMonitoring/UsersMonitoringList.aspx"></dx:NavBarItem>--%>
                                             <dx:NavBarItem Text="Upload Payment Text File" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/UploadPaymentTextFile.aspx"></dx:NavBarItem>
+                                            <dx:NavBarItem Text="Perjalanan Dinas" Image-Url="Content/Images/NumberingMenuIco-16x16.png" NavigateUrl="Transactions/Finance/SPD/PerjalananDinasList.aspx"></dx:NavBarItem>
                                         </Items>
                                     </dx:NavBarGroup>
                                 </Groups>

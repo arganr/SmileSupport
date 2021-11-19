@@ -420,6 +420,7 @@
     <Content Include="Transactions\Application\InputCrossColateral.aspx" />
     <Content Include="Transactions\Application\ListApprovalCrossCollateral.aspx" />
     <Content Include="Transactions\Application\ListCrossCollateral.aspx" />
+    <Content Include="Transactions\Application\PerjalananDinas\PerjalananDinasList.aspx" />
     <Content Include="Transactions\Application\ProfitCalculator\ProfitCalculator.aspx" />
     <Content Include="Transactions\Application\UpdateApplicationClient\UpdateApplicClient.aspx" />
     <Content Include="Transactions\Application\UpdateApprovalCrossCollateral.aspx" />
@@ -447,6 +448,8 @@
     <Content Include="Transactions\eKYC\SLIKChecking\MasterClientSLIKCheck.aspx" />
     <Content Include="Transactions\Finance\CalculateProduct.aspx" />
     <Content Include="Transactions\Finance\GenerateVA_cimb.aspx" />
+    <Content Include="Transactions\Finance\SPD\PerjalananDinasEntry.aspx" />
+    <Content Include="Transactions\Finance\SPD\PerjalananDinasList.aspx" />
     <Content Include="Transactions\Finance\UploadPaymentTextFile.aspx" />
     <Content Include="Transactions\Finance\VA_Info.aspx" />
     <Content Include="Transactions\Insurance\PolisAsuransiFAEntry.aspx" />
@@ -668,6 +671,10 @@
     <Compile Include="Controllers\Registry\MitraDockey.cs" />
     <Compile Include="Controllers\Registry\PolisAsuransiFADocKey.cs" />
     <Compile Include="Controllers\Registry\PolisAsuransiFADtlKey.cs" />
+    <Compile Include="Controllers\Registry\SPDDocKey.cs" />
+    <Compile Include="Controllers\Registry\SPDDtlAppKey.cs" />
+    <Compile Include="Controllers\Registry\SPDDtlBudgetKey.cs" />
+    <Compile Include="Controllers\Registry\SPDDtlKey.cs" />
     <Compile Include="Controllers\Registry\UpdateSLIKDocKey.cs" />
     <Compile Include="Controllers\Registry\UpdateSLIKDtlKey.cs" />
     <Compile Include="Controllers\Registry\UpdateSPPHNoDocKey.cs" />
@@ -838,6 +845,13 @@
     </Compile>
     <Compile Include="Transactions\Application\ListCrossCollateral.aspx.designer.cs">
       <DependentUpon>ListCrossCollateral.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Application\PerjalananDinas\PerjalananDinasList.aspx.cs">
+      <DependentUpon>PerjalananDinasList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Application\PerjalananDinas\PerjalananDinasList.aspx.designer.cs">
+      <DependentUpon>PerjalananDinasList.aspx</DependentUpon>
     </Compile>
     <Compile Include="Transactions\Application\ProfitCalculator\Models\CalculateParam.cs" />
     <Compile Include="Transactions\Application\ProfitCalculator\Models\CalculateResult.cs" />
@@ -1068,6 +1082,26 @@
     <Compile Include="Transactions\Finance\GenerateVA_cimb.aspx.designer.cs">
       <DependentUpon>GenerateVA_cimb.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Transactions\Finance\SPD\ApprovalRecord.cs" />
+    <Compile Include="Transactions\Finance\SPD\BudgetRecord.cs" />
+    <Compile Include="Transactions\Finance\SPD\DetailRecord.cs" />
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasDB.cs" />
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasEntity.cs" />
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasEntry.aspx.cs">
+      <DependentUpon>PerjalananDinasEntry.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasEntry.aspx.designer.cs">
+      <DependentUpon>PerjalananDinasEntry.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasList.aspx.cs">
+      <DependentUpon>PerjalananDinasList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasList.aspx.designer.cs">
+      <DependentUpon>PerjalananDinasList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions\Finance\SPD\PerjalananDinasSql.cs" />
     <Compile Include="Transactions\Finance\UploadPaymentTextFile.aspx.cs">
       <DependentUpon>UploadPaymentTextFile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
